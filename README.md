@@ -1,0 +1,13 @@
+# Do to
+- [] Implementing fundamental code
+- [] Implementing our original tests
+- [] Implementing buildin commands
+  - [] exit
+  - [] export
+  - [] unset
+  - [] env
+  - [] cd
+  - [] echo
+  - [] pwd
+- [] Replacing standard libs to our implementations
+- [] Applying norm
