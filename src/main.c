@@ -59,7 +59,7 @@ int exec_pipeline(t_node *node)
       path = search_path(path);
     execve(path, argv, environ);
     reset_redirect(node->command->redirects);
-    fatal_error("exexcve");
+    fatal_error("execve");
   }
   // parent process
   prepare_pipe_parent(node);
