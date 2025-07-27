@@ -10,4 +10,5 @@
   - [ ] echo
   - [ ] pwd
 - [ ] Replacing standard libs to our implementations
+- [ ] Applying tests made by other people
 - [ ] Applying norm
