@@ -30,3 +30,5 @@ assert 'pwd'
 assert 'echo'
 assert 'ls'
 assert './a.out'
+
+rm cmp out
