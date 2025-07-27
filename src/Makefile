@@ -1,3 +1,7 @@
+MINISHELL_DIR = .
+PRINTF_DIR = $(MINISHELL_DIR)/submodules/printf
+GNL_DIR = $(MINISHELL_DIR)/submodules/get_next_line
+
 NAME	= minishell
 CC		= cc
 # INCLUDES = -I include
@@ -13,18 +17,28 @@ SRCS		= main.c\
 					redirect.c\
 					pipe.c\
 
+PRINTF = $(PRINTF_DIR)/libftprintf.a
+
 OBJS		= $(SRCS:%.c=%.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(LIBS) -o $(NAME) $(OBJS)
+$(PRINTF):
+	@make -C $(PRINTF_DIR)
+
+$(NAME): $(OBJS) $(PRINTF)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBS) $(PRINTF) -I$(PRINTF_DIR) -o $(NAME)
+
+%.o: %.c
+	$(CC) $(CFLAGS) -I$(PRINTF_DIR) -O3 -c $< -o $@
 
 clean:
 	$(RM) $(OBJS)
+	@make -C $(PRINTF_DIR) clean
 
 fclean: clean
 	$(RM) $(NAME)
+	@make -C $(PRINTF_DIR) fclean
 
 re: fclean all
 

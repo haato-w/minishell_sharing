@@ -17,10 +17,16 @@
 
 #include <ctype.h>
 
+#include <sys/wait.h>
+
+#include "submodules/printf/libft/libft.h"
+
 # define ERROR_TOKENIZE 258
 # define ERROR_PARSE 258
 # define ERROR_OPEN_REDIR 1
-# define PATH_MAX 100
+# ifndef PATH_MAX
+#  define PATH_MAX 100
+# endif
 # define SINGLE_QUOTE_CHAR '\''
 # define DOUBLE_QUOTE_CHAR '"'
 

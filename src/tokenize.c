@@ -140,7 +140,7 @@ char **tail_recursive(t_token *tok, int nargs, char **argv)
 {
   if (tok == NULL || tok->kind == TK_EOF)
     return (argv);
-  argv = reallocf(argv, (nargs + 2) * sizeof(char *));
+  argv = realloc(argv, (nargs + 2) * sizeof(char *)); // Changed from reallocf. Is it correct?
   argv[nargs] = strdup(tok->word);
   if (argv[nargs] == NULL)
     fatal_error("strdup");
