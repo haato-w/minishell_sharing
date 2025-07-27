@@ -1,4 +1,4 @@
-# Do to
+# To do
 - [ ] Implementing fundamental code
 - [ ] Implementing our original tests
 - [ ] Implementing buildin commands
