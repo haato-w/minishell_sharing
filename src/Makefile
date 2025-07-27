@@ -3,11 +3,13 @@ PRINTF_DIR = $(MINISHELL_DIR)/submodules/printf
 GNL_DIR = $(MINISHELL_DIR)/submodules/get_next_line
 
 NAME	= minishell
+PRINTF = $(PRINTF_DIR)/libftprintf.a
+
 CC		= cc
-# INCLUDES = -I include
-# CFLAGS	= -Wall -Wextra -Werror $(INCLUDES)
-CFLAGS	= -Wall -Wextra -Werror
-LIBS		= -lreadline
+RLDIR = $(shell brew --prefix readline)
+INCLUDES = -I ./ -I$(PRINTF_DIR) -I$(RLDIR)/include
+CFLAGS	= -Wall -Wextra -Werror $(INCLUDES)
+LIBS		= -lreadline -L$(RLDIR)/lib
 SRCS		= main.c\
 					error.c\
 					tokenize.c\
@@ -17,8 +19,6 @@ SRCS		= main.c\
 					redirect.c\
 					pipe.c\
 
-PRINTF = $(PRINTF_DIR)/libftprintf.a
-
 OBJS		= $(SRCS:%.c=%.o)
 
 all: $(NAME)
@@ -27,10 +27,7 @@ $(PRINTF):
 	@make -C $(PRINTF_DIR)
 
 $(NAME): $(OBJS) $(PRINTF)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBS) $(PRINTF) -I$(PRINTF_DIR) -o $(NAME)
-
-%.o: %.c
-	$(CC) $(CFLAGS) -I$(PRINTF_DIR) -O3 -c $< -o $@
+	$(CC) $(CFLAGS) $(OBJS) $(LIBS) $(PRINTF) -o $(NAME)
 
 clean:
 	$(RM) $(OBJS)
