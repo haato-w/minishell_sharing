@@ -41,9 +41,22 @@ int exec_pipeline(t_node *node)
   char *path;
   pid_t pid;
   char **argv;
+  int builtin_status;
 
   if (node == NULL)
     return (-1);
+  
+  // ビルトインコマンドかどうかをチェック
+  argv = token_list_to_argv(node->command->args);
+  builtin_status = builtins(argv, last_status);
+  if (builtin_status != -1)
+  {
+    // ビルトインコマンドが実行された場合（exitの場合はここには到達しない）
+    free_argv(argv);
+    return (builtin_status);
+  }
+  free_argv(argv);
+
   prepare_pipe(node);
   pid = fork();
   if (pid < 0)
@@ -71,7 +84,7 @@ int exec_pipeline(t_node *node)
 int wait_pipeline(pid_t last_pid)
 {
   pid_t wait_result;
-  int status;
+  int status = 0; // 初期化
   int wstatus;
 
   while (1)

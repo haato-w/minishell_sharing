@@ -1,5 +1,5 @@
 #ifndef MINISHELL_H
-# define MINISHELL_H
+#define MINISHELL_H
 
 #include <stdlib.h>
 #include <unistd.h>
@@ -21,19 +21,19 @@
 
 #include "submodules/printf/libft/libft.h"
 
-# define ERROR_TOKENIZE 258
-# define ERROR_PARSE 258
-# define ERROR_OPEN_REDIR 1
-# ifndef PATH_MAX
-#  define PATH_MAX 100
-# endif
-# define SINGLE_QUOTE_CHAR '\''
-# define DOUBLE_QUOTE_CHAR '"'
+#define ERROR_TOKENIZE 258
+#define ERROR_PARSE 258
+#define ERROR_OPEN_REDIR 1
+#ifndef PATH_MAX
+#define PATH_MAX 100
+#endif
+#define SINGLE_QUOTE_CHAR '\''
+#define DOUBLE_QUOTE_CHAR '"'
 
 typedef enum e_token_kind t_token_kind;
 typedef struct s_token t_token;
 typedef enum e_node_kind t_node_kind;
-typedef struct  s_node t_node;
+typedef struct s_node t_node;
 
 extern int last_status;
 extern bool syntax_error;
@@ -43,31 +43,34 @@ void todo(const char *msg) __attribute__((noreturn));
 void fatal_error(const char *msg) __attribute__((noreturn));
 void assert_error(const char *msg) __attribute__((noreturn));
 void err_exit(const char *location, const char *msg, int status) __attribute__((noreturn));
-void tokenize_error(const char *location , char **rest, char *line);
+void tokenize_error(const char *location, char **rest, char *line);
 void parse_error(const char *location, t_token **rest, t_token *tok);
 void xperror(const char *location);
 
 // tokenize.c
-enum e_token_kind {
-  TK_WORD, 
-  TK_RESERVED, 
-  TK_OP, 
-  TK_EOF, 
+enum e_token_kind
+{
+  TK_WORD,
+  TK_RESERVED,
+  TK_OP,
+  TK_EOF,
 };
 
-struct s_token {
+struct s_token
+{
   char *word;
   t_token_kind kind;
   t_token *next;
 };
 
-enum e_node_kind {
-  ND_PIPELINE, 
-  ND_SIMPLE_CMD, 
-  ND_REDIR_OUT, 
-  ND_REDIR_IN, 
-  ND_REDIR_APPEND, 
-  ND_REDIR_HEREDOC, 
+enum e_node_kind
+{
+  ND_PIPELINE,
+  ND_SIMPLE_CMD,
+  ND_REDIR_OUT,
+  ND_REDIR_IN,
+  ND_REDIR_APPEND,
+  ND_REDIR_HEREDOC,
 };
 
 struct s_node
@@ -136,5 +139,19 @@ void reset_redirect(t_node *redirects);
 void prepare_pipe(t_node *node);
 void prepare_pipe_child(t_node *node);
 void prepare_pipe_parent(t_node *node);
+
+// builtin.c
+int builtins(char **argv, int exit_code);
+int ft_exit(char **argv);
+int ft_export(char **argv);
+int set_env_var(char *arg);
+int is_valid_var_name(char *name);
+int is_numeric(char *s);
+// 他のbuiltin関数は一時的にコメントアウト
+// int ft_cd(char **argv);
+// int ft_pwd(void);
+// int ft_unset(char **argv);
+// int ft_env(void);
+// int ft_echo(char **argv);
 
 #endif
