@@ -142,6 +142,7 @@ void prepare_pipe_parent(t_node *node);
 
 // builtin.c
 void error_msg(char *msg);
+void error_msg_fmt(char *prefix, char *arg, char *suffix);
 int builtins(char **argv, int exit_code);
 int ft_exit(char **argv);
 int ft_export(char **argv);
@@ -151,9 +152,7 @@ int set_env_var(char *arg);
 int is_valid_var_name(char *name);
 int is_numeric(char *s);
 int ft_cd(char **argv);
-// int ft_pwd(void);
-// int ft_unset(char **argv);
-// int ft_env(void);
-// int ft_echo(char **argv);
+int ft_pwd(char **argv);
+int ft_echo(char **argv);
 
 #endif

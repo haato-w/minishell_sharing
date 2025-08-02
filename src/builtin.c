@@ -9,6 +9,15 @@ void error_msg(char *msg)
     (void)ret; // 戻り値を変数に受け取ってから無視
 }
 
+// フォーマット付きエラー出力関数
+void error_msg_fmt(char *prefix, char *arg, char *suffix)
+{
+    error_msg(prefix);
+    if (arg)
+        error_msg(arg);
+    error_msg(suffix);
+}
+
 int is_numeric(char *s) // 数値かどうかをチェック
 {
     if (*s == '\0')
@@ -38,7 +47,6 @@ int builtins(char **argv, int exit_code)
 
     if (argv == NULL || argv[0] == NULL)
         return -1; // 引数がNULLまたは空の場合は何もしない
-
     // ビルトインコマンドの処理
     if (strcmp(argv[0], "exit") == 0)
     {
@@ -53,8 +61,10 @@ int builtins(char **argv, int exit_code)
         return ft_env(argv);
     else if (strcmp(argv[0], "cd") == 0)
         return ft_cd(argv);
-
-    // ビルトインコマンドでない場合は-1を返す（ビルトインではない）
+    else if (strcmp(argv[0], "echo") == 0)
+        return ft_echo(argv);
+    else if (strcmp(argv[0], "pwd") == 0)
+        return ft_pwd(argv);
     return -1;
 }
 
@@ -82,9 +92,7 @@ int ft_exit(char **argv)
         }
         if (!is_numeric(argv[1])) // 数値でない場合
         {
-            error_msg("exit: ");
-            error_msg(argv[1]);
-            error_msg(": numeric argument required\n");
+            error_msg_fmt("exit: ", argv[1], ": numeric argument required\n");
             last_status = 2; // 本家も2
             exit(2);
         }
@@ -126,7 +134,6 @@ int is_valid_var_name(char *name)
 // 環境変数設定の関数
 int set_env_var(char *arg)
 {
-
     char *equal_pos;
     char *var_name;
     char *var_value;
@@ -155,9 +162,7 @@ int set_env_var(char *arg)
     // ３．変数名がルールに沿っているかをチェック
     if (!is_valid_var_name(var_name))
     {
-        error_msg("export: `");
-        error_msg(var_name);
-        error_msg("': not a valid identifier\n");
+        error_msg_fmt("export: `", var_name, "': not a valid identifier\n");
         free(var_name);
         return (1);
     }
@@ -206,31 +211,21 @@ int ft_unset(char **argv)
     int exit_status;
 
     exit_status = 0; // 成功時は0を返す
-
-    // 引数がない場合はエラーではない（何もしない）
     if (argv[1] == NULL)
         return (0);
-
-    // 引数をループして各環境変数を削除
     i = 1;
     while (argv[i])
-    {
-        // 変数名が有効かチェック↓
+    {                                    // 変数名が有効かチェック↓
         if (!is_valid_var_name(argv[i])) // 有効じゃない場合メッセージ
         {
-            error_msg("unset: `");
-            error_msg(argv[i]);
-            error_msg("': not a valid identifier\n");
+            error_msg_fmt("unset: `", argv[i], "': not a valid identifier\n");
             exit_status = 1; // エラーがあっても継続し、最後に1を返す
         }
         else
-        {
-            // 有効なら環境変数を削除
+        { // 有効なら環境変数を削除
             if (unsetenv(argv[i]) != 0)
             {
-                error_msg("unset: cannot unset `");
-                error_msg(argv[i]);
-                error_msg("'\n");
+                error_msg_fmt("unset: cannot unset `", argv[i], "'\n");
                 exit_status = 1;
             }
         }
@@ -268,23 +263,61 @@ int ft_cd(char **argv)
         error_msg("cd: missing argument\n");
         return (1);
     }
-
     // 引数は1つのみ
     if (argv[2] != NULL)
     {
         error_msg("cd: too many arguments\n");
         return (1);
     }
-
     // chdir()でディレクトリ変更
     if (chdir(argv[1]) != 0)
     {
-        error_msg("cd: ");
-        error_msg(argv[1]);
-        error_msg(": No such file or directory\n");
+        error_msg_fmt("cd: ", argv[1], ": No such file or directory\n");
         return (1);
     }
 
+    return (0);
+}
+
+int ft_echo(char **argv)
+{
+    int i;
+    int newline;
+
+    // -nオプションをチェック
+    newline = 1; // デフォルトは改行あり
+    i = 1;
+    if (argv[1] != NULL && strcmp(argv[1], "-n") == 0)
+    {
+        newline = 0; // -nオプションがある場合は改行なし
+        i = 2;       // 次の引数から開始
+    }
+    // 引数を出力
+    while (argv[i] != NULL)
+    {
+        printf("%s", argv[i]);
+        if (argv[i + 1] != NULL)
+            printf(" "); // 引数間にスペースを挿入
+        i++;
+    }
+    if (newline)
+        printf("\n");
+    return (0);
+}
+
+int ft_pwd(char **argv)
+{
+    char cwd[PATH_MAX];
+
+    (void)argv; // 引数は使用しない
+
+    if (getcwd(cwd, sizeof(cwd)) == NULL)
+    {
+        error_msg("pwd: getcwd failed\n");
+        return (1);
+    }
+
+    printf("%s\n", cwd);
     return (0);
 }
 // cdは cd with only a relative or absolute pathで、現在はどっちも動く
