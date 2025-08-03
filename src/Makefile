@@ -22,6 +22,7 @@ SRCS		= main.c\
 					builtin_exit.c\
 					builtin_export.c\
 					builtin_unset.c\
+					builtin_env.c\
 					map.c\
 					env.c\
 

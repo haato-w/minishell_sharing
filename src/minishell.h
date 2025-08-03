@@ -181,6 +181,9 @@ int builtin_export(char **argv);
 // builtin_unset.c
 int builtin_unset(char **argv);
 
+// builtin_env.c
+int builtin_env(char **argv);
+
 // void error_msg(char *msg);
 // void error_msg_fmt(char *prefix, char *arg, char *suffix);
 // int builtins(char **argv, int exit_code);
