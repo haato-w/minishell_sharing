@@ -18,6 +18,8 @@ SRCS		= main.c\
 					pipe.c\
 					exec.c\
 					signal.c\
+					map.c\
+					env.c\
 					builtin.c\
 
 PRINTF = $(PRINTF_DIR)/libftprintf.a

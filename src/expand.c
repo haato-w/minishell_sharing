@@ -154,7 +154,7 @@ void expand_variable_str(char **dst, char **rest, char *p)
     assert_error("Variable must starts with alphabetic character of underscore.");
   while (is_alpha_num_under(*p))
     append_char(&name, *p++);
-  value = getenv(name);
+  value = xgetenv(name);
   free(name);
   if (value)
     while (*value)

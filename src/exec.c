@@ -7,7 +7,7 @@ char *search_path(const char *filename)
   char *value;
   char *end;
 
-  value = getenv("PATH");
+  value = xgetenv("PATH");
   while (*value)
   {
     bzero(path, PATH_MAX);
@@ -44,7 +44,7 @@ void validate_access(const char *path, const char *filename)
 
 int exec_pipeline(t_node *node)
 {
-  extern char **environ;
+  // extern char **environ;
   char *path;
   pid_t pid;
   char **argv;
@@ -79,7 +79,7 @@ int exec_pipeline(t_node *node)
     if (strchr(path, '/') == NULL)
       path = search_path(path);
     validate_access(path, argv[0]);
-    execve(path, argv, environ);
+    execve(path, argv, get_environ(envmap));
     reset_redirect(node->command->redirects);
     fatal_error("execve");
   }
