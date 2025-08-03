@@ -53,6 +53,7 @@ void err_exit(const char *location, const char *msg, int status) __attribute__((
 void tokenize_error(const char *location, char **rest, char *line);
 void parse_error(const char *location, t_token **rest, t_token *tok);
 void xperror(const char *location);
+void builtin_error(const char *func, const char *name, const char *err);
 
 // tokenize.c
 enum e_token_kind
@@ -174,6 +175,14 @@ int exec_builtin(t_node *node);
 bool is_numeric(char *s);
 int builtin_exit(char **argv);
 
+// builtin_export.c
+int builtin_export(char **argv);
+
+// builtin_unset.c
+int builtin_unset(char **argv);
+
+// builtin_env.c
+int builtin_env(char **argv);
 
 // void error_msg(char *msg);
 // void error_msg_fmt(char *prefix, char *arg, char *suffix);
