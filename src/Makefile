@@ -21,6 +21,7 @@ SRCS		= main.c\
 					map.c\
 					env.c\
 					builtin.c\
+					builtin_exit.c\
 
 PRINTF = $(PRINTF_DIR)/libftprintf.a
 

@@ -44,26 +44,12 @@ void validate_access(const char *path, const char *filename)
 
 int exec_pipeline(t_node *node)
 {
-  // extern char **environ;
   char *path;
   pid_t pid;
   char **argv;
-  int builtin_status;
 
   if (node == NULL)
     return (-1);
-  
-  // ビルトインコマンドかどうかをチェック
-  argv = token_list_to_argv(node->command->args);
-  builtin_status = builtins(argv, last_status);
-  if (builtin_status != -1)
-  {
-    // ビルトインコマンドが実行された場合（exitの場合はここには到達しない）
-    free_argv(argv);
-    return (builtin_status);
-  }
-  free_argv(argv);
-
   prepare_pipe(node);
   pid = fork();
   if (pid < 0)
@@ -80,6 +66,7 @@ int exec_pipeline(t_node *node)
       path = search_path(path);
     validate_access(path, argv[0]);
     execve(path, argv, get_environ(envmap));
+    free_argv(argv);
     reset_redirect(node->command->redirects);
     fatal_error("execve");
   }
@@ -126,7 +113,12 @@ int exec(t_node *node)
 
   if (open_redir_file(node) < 0)
     return (ERROR_OPEN_REDIR);
-  last_pid = exec_pipeline(node);
-  status = wait_pipeline(last_pid);
+  if (node->next == NULL && is_builtin(node))
+    status = exec_builtin(node);
+  else
+  {
+    last_pid = exec_pipeline(node);
+    status = wait_pipeline(last_pid);
+  }
   return (status);
 }

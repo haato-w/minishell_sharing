@@ -157,4 +157,13 @@ print_desc "SIGTERM to SHELL"
  sleep 0.01; pkill -SIGTERM minishell) & 
 assert './infinite_loop' 2> /dev/null # Redirect stderr to supress signal terminated message
 
+# Builtin
+## exit
+assert 'exit'
+assert 'exit 42'
+assert 'exit ""'
+assert 'exit hello'
+assert 'exit 42Tokyo'
+assert 'exit 1 2'
+
 cleanup

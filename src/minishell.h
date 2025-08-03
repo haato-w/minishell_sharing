@@ -167,19 +167,27 @@ void setup_signal(void);
 void reset_signal(void);
 
 // builtin.c
-void error_msg(char *msg);
-void error_msg_fmt(char *prefix, char *arg, char *suffix);
-int builtins(char **argv, int exit_code);
-int ft_exit(char **argv);
-int ft_export(char **argv);
-int ft_unset(char **argv);
-int ft_env(char **argv);
-int set_env_var(char *arg);
-int is_valid_var_name(char *name);
-int is_numeric(char *s);
-int ft_cd(char **argv);
-int ft_pwd(char **argv);
-int ft_echo(char **argv);
+bool is_builtin(t_node *node);
+int exec_builtin(t_node *node);
+
+// builtin_exit.c
+bool is_numeric(char *s);
+int builtin_exit(char **argv);
+
+
+// void error_msg(char *msg);
+// void error_msg_fmt(char *prefix, char *arg, char *suffix);
+// int builtins(char **argv, int exit_code);
+// int ft_exit(char **argv);
+// int ft_export(char **argv);
+// int ft_unset(char **argv);
+// int ft_env(char **argv);
+// int set_env_var(char *arg);
+// int is_valid_var_name(char *name);
+// int is_numeric(char *s);
+// int ft_cd(char **argv);
+// int ft_pwd(char **argv);
+// int ft_echo(char **argv);
 
 // map.c
 t_item *item_new(char *bame, char *value);
