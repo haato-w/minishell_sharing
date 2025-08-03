@@ -3,7 +3,7 @@
 bool is_builtin(t_node *node)
 {
     const char *cmd_name;
-    char *builtin_commands[] = {"exit", "export"};
+    char *builtin_commands[] = {"exit", "export", "unset"};
     unsigned int i;
 
     if (node == NULL || node->command == NULL | node->command->args == NULL
@@ -31,6 +31,8 @@ int exec_builtin(t_node *node)
         status = builtin_exit(argv);
     else if (strcmp(argv[0], "export") == 0)
         status = builtin_export(argv);
+    else if (strcmp(argv[0], "unset") == 0)
+        status = builtin_unset(argv);
     else
         todo("exex_builtin");
     free_argv(argv);
