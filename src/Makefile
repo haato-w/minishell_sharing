@@ -16,11 +16,17 @@ SRCS		= main.c\
 					parse.c\
 					redirect.c\
 					pipe.c\
+					exec.c\
+					signal.c\
 					builtin.c\
 
 PRINTF = $(PRINTF_DIR)/libftprintf.a
 
 OBJS		= $(SRCS:%.c=%.o)
+
+# for MAC
+CFLAGS += -I/opt/homebrew/opt/readline/include
+LIBS += -L/opt/homebrew/opt/readline/lib -lreadline -lncurses
 
 all: $(NAME)
 

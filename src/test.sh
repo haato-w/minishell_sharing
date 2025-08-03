@@ -1,5 +1,6 @@
 RED="\033[31m"
 GREEN="\033[32m"
+YELLOW="\033[33m"
 RESET="\033[0m"
 OK=$GREEN"OK"$RESET
 NG=$RED"NG"$RESET
@@ -22,8 +23,12 @@ cat << EOF | cc -xc -o exit42 -
 int main() { return 42; }
 EOF
 
+print_desc() {
+  echo -e $YELLOW"$1"$RESET
+}
+
 cleanup() {
-  rm -f cmp out a.out print_args exit42
+  rm -f cmp out a.out print_args exit42 infinite_loop
 }
 
 assert() {
@@ -142,5 +147,14 @@ assert 'echo $?'
 assert 'invalid\necho $?\necho $?'
 assert 'exit42\necho $?\necho $?'
 assert 'exit42\n\necho $?\necho $?'
+
+# Signal handling
+echo "int main() {while (1) ; }" | cc -xc -o infinite_loop -
+
+## Signal to shell processes
+print_desc "SIGTERM to SHELL"
+(sleep 0.01; pkill -SIGTERM bash;
+ sleep 0.01; pkill -SIGTERM minishell) & 
+assert './infinite_loop' 2> /dev/null # Redirect stderr to supress signal terminated message
 
 cleanup

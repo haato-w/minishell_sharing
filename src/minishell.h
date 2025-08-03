@@ -19,6 +19,8 @@
 
 #include <sys/wait.h>
 
+#include <signal.h>
+
 #include "submodules/printf/libft/libft.h"
 
 #define ERROR_TOKENIZE 258
@@ -37,6 +39,8 @@ typedef struct s_node t_node;
 
 extern int last_status;
 extern bool syntax_error;
+extern bool readline_interrupted;
+extern volatile sig_atomic_t sig;
 
 // error.c
 void todo(const char *msg) __attribute__((noreturn));
@@ -139,6 +143,13 @@ void reset_redirect(t_node *redirects);
 void prepare_pipe(t_node *node);
 void prepare_pipe_child(t_node *node);
 void prepare_pipe_parent(t_node *node);
+
+// exec.c
+int exec(t_node *node);
+
+// signal.h
+void setup_signal(void);
+void reset_signal(void);
 
 // builtin.c
 void error_msg(char *msg);
