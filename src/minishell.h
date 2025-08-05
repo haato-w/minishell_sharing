@@ -21,6 +21,8 @@
 
 #include <signal.h>
 
+#include <sys/stat.h>
+
 #include "submodules/printf/libft/libft.h"
 
 #define ERROR_TOKENIZE 258
@@ -189,6 +191,9 @@ int builtin_cd(char **argv);
 
 // builtin_echo.c
 int builtin_echo(char **argv);
+
+// builtin_pwd.c
+int builtin_pwd(char **argv);
 
 // void error_msg(char *msg);
 // void error_msg_fmt(char *prefix, char *arg, char *suffix);

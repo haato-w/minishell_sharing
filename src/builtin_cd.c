@@ -52,9 +52,7 @@ char *resolve_pwd(char *oldpwd, char *path)
   char newpwd[PATH_MAX];
   char *dup;
 
-  if (oldpwd == NULL)
-    return (NULL);
-  if (*path == '/')
+  if (*path == '/' || oldpwd == NULL)
     ft_strlcpy(newpwd, "/", PATH_MAX);
   else
     ft_strlcpy(newpwd, oldpwd, PATH_MAX);
@@ -96,7 +94,7 @@ int builtin_cd(char **argv)
     ft_strlcpy(path, home, PATH_MAX);
   }
   else
-    strlcpy(path, argv[1], PATH_MAX);
+    ft_strlcpy(path, argv[1], PATH_MAX);
   if (chdir(path) < 0)
   {
     builtin_error("cd", NULL, "chdir");
