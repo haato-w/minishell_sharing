@@ -187,6 +187,9 @@ int builtin_env(char **argv);
 // builtin_cd.c
 int builtin_cd(char **argv);
 
+// builtin_echo.c
+int builtin_echo(char **argv);
+
 // void error_msg(char *msg);
 // void error_msg_fmt(char *prefix, char *arg, char *suffix);
 // int builtins(char **argv, int exit_code);

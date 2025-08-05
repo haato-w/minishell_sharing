@@ -49,7 +49,7 @@ assert() {
     mv "$arg" "$arg"".out"
   done
 
-  diff cmp out >/dev/null && echo -e -n " diff $OK" || echo -e -n "  diff $NG"
+  diff cmp out >/dev/null && echo -e -n " diff $OK" || echo -e -n " diff $NG"
 
   if [ "$actual" = "$expected" ]; then
     echo -e -n " status $OK"
@@ -219,5 +219,14 @@ assert 'cd /tmp/\n echo $PWD'
 assert 'cd /tmp///\n echo $PWD'
 assert 'cd /../../../././.././\n echo $PWD'
 assert 'cd src\n echo $PWD'
+
+## echo
+assert 'echo'
+assert 'echo hello'
+assert 'echo hello "   " world'
+assert 'echo -n'
+assert 'echo -n hello'
+assert 'echo -n hello world'
+assert 'echo hello -n'
 
 cleanup
