@@ -43,7 +43,7 @@ int builtin_exit(char **argv)
         if (!is_numeric(argv[1])) // 数値でない場合
         {
             builtin_error("exit: ", argv[1], ": numeric argument required\n");
-            exit(255);
+            exit(2);  // bashと同じ終了コード
         }
         exit_code = atoi(argv[1]); // 引数が数値の場合そのままexit_codeに設定
         // bashと同じ動作にするため、負数の場合も正しく0-255の範囲に収める

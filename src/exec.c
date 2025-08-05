@@ -97,10 +97,10 @@ int wait_pipeline(pid_t last_pid)
     wait_result = wait(&wstatus);
     if (wait_result == last_pid)
     {
-      if (WEXITSTATUS(wstatus))
-        status = 128 + WTERMSIG(wstatus);
-      else
+      if (WIFEXITED(wstatus))
         status = WEXITSTATUS(wstatus);
+      else if (WIFSIGNALED(wstatus))
+        status = 128 + WTERMSIG(wstatus);
     }
     else if (wait_result < 0)
     {
