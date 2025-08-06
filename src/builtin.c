@@ -6,8 +6,7 @@ bool is_builtin(t_node *node)
     char *builtin_commands[] = {"exit", "export", "unset", "env", "cd", "echo", "pwd"};
     unsigned int i;
 
-    if (node == NULL || node->command == NULL | node->command->args == NULL
-        | node->command->args->word == NULL)
+    if (node == NULL || node->command == NULL || node->command->args == NULL || node->command->args->word == NULL)
         return (false);
     cmd_name = node->command->args->word;
     i = 0;

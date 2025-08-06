@@ -4,7 +4,7 @@ bool equal_inode(const char *path1, const char *path2)
 {
   struct stat st1;
   struct stat st2;
-  
+
   memset(&st1, 0, sizeof(st1));
   memset(&st2, 0, sizeof(st2));
   if (stat(path1, &st1) < 0)
@@ -30,14 +30,16 @@ int builtin_pwd(char **argv)
       builtin_error("pwd", NULL, "getcwd");
       return (1);
     }
-    write(STDOUT_FILENO, cwd, strlen(cwd));
-    write(STDOUT_FILENO, "\n", 1);
+    ssize_t write_ret = write(STDOUT_FILENO, cwd, strlen(cwd));
+    write_ret = write(STDOUT_FILENO, "\n", 1);
+    (void)write_ret;
     return (0);
   }
   else
   {
-    write(STDOUT_FILENO, pwd, strlen(pwd));
-    write(STDOUT_FILENO, "\n", 1);
+    ssize_t write_ret = write(STDOUT_FILENO, pwd, strlen(pwd));
+    write_ret = write(STDOUT_FILENO, "\n", 1);
+    (void)write_ret;
     return (0);
   }
 }
