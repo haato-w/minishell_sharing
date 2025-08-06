@@ -72,7 +72,7 @@ void remove_quote(t_token *tok)
   new_word = calloc(1, sizeof(char)); // Why allocate 1 block?
   if (new_word == NULL)
     fatal_error("calloc");
-  while (*p && !is_metacharacter(*p))
+  while (*p)
   {
     if (*p == SINGLE_QUOTE_CHAR)
       remove_single_quote(&new_word, &p, p);
@@ -240,7 +240,7 @@ void expand_variable_tok(t_token *tok)
   new_word = calloc(1, sizeof(char));
   if (new_word == NULL)
     fatal_error("calloc");
-  while (*p && !is_metacharacter(*p))
+  while (*p)
   {
     if (*p == SINGLE_QUOTE_CHAR)
       append_single_quote(&new_word, &p, p);
