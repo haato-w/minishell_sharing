@@ -19,7 +19,6 @@ int main(int argc, char *argv[]) {
 EOF
 
 cat << EOF | cc -xc -o exit42 -
-#include <stdio.h>
 int main() { return 42; }
 EOF
 
@@ -28,13 +27,13 @@ print_desc() {
 }
 
 cleanup() {
-  rm -f cmp out a.out print_args exit42 infinite_loop
+  rm -f cmp out a.out print_args exit42 infinite_loop no_exec_perm no_read_perm
 }
 
 assert() {
   COMMAND="$1"
   shift
-  printf '%-30s:' "[$COMMAND]"
+  printf '%-60s:' "[$COMMAND]"
   # exit status
   echo -n -e "$COMMAND" | bash >cmp 2>&-
   expected=$?
@@ -83,6 +82,51 @@ assert './a.out'
 assert 'a.out'
 assert 'nosuchfile'
 
+## command not found
+assert '""'
+# assert '.' # . is a builtin command in bash
+assert '..'
+
+## is a directory
+assert './'
+assert '/'
+assert '/etc'
+assert '/etc/'
+assert '////'
+
+## Permission denied
+echo "int main() { }" | cc -xc -o no_exec_perm -
+chmod -x no_exec_perm
+assert 'no_exec_perm'
+assert './no_exec_perm'
+echo "int main() { }" | cc -xc -o no_read_perm -
+chmod -r no_read_perm
+assert 'no_read_perm'
+assert './no_read_perm'
+
+mkdir -p /tmp/a /tmp/b
+echo "int main() { return 1; }" | cc -xc -o /tmp/a/simple_test -
+echo "int main() { return 2; }" | cc -xc -o /tmp/b/simple_test -
+
+print_desc "/tmp/a /tmp/b both with permission"
+assert 'unset PATH\nexport PATH="/tmp/a:/tmp/b"\nsimple_test'
+assert 'unset PATH\nexport PATH="/tmp/b:/tmp/a"\nsimple_test'
+
+print_desc "/tmp/a /tmp/b both without permission"
+chmod -x /tmp/a/simple_test; chmod -x /tmp/b/simple_test;
+assert 'unset PATH\nexport PATH="/tmp/a:/tmp/b"\nsimple_test'
+assert 'unset PATH\nexport PATH="/tmp/b:/tmp/a"\nsimple_test'
+
+print_desc "a with permission, b without permission"
+chmod +x /tmp/a/simple_test; chmod -x /tmp/b/simple_test;
+assert 'unset PATH\nexport PATH="/tmp/a:/tmp/b"\nsimple_test'
+assert 'unset PATH\nexport PATH="/tmp/b:/tmp/a"\nsimple_test'
+
+print_desc "a without permission, b with permission"
+chmod -x /tmp/a/simple_test; chmod +x /tmp/b/simple_test;
+assert 'unset PATH\nexport PATH="/tmp/a:/tmp/b"\nsimple_test'
+assert 'unset PATH\nexport PATH="/tmp/b:/tmp/a"\nsimple_test'
+
 # Tokenize
 ## unquoted word
 assert 'ls /'
@@ -90,9 +134,9 @@ assert 'echo hello  world '
 assert 'nosuchfile\n\n'
 
 ## single quote
-assert "./printf_args 'hello  world'  '42Tokyo'"
-assert "echo  'hello  world'  '42Tokyo'"
-assert "echo  '\"hello  world\"'  '42Tokyo'"
+assert "./printf_args 'hello   world'  '42Tokyo'"
+assert "echo 'hello    world' '42Tokyo'"
+assert "echo '\"hello    world\"' '42Tokyo'"
 
 ## double quote
 assert './printf_args "hello  world"  "42Tokyo"'
@@ -137,7 +181,7 @@ assert 'cat <<"$EOF" \neof\n$EPF\nEOF'
 assert 'cat Makefile | grep minishell'
 assert 'cat | cat |ls\n\n'
 
-# Expand
+# Expand Variable
 assert 'echo $USER'
 assert 'echo $USER$PATH$TERM'
 assert 'echo "$USER $PATH $TERM"'
@@ -156,6 +200,69 @@ print_desc "SIGTERM to SHELL"
 (sleep 0.01; pkill -SIGTERM bash;
  sleep 0.01; pkill -SIGTERM minishell) & 
 assert './infinite_loop' 2> /dev/null # Redirect stderr to supress signal terminated message
+
+print_desc "SIGQUIT to SHELL"
+(sleep 0.01; pkill -SIGQUIT bash; # SIGQUIT should not kill the shell
+ sleep 0.01; pkill -SIGTERM bash;
+ sleep 0.01; pkill -SIGQUIT minishell; # SIGQUIT should not kill the shell
+ sleep 0.01; pkill -SIGTERM minishell) & 
+assert './infinite_loop' 2> /dev/null # Redirect stderr to supress signal terminated message
+
+print_desc "SIGINT to SHELL"
+(sleep 0.01; pkill -SIGINT bash; # SIGINT should not kill the shell
+ sleep 0.01; pkill -SIGTERM bash;
+ sleep 0.01; pkill -SIGINT minishell; # SIGINT should not kill the shell
+ sleep 0.01; pkill -SIGTERM minishell) & 
+assert './infinite_loop' 2> /dev/null # Redirect stderr to supress signal terminated message
+
+## Signal to shell processes
+print_desc "SIGTERM to child process"
+(sleep 0.01; pkill -SIGTERM infinite_loop;
+ sleep 0.01; pkill -SIGTERM infinite_loop) & 
+assert './infinite_loop'
+
+print_desc "SIGINT to child process"
+(sleep 0.01; pkill -SIGINT infinite_loop;
+ sleep 0.01; pkill -SIGINT infinite_loop) & 
+assert './infinite_loop'
+
+print_desc "SIGQUIT to child process"
+(sleep 0.01; pkill -SIGQUIT infinite_loop;
+ sleep 0.01; pkill -SIGQUIT infinite_loop) & 
+assert './infinite_loop'
+
+print_desc "SIGUSR1 to child process"
+(sleep 0.01; pkill -SIGUSR1 infinite_loop;
+ sleep 0.01; pkill -SIGUSR1 infinite_loop) & 
+assert './infinite_loop'
+
+# Manual Debug
+# $ ./minishell
+# $ 
+# 1. Ctrl-\ 
+# 2. Ctrl-C
+# 3. Ctrl-D
+#
+# $ ./minishell
+# $ hogehoge
+# 1. Ctrl-\ 
+# 2. Ctrl-C
+# 3. Ctrl-D
+#
+# $ ./minishell
+# $ cat <<EOF
+# >
+# 1. Ctrl-\ 
+# 2. Ctrl-C
+# 3. Ctrl-D
+#
+# $ ./minishell
+# $ cat <<EOF
+# > hoge
+# > fuga
+# 1. Ctrl-\ 
+# 2. Ctrl-C
+# 3. Ctrl-D
 
 # Builtin
 ## exit
