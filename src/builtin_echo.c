@@ -5,6 +5,7 @@ int builtin_echo(char **argv)
   bool is_first_arg;
   bool echo_newline;
   size_t i;
+  ssize_t write_ret;
 
   i = 1;
   echo_newline = true;
@@ -17,12 +18,13 @@ int builtin_echo(char **argv)
   while (argv[i])
   {
     if (!is_first_arg)
-      write(STDOUT_FILENO, " ", 1);
+      write_ret = write(STDOUT_FILENO, " ", 1);
     is_first_arg = false;
-    write(STDOUT_FILENO, argv[i], strlen(argv[i]));
+    write_ret = write(STDOUT_FILENO, argv[i], strlen(argv[i]));
     i++;
   }
   if (echo_newline)
-    write(STDOUT_FILENO, "\n", 1);
+    write_ret = write(STDOUT_FILENO, "\n", 1);
+  (void)write_ret;
   return (0);
 }

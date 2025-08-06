@@ -54,10 +54,10 @@ static void envmap_init(t_map *map, char **ep)
     map_set(map, "SHLVL", "1");
   if (map_get(map, "PWD") == NULL)
   {
-    getcwd(cwd, PATH_MAX);
+    char *cwd_ret = getcwd(cwd, PATH_MAX);
+    (void)cwd_ret;
     map_set(map, "PWD", cwd);
   }
   if (map_get(map, "OLDPWD") == NULL)
     map_set(map, "OLDPWD", NULL);
 }
-
