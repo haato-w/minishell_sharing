@@ -2,25 +2,16 @@
 
 int builtin_unset(char **argv)
 {
-  int status;
   size_t i;
 
-  status = 0;
   i = 1;
   while (argv[i])
   {
-    if (map_unset(envmap, argv[i]) < 0)
-    {
-      builtin_error("unset", argv[i], "not a valid indentifier");
-      status = 1;
-    }
-    else
-      status = 0;
+    map_unset(envmap, argv[i]);
     i++;
   }
-  return (status);
+  return (0);
 }
-
 
 // int ft_unset(char **argv)
 // {

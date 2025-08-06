@@ -66,13 +66,13 @@ void remove_quote(t_token *tok)
   char *p;
 
   if (tok == NULL || tok->kind != TK_WORD || tok->word == NULL)
-    return ;
+    return;
   p = tok->word;
   // new_word = NULL;
   new_word = calloc(1, sizeof(char)); // Why allocate 1 block?
   if (new_word == NULL)
     fatal_error("calloc");
-  while(*p && !is_metacharacter(*p))
+  while (*p)
   {
     if (*p == SINGLE_QUOTE_CHAR)
       remove_single_quote(&new_word, &p, p);
@@ -89,7 +89,7 @@ void remove_quote(t_token *tok)
 void expand_quote_removal(t_node *node)
 {
   if (node == NULL)
-    return ;
+    return;
   remove_quote(node->args);
   remove_quote(node->filename);
   remove_quote(node->delimiter);
@@ -123,7 +123,7 @@ void append_num(char **dst, unsigned int num)
   if (num == 0)
   {
     append_char(dst, '0');
-    return ;
+    return;
   }
   if (num / 10 != 0)
     append_num(dst, num / 10);
@@ -137,6 +137,29 @@ void expand_special_parameter_str(char **dst, char **rest, char *p)
   p += 2;
   append_num(dst, last_status);
   *rest = p;
+}
+
+void append_string(char **dst, char *src)
+{
+  size_t dst_len;
+  size_t src_len;
+  char *new;
+
+  if (src == NULL || *src == '\0')
+    return;
+  dst_len = (*dst) ? strlen(*dst) : 0;
+  src_len = strlen(src);
+  new = malloc(dst_len + src_len + 1);
+  if (new == NULL)
+    fatal_error("malloc");
+  if (*dst)
+    ft_strlcpy(new, *dst, dst_len + 1);
+  else
+    new[0] = '\0';
+  ft_strlcat(new, src, dst_len + src_len + 1);
+  if (*dst)
+    free(*dst);
+  *dst = new;
 }
 
 void expand_variable_str(char **dst, char **rest, char *p)
@@ -157,8 +180,7 @@ void expand_variable_str(char **dst, char **rest, char *p)
   value = xgetenv(name);
   free(name);
   if (value)
-    while (*value)
-      append_char(dst, *value++);
+    append_string(dst, value);
   *rest = p;
 }
 
@@ -213,12 +235,12 @@ void expand_variable_tok(t_token *tok)
   char *p;
 
   if (tok == NULL || tok->kind != TK_WORD || tok->word == NULL)
-    return ;
+    return;
   p = tok->word;
   new_word = calloc(1, sizeof(char));
   if (new_word == NULL)
     fatal_error("calloc");
-  while (*p && !is_metacharacter(*p))
+  while (*p)
   {
     if (*p == SINGLE_QUOTE_CHAR)
       append_single_quote(&new_word, &p, p);
@@ -239,7 +261,7 @@ void expand_variable_tok(t_token *tok)
 void expand_variable(t_node *node)
 {
   if (node == NULL)
-    return ;
+    return;
   expand_variable_tok(node->args);
   expand_variable_tok(node->filename);
   // do not expand heredoc delimiter
