@@ -14,7 +14,7 @@ SRCS		= main.c\
 					tokenize/tokenize_utils.c\
 					destructor.c\
 					expand.c\
-					parse.c\
+					tokenize/parse.c\
 					redirect.c\
 					pipe.c\
 					exec.c\
