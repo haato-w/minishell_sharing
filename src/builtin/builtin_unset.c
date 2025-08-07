@@ -9,15 +9,13 @@ int builtin_unset(char **argv)
   i = 1;
   while (argv[i])
   {
-    // if (map_unset(envmap, argv[i]) < 0)
-    // {
-    //   builtin_error("unset", argv[i], "not a valid indentifier");
-    //   status = 1;
-    // }
-    // else
-    //   status = 0;
-    map_unset(envmap, argv[i]);
-    status = 0;
+    if (map_unset(envmap, argv[i]) < 0)
+    {
+      builtin_error("unset", argv[i], "not a valid indentifier");
+      status = 1;
+    }
+    else
+      status = 0;
     i++;
   }
   return (status);
