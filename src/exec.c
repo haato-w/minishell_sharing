@@ -35,10 +35,22 @@ char *search_path(const char *filename)
 
 void validate_access(const char *path, const char *filename)
 {
-  if (path == NULL)
-    err_exit(filename, "command not found", 127);
-  if (access(path, F_OK) < 0)
-    err_exit(filename, "command not found", 127);
+  struct stat	st;
+
+	if (path == NULL)
+		err_exit(filename, "command not found", 127);
+	if (strcmp(filename, "") == 0)
+		err_exit(filename, "command not found", 127);
+	if (strcmp(filename, "..") == 0)
+		err_exit(filename, "command not found", 127);
+	if (access(path, F_OK) < 0)
+		err_exit(filename, "command not found", 127);
+	if (stat(path, &st) < 0)
+		fatal_error("fstat");
+	if (S_ISDIR(st.st_mode))
+		err_exit(filename, "is a directory", 126);
+	if (access(path, X_OK) < 0)
+		err_exit(path, "Permission denied", 126);
 }
 
 int exec_nonbuiltin(t_node *node) __attribute__((noreturn));
