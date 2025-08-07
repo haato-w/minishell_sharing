@@ -166,6 +166,9 @@ void prepare_pipe_parent(t_node *node);
 // exec.c
 int exec(t_node *node);
 
+// search_path.c
+char *search_path(const char *filename);
+
 // signal.h
 void setup_signal(void);
 void reset_signal(void);

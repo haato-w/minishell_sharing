@@ -29,6 +29,7 @@ SRCS		= main.c\
 					builtin/builtin_pwd.c\
 					map.c\
 					env.c\
+					search_path.c\
 
 
 PRINTF = $(PRINTF_DIR)/libftprintf.a

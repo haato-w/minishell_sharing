@@ -1,37 +1,37 @@
 #include "minishell.h"
 
-char *search_path(const char *filename)
-{
-  char path[PATH_MAX];
-  char *value;
-  char *end;
+// char *search_path(const char *filename)
+// {
+//   char path[PATH_MAX];
+//   char *value;
+//   char *end;
 
-  value = xgetenv("PATH");
-  while (*value)
-  {
-    bzero(path, PATH_MAX);
-    end = strchr(value, ':');
-    if (end)
-      strncpy(path, value, end - value);
-    else
-      ft_strlcpy(path, value, PATH_MAX);
-    ft_strlcat(path, "/", PATH_MAX);
-    ft_strlcat(path, filename, PATH_MAX);
-    if (access(path, X_OK) == 0)
-    {
-      char *dup;
+//   value = xgetenv("PATH");
+//   while (*value)
+//   {
+//     bzero(path, PATH_MAX);
+//     end = strchr(value, ':');
+//     if (end)
+//       strncpy(path, value, end - value);
+//     else
+//       ft_strlcpy(path, value, PATH_MAX);
+//     ft_strlcat(path, "/", PATH_MAX);
+//     ft_strlcat(path, filename, PATH_MAX);
+//     if (access(path, X_OK) == 0)
+//     {
+//       char *dup;
 
-      dup = strdup(path);
-      if (dup == NULL)
-        fatal_error("strdup");
-      return (dup);
-    }
-    if (end == NULL)
-      return (NULL);
-    value = end + 1;
-  }
-  return (NULL);
-}
+//       dup = strdup(path);
+//       if (dup == NULL)
+//         fatal_error("strdup");
+//       return (dup);
+//     }
+//     if (end == NULL)
+//       return (NULL);
+//     value = end + 1;
+//   }
+//   return (NULL);
+// }
 
 void validate_access(const char *path, const char *filename)
 {
