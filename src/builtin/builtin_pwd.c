@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../minishell.h"
 
 bool equal_inode(const char *path1, const char *path2)
 {

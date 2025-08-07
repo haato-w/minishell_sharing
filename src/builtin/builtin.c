@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../minishell.h"
 
 bool is_builtin(t_node *node)
 {

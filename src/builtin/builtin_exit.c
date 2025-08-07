@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../minishell.h"
 
 bool is_numeric(char *s) // 数値かどうかをチェック
 {

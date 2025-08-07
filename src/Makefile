@@ -10,7 +10,8 @@ CFLAGS	= -Wall -Wextra -Werror
 LIBS		= -lreadline
 SRCS		= main.c\
 					error.c\
-					tokenize.c\
+					tokenize/tokenize.c\
+					tokenize/tokenize_utils.c\
 					destructor.c\
 					expand.c\
 					parse.c\
@@ -18,14 +19,14 @@ SRCS		= main.c\
 					pipe.c\
 					exec.c\
 					signal.c\
-					builtin.c\
-					builtin_exit.c\
-					builtin_export.c\
-					builtin_unset.c\
-					builtin_env.c\
-					builtin_cd.c\
-					builtin_echo.c\
-					builtin_pwd.c\
+					builtin/builtin.c\
+					builtin/builtin_exit.c\
+					builtin/builtin_export.c\
+					builtin/builtin_unset.c\
+					builtin/builtin_env.c\
+					builtin/builtin_cd.c\
+					builtin/builtin_echo.c\
+					builtin/builtin_pwd.c\
 					map.c\
 					env.c\
 

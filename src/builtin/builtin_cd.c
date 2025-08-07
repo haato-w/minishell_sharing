@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../minishell.h"
 
 bool consume_path(char **rest, char *path, char *elem)
 {
