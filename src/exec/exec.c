@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../minishell.h"
 
 // char *search_path(const char *filename)
 // {

@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../minishell.h"
 
 // void show_token(t_token *tok)
 // {

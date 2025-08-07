@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../minishell.h"
 
 static void set_path(char *path, size_t pathsize, const char *filename, char **envpath)
 {

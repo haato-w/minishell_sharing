@@ -9,15 +9,16 @@ CC		= cc
 CFLAGS	= -Wall -Wextra -Werror
 LIBS		= -lreadline
 SRCS		= main.c\
-					error.c\
 					tokenize/tokenize.c\
 					tokenize/tokenize_utils.c\
-					destructor.c\
+					utils/error.c\
+					utils/destructor.c\
 					expand.c\
 					tokenize/parse.c\
 					redirect.c\
 					pipe.c\
-					exec.c\
+					exec/exec.c\
+					exec/search_path.c\
 					signal.c\
 					builtin/builtin.c\
 					builtin/builtin_exit.c\
@@ -29,7 +30,6 @@ SRCS		= main.c\
 					builtin/builtin_pwd.c\
 					map.c\
 					env.c\
-					search_path.c\
 
 
 PRINTF = $(PRINTF_DIR)/libftprintf.a

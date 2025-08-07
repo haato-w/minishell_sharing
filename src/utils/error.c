@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../minishell.h"
 
 #define ERROR_PREFIX "minishell: "
 
