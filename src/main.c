@@ -6,7 +6,7 @@
 /*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 04:48:10 by heart             #+#    #+#             */
-/*   Updated: 2025/08/09 04:52:33 by heart            ###   ########.fr       */
+/*   Updated: 2025/08/09 05:22:10 by heart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_context	g_ctx = {};
 
-void	interpret(char *line, int *stat_loc)
+static void	interpret(char *line, int *stat_loc)
 {
 	t_token	*tok;
 	t_node	*node;

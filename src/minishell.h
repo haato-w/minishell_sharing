@@ -6,7 +6,7 @@
 /*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 04:53:37 by heart             #+#    #+#             */
-/*   Updated: 2025/08/09 05:04:12 by heart            ###   ########.fr       */
+/*   Updated: 2025/08/09 05:28:18 by heart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,9 @@ int		exec(t_node *node);
 
 // search_path.c
 char	*search_path(const char *filename);
+
+// validate_access.c
+void	validate_access(const char *path, const char *filename);
 
 // signal.h
 void	setup_signal(void);

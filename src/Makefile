@@ -4,8 +4,6 @@ GNL_DIR = $(MINISHELL_DIR)/submodules/get_next_line
 
 NAME	= minishell
 CC		= cc
-# INCLUDES = -I include
-# CFLAGS	= -Wall -Wextra -Werror $(INCLUDES)
 CFLAGS	= -Wall -Wextra -Werror
 LIBS		= -lreadline
 SRCS		= main.c\
@@ -19,6 +17,7 @@ SRCS		= main.c\
 					pipe.c\
 					exec/exec.c\
 					exec/search_path.c\
+					exec/validate_access.c\
 					signal.c\
 					builtin/builtin.c\
 					builtin/builtin_exit.c\
