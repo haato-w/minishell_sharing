@@ -3,12 +3,9 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-
-volatile sig_atomic_t sig = 0;
-
 void handler(int signum)
 {
-  sig = signum;
+  g_ctx.sig = signum;
 }
 
 void reset_sig(int signum)
@@ -46,12 +43,12 @@ void setup_sigint(void)
 
 int check_state(void)
 {
-  if (sig == 0)
+  if (g_ctx.sig == 0)
     return (0);
-  else if (sig == SIGINT)
+  else if (g_ctx.sig == SIGINT)
   {
-    sig = 0;
-    readline_interrupted = true;
+    g_ctx.sig = 0;
+    g_ctx.readline_interrupted = true;
     rl_replace_line("", 0);
     rl_done = 1;
     return (0);

@@ -9,7 +9,7 @@ int builtin_unset(char **argv)
   i = 1;
   while (argv[i])
   {
-    if (map_unset(envmap, argv[i]) < 0)
+    if (map_unset(g_ctx.envmap, argv[i]) < 0)
     {
       builtin_error("unset", argv[i], "not a valid indentifier");
       status = 1;

@@ -5,7 +5,7 @@ int builtin_env(char **argv)
   t_item *cur;
 
   (void)argv;
-  cur = envmap->item_head.next;
+  cur = g_ctx.envmap->item_head.next;
   while (cur)
   {
     if (cur->value)

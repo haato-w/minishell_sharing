@@ -4,7 +4,7 @@ void print_allenv(void)
 {
   t_item *cur;
 
-  cur = envmap->item_head.next;
+  cur = g_ctx.envmap->item_head.next;
   while (cur)
   {
     if (cur->value)
@@ -30,7 +30,7 @@ int builtin_export(char **argv)
     i = 1;
     while (argv[i])
     {
-      if (map_put(envmap, argv[i], true) < 0)
+      if (map_put(g_ctx.envmap, argv[i], true) < 0)
       {
         builtin_error("export", argv[i], "not a valid identifier");
         status = 1;

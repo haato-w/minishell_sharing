@@ -1,7 +1,5 @@
 #include "minishell.h"
 
-bool readline_interrupted = false;
-
 int stashfd(int fd)
 {
   int stashfd;
@@ -21,13 +19,13 @@ int read_heredoc(const char *delimiter, bool is_delim_unquoted)
 
   if (pipe(pfd) < 0)
     fatal_error("pipe");
-  readline_interrupted = false;
+  g_ctx.readline_interrupted = false;
   while (1)
   {
     line = readline("> ");
     if (line == NULL)
       break;
-    if (readline_interrupted)
+    if (g_ctx.readline_interrupted)
     {
       free(line);
       break;
@@ -43,7 +41,7 @@ int read_heredoc(const char *delimiter, bool is_delim_unquoted)
     free(line);
   }
   close(pfd[1]);
-  if (readline_interrupted)
+  if (g_ctx.readline_interrupted)
   {
     close(pfd[0]);
     return (-1);

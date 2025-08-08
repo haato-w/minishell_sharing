@@ -27,8 +27,8 @@ int builtin_exit(char **argv)
 {
     int exit_code;
 
-    exit_code = last_status;
-    if (syntax_error)
+    exit_code = g_ctx.last_status;
+    if (g_ctx.syntax_error)
     {
         xperror("syntax error\n");
         return (1);

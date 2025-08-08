@@ -40,24 +40,9 @@ typedef enum e_node_kind t_node_kind;
 typedef struct s_node t_node;
 typedef struct s_map t_map;
 typedef struct s_item t_item;
+typedef struct s_context t_context;
+extern t_context g_ctx;
 
-extern int last_status;
-extern bool syntax_error;
-extern bool readline_interrupted;
-extern volatile sig_atomic_t sig;
-extern t_map *envmap;
-
-// error.c
-void todo(const char *msg) __attribute__((noreturn));
-void fatal_error(const char *msg) __attribute__((noreturn));
-void assert_error(const char *msg) __attribute__((noreturn));
-void err_exit(const char *location, const char *msg, int status) __attribute__((noreturn));
-void tokenize_error(const char *location, char **rest, char *line);
-void parse_error(const char *location, t_token **rest, t_token *tok);
-void xperror(const char *location);
-void builtin_error(const char *func, const char *name, const char *err);
-
-// tokenize.c
 enum e_token_kind
 {
   TK_WORD,
@@ -103,13 +88,6 @@ struct s_node
   t_node *command;
 };
 
-// Redirecting output example
-// command: "echo hello 1 > out"
-// targetfd : 1
-// filename: "out"
-// filefd: open("out")
-// stashed_targetfd: dup(targetfd)
-
 struct s_item
 {
   char *name;
@@ -121,6 +99,25 @@ struct s_map
 {
   t_item item_head;
 };
+
+struct s_context 
+{
+  int last_status;
+  bool syntax_error;
+  bool readline_interrupted;
+  volatile sig_atomic_t sig;
+  t_map *envmap;
+};
+
+// error.c
+void todo(const char *msg) __attribute__((noreturn));
+void fatal_error(const char *msg) __attribute__((noreturn));
+void assert_error(const char *msg) __attribute__((noreturn));
+void err_exit(const char *location, const char *msg, int status) __attribute__((noreturn));
+void tokenize_error(const char *location, char **rest, char *line);
+void parse_error(const char *location, t_token **rest, t_token *tok);
+void xperror(const char *location);
+void builtin_error(const char *func, const char *name, const char *err);
 
 // tokenize.c
 t_token *tokenize(char *line);
@@ -198,20 +195,6 @@ int builtin_echo(char **argv);
 
 // builtin_pwd.c
 int builtin_pwd(char **argv);
-
-// void error_msg(char *msg);
-// void error_msg_fmt(char *prefix, char *arg, char *suffix);
-// int builtins(char **argv, int exit_code);
-// int ft_exit(char **argv);
-// int ft_export(char **argv);
-// int ft_unset(char **argv);
-// int ft_env(char **argv);
-// int set_env_var(char *arg);
-// int is_valid_var_name(char *name);
-// int is_numeric(char *s);
-// int ft_cd(char **argv);
-// int ft_pwd(char **argv);
-// int ft_echo(char **argv);
 
 // map.c
 t_item *item_new(char *bame, char *value);

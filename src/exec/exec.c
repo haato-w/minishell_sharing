@@ -65,7 +65,7 @@ int exec_nonbuiltin(t_node *node)
   if (strchr(path, '/') == NULL)
     path = search_path(path);
   validate_access(path, argv[0]);
-  execve(path, argv, get_environ(envmap));
+  execve(path, argv, get_environ(g_ctx.envmap));
   free_argv(argv);
   reset_redirect(node->command->redirects);
   fatal_error("execve");

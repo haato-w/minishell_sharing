@@ -83,7 +83,7 @@ t_token *tokenize(char *line)
   t_token head;
   t_token *tok;
 
-  syntax_error = false;
+  g_ctx.syntax_error = false;
   head.next = NULL;
   tok = &head;
   while (*line)

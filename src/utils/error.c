@@ -2,8 +2,6 @@
 
 #define ERROR_PREFIX "minishell: "
 
-bool syntax_error = false;
-
 static void perror_prefix(void)
 {
   dprintf(STDERR_FILENO, "%s", ERROR_PREFIX);
@@ -39,7 +37,7 @@ void todo(const char *msg)
 
 void tokenize_error(const char *location, char **rest, char *line)
 {
-  syntax_error = true;
+  g_ctx.syntax_error = true;
   perror_prefix();
   dprintf(STDERR_FILENO, "syntax errror near %s\n", location);
   while (*line)
@@ -49,7 +47,7 @@ void tokenize_error(const char *location, char **rest, char *line)
 
 void parse_error(const char *location, t_token **rest, t_token *tok)
 {
-  syntax_error = true;
+  g_ctx.syntax_error = true;
   perror_prefix();
   dprintf(STDERR_FILENO, "syntax error near unexpected token `%s' in %s\n", tok->word, location);
   while (tok && !at_eof(tok))

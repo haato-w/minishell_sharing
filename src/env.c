@@ -1,20 +1,18 @@
 #include "minishell.h"
 
-t_map *envmap;
-
 static void envmap_init(t_map *map, char **ep);
 
 char *xgetenv(const char *name)
 {
-  return (map_get(envmap, name));
+  return (map_get(g_ctx.envmap, name));
 }
 
 void initenv(void)
 {
   extern char **environ;
 
-  envmap = map_new();
-  envmap_init(envmap, environ);
+  g_ctx.envmap = map_new();
+  envmap_init(g_ctx.envmap, environ);
 }
 
 char **get_environ(t_map *map)

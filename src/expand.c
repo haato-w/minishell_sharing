@@ -135,7 +135,7 @@ void expand_special_parameter_str(char **dst, char **rest, char *p)
   if (!is_special_paramer(p))
     assert_error("Expected special parameter");
   p += 2;
-  append_num(dst, last_status);
+  append_num(dst, g_ctx.last_status);
   *rest = p;
 }
 

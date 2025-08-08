@@ -81,11 +81,11 @@ int builtin_cd(char **argv)
   char path[PATH_MAX];
   char *newpwd;
 
-  oldpwd = map_get(envmap, "PWD");
-  map_set(envmap, "OLDPWD", oldpwd);
+  oldpwd = map_get(g_ctx.envmap, "PWD");
+  map_set(g_ctx.envmap, "OLDPWD", oldpwd);
   if (argv[1] == NULL)
   {
-    home = map_get(envmap, "HOME");
+    home = map_get(g_ctx.envmap, "HOME");
     if (home == NULL)
     {
       builtin_error("cd", NULL, "HOME not set");
@@ -101,7 +101,7 @@ int builtin_cd(char **argv)
     return (1);
   }
   newpwd = resolve_pwd(oldpwd, path);
-  map_set(envmap, "PWD", newpwd);
+  map_set(g_ctx.envmap, "PWD", newpwd);
   free(newpwd);
   return (0);
 }
