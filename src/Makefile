@@ -38,6 +38,7 @@ SRCS		= main.c\
 					builtin/builtin_unset.c\
 					builtin/builtin_env.c\
 					builtin/builtin_cd.c\
+					builtin/path_funcs.c\
 					builtin/builtin_echo.c\
 					builtin/builtin_pwd.c\
 					map.c\

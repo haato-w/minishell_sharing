@@ -6,7 +6,7 @@
 /*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 04:53:37 by heart             #+#    #+#             */
-/*   Updated: 2025/08/09 13:43:18 by heart            ###   ########.fr       */
+/*   Updated: 2025/08/09 14:01:30 by heart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,6 +237,11 @@ int		builtin_env(char **argv);
 
 // builtin_cd.c
 int		builtin_cd(char **argv);
+
+// path_funcs.c
+bool	consume_path(char **rest, char *path, char *elem);
+void	delete_last_elem(char *path);
+void	append_path_elem(char *dst, char **rest, char *src);
 
 // builtin_echo.c
 int		builtin_echo(char **argv);
