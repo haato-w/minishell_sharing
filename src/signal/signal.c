@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
+/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:42:59 by heart             #+#    #+#             */
-/*   Updated: 2025/08/09 13:44:52 by heart            ###   ########.fr       */
+/*   Updated: 2025/08/09 18:22:54 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ int	check_state(void)
 	{
 		g_ctx.sig = 0;
 		g_ctx.readline_interrupted = true;
+		rl_on_new_line();
 		rl_replace_line("", 0);
+		rl_redisplay();
 		rl_done = 1;
 		return (0);
 	}
