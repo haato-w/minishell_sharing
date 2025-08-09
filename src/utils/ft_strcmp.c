@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 22:11:58 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/09 22:21:36 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/09 22:26:31 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@ int	ft_strcmp(const char *s1, const char *s2)
 {
 	size_t	len;
 
-	len = min(ft_strlen(s1), ft_strlen(s2));
+	len = min(ft_strlen(s1), ft_strlen(s2)) + 1;
 	return (ft_strncmp(s1, s2, len));
 }
