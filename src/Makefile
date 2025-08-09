@@ -11,14 +11,19 @@ SRCS		= main.c\
 					tokenize/tokenize_utils.c\
 					utils/error.c\
 					utils/destructor.c\
-					expand.c\
+					utils/ft_strndup.c\
+					utils/ft_xstrdup.c\
+					utils/ft_xstrndup.c\
+					utils/ft_xcalloc.c\
+					expand/expand.c\
 					tokenize/parse.c\
-					redirect.c\
+					tokenize/argv.c\
+					redirect/redirect.c\
 					pipe.c\
 					exec/exec.c\
 					exec/search_path.c\
 					exec/validate_access.c\
-					signal.c\
+					signal/signal.c\
 					builtin/builtin.c\
 					builtin/builtin_exit.c\
 					builtin/builtin_export.c\

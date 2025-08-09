@@ -6,7 +6,7 @@
 /*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 04:53:37 by heart             #+#    #+#             */
-/*   Updated: 2025/08/09 05:28:18 by heart            ###   ########.fr       */
+/*   Updated: 2025/08/09 12:40:57 by heart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,11 @@ void	tokenize_error(const char *location, char **rest, char *line);
 void	parse_error(const char *location, t_token **rest, t_token *tok);
 void	xperror(const char *location);
 void	builtin_error(const char *func, const char *name, const char *err);
+
+char	*ft_strndup(const char *s1, size_t n);
+char	*ft_xstrdup(const char *s1);
+char	*ft_xstrndup(const char *s1, size_t size);
+void	*ft_xcalloc(size_t count, size_t size);
 
 // tokenize.c
 t_token	*tokenize(char *line);
