@@ -7,8 +7,6 @@ CC		= cc
 CFLAGS	= -Wall -Wextra -Werror
 LIBS		= -lreadline
 SRCS		= main.c\
-					tokenize/tokenize.c\
-					tokenize/tokenize_utils.c\
 					utils/error.c\
 					utils/destructor.c\
 					utils/ft_strndup.c\
@@ -16,8 +14,14 @@ SRCS		= main.c\
 					utils/ft_xstrndup.c\
 					utils/ft_xcalloc.c\
 					expand/expand.c\
-					tokenize/parse.c\
+					tokenize/tokenize.c\
+					tokenize/tokenize_utils.c\
 					tokenize/argv.c\
+					tokenize/word.c\
+					parse/parse.c\
+					parse/parse_utils.c\
+					parse/parse_redirect.c\
+					parse/node.c\
 					redirect/redirect.c\
 					pipe.c\
 					exec/exec.c\

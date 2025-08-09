@@ -6,7 +6,7 @@
 /*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 04:53:37 by heart             #+#    #+#             */
-/*   Updated: 2025/08/09 12:40:57 by heart            ###   ########.fr       */
+/*   Updated: 2025/08/09 13:15:48 by heart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,29 @@ t_token	*new_token(char *word, t_token_kind kind);
 t_token	*operator(char **rest, char *line);
 t_token	*word(char **rest, char *line);
 
+// parse.c
+t_node	*parse(t_token *tok);
+void	append_command_element(t_node *command, t_token **rest, t_token *tok);
+
+// parse_utils.c
+bool at_eof(t_token *tok);
+bool equal_op(t_token *tok, char *op);
+t_token *tokdup(t_token *tok);
+void append_tok(t_token **tok, t_token *elm);
+
+// parse_redirect.c
+t_node	*redirect_out(t_token **rest, t_token *tok);
+t_node	*redirect_in(t_token **rest, t_token *tok);
+t_node	*redirect_append(t_token **rest, t_token *tok);
+t_node	*redirect_heredoc(t_token **rest, t_token *tok);
+
+// node.c
+t_node	*new_node(t_node_kind kind);
+void	append_node(t_node **node, t_node *elm);
+
+// word.c
+t_token	*word(char **rest, char *line);
+
 // tokenize_utils.c
 bool	is_blank(char c);
 bool	consume_blank(char **rest, char *line);
@@ -150,14 +173,6 @@ char	*expand_heredoc_line(char *line);
 void	free_node(t_node *node);
 void	free_tok(t_token *tok);
 void	free_argv(char **argv);
-
-// parse.c
-t_node	*parse(t_token *tok);
-void	append_command_element(t_node *command, t_token **rest, t_token *tok);
-bool	at_eof(t_token *tok);
-t_node	*new_node(t_node_kind kind);
-void	append_tok(t_token **tokens, t_token *tok);
-t_token	*tokdup(t_token *tok);
 
 // redirect.c
 int		open_redir_file(t_node *node);
