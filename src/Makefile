@@ -45,8 +45,11 @@ SRCS		= main.c\
 					builtin/path_funcs.c\
 					builtin/builtin_echo.c\
 					builtin/builtin_pwd.c\
-					map.c\
-					env.c\
+					environ/env.c\
+					environ/map.c\
+					environ/map_set.c\
+					environ/map_item.c\
+					environ/map_put.c\
 
 
 PRINTF = $(PRINTF_DIR)/libftprintf.a

@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 04:53:37 by heart             #+#    #+#             */
-/*   Updated: 2025/08/09 19:03:05 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/09 19:40:12 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,13 @@ struct s_node
 	t_node		*command;
 };
 
+# define ATTR_EXPORT 0x00000001
+
 struct s_item
 {
 	char	*name;
 	char	*value;
+	int		attributes;
 	t_item	*next;
 };
 
@@ -259,15 +262,23 @@ int		builtin_echo(char **argv);
 int		builtin_pwd(char **argv);
 
 // map.c
-t_item	*item_new(char *bame, char *value);
-char	*item_get_string(t_item *item);
+bool	is_identifier(const char *s);
 t_map	*map_new(void);
-char	*map_get(t_map *map, const char *name);
-int		map_put(t_map *map, const char *string, bool allow_wmpty_value);
-int		map_set(t_map *map, const char *name, const char *value);
+t_item	*map_get(t_map *map, const char *name);
 int		map_unset(t_map *map, const char *name);
 size_t	map_len(t_map *map, bool count_null_value);
-void	map_printall(t_map *map);
+
+// map_item.c
+t_item *item_new(char *name, char *value, int attributes);
+bool item_exported(t_item *item);
+char *item_get_string(t_item *item);
+
+// map_set.c
+int	map_set(t_map *map, const char *name, const char *value);
+int	map_set_attr(t_map *map, const char *name, const char *value, int attr);
+
+// map_put.c
+int	map_put(t_map *map, const char *string, bool allow_empty_value, int attr);
 
 // env.c
 char	*xgetenv(const char *name);

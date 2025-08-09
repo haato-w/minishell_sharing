@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 16:04:06 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/09 16:04:55 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/09 19:37:52 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	builtin_export(char **argv)
 	i = 1;
 	while (argv[i])
 	{
-		if (map_put(g_ctx.envmap, argv[i], true) < 0)
+		if (map_put(g_ctx.envmap, argv[i], true, ATTR_EXPORT) < 0)
 		{
 			builtin_error("export", argv[i], "not a valid identifier");
 			status = 1;
