@@ -5,6 +5,7 @@ GNL_DIR = $(MINISHELL_DIR)/submodules/get_next_line
 NAME	= minishell
 CC		= cc
 CFLAGS	= -Wall -Wextra -Werror
+# CFLAGS	= -Wall -Wextra -Werror -g -fsanitize=leak -fsanitize=address
 LIBS		= -lreadline
 SRCS		= main.c\
 					utils/error.c\
