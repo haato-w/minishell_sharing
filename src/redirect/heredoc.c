@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 18:52:46 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/09 22:19:30 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/10 04:37:33 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	readline_heredoc_loop(int pfd[2], const char *delimiter,
 		}
 		if (is_delim_unquoted)
 			line = expand_heredoc_line(line);
-		dprintf(pfd[1], "%s\n", line);
+		ft_dprintf(pfd[1], "%s\n", line);
 		free(line);
 	}
 }
