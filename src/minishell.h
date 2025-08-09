@@ -6,7 +6,7 @@
 /*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 04:53:37 by heart             #+#    #+#             */
-/*   Updated: 2025/08/09 13:15:48 by heart            ###   ########.fr       */
+/*   Updated: 2025/08/09 13:34:25 by heart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,21 @@ bool	is_word(const char *s);
 // expand.c
 void	expand(t_node *tok);
 char	*expand_heredoc_line(char *line);
+void append_char(char **s, char c);
+void expand_special_parameter_str(char **dst, char **rest, char *p);
+
+// expand_quote_removal.c
+void	expand_quote_removal(t_node *node);
+
+// expand_variable.c
+void	expand_variable_str(char **dst, char **rest, char *p);
+void	expand_variable(t_node *node);
+
+// expand_utils.c
+bool is_alpha_under(char c);
+bool is_alpha_num_under(char c);
+bool is_variable(char *s);
+bool is_special_paramer(char *s);
 
 // destructor.c
 void	free_node(t_node *node);

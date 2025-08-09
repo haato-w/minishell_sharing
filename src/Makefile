@@ -13,7 +13,6 @@ SRCS		= main.c\
 					utils/ft_xstrdup.c\
 					utils/ft_xstrndup.c\
 					utils/ft_xcalloc.c\
-					expand/expand.c\
 					tokenize/tokenize.c\
 					tokenize/tokenize_utils.c\
 					tokenize/argv.c\
@@ -22,6 +21,10 @@ SRCS		= main.c\
 					parse/parse_utils.c\
 					parse/parse_redirect.c\
 					parse/node.c\
+					expand/expand.c\
+					expand/expand_quote_removal.c\
+					expand/expand_variable.c\
+					expand/expand_utils.c\
 					redirect/redirect.c\
 					pipe.c\
 					exec/exec.c\
