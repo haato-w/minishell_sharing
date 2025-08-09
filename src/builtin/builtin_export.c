@@ -6,13 +6,13 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 16:04:06 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/09 19:37:52 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/09 22:31:39 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	print_allenv(void)
+static void	print_allenv(void)
 {
 	t_item	*cur;
 
