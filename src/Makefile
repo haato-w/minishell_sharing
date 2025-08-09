@@ -11,6 +11,9 @@ SRCS		= main.c\
 					tokenize/tokenize_utils.c\
 					utils/error.c\
 					utils/destructor.c\
+					utils/ft_xstrdup.c\
+					utils/ft_strndup.c\
+					utils/ft_xstrndup.c\
 					expand.c\
 					tokenize/parse.c\
 					redirect.c\
@@ -27,8 +30,8 @@ SRCS		= main.c\
 					builtin/builtin_cd.c\
 					builtin/builtin_echo.c\
 					builtin/builtin_pwd.c\
-					map.c\
-					env.c\
+					environ/map.c\
+					environ/env.c\
 
 
 PRINTF = $(PRINTF_DIR)/libftprintf.a

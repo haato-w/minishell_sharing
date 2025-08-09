@@ -6,7 +6,7 @@
 /*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 04:53:37 by heart             #+#    #+#             */
-/*   Updated: 2025/08/09 05:28:18 by heart            ###   ########.fr       */
+/*   Updated: 2025/08/09 12:25:44 by heart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ struct s_item
 {
 	char	*name;
 	char	*value;
+	int		attributes;
 	t_item	*next;
 };
 
@@ -122,6 +123,15 @@ void	tokenize_error(const char *location, char **rest, char *line);
 void	parse_error(const char *location, t_token **rest, t_token *tok);
 void	xperror(const char *location);
 void	builtin_error(const char *func, const char *name, const char *err);
+
+// ft_xstrdup.c
+char	*ft_xstrdup(const char *s1);
+
+// ft_xstrndup.c
+char	*ft_xstrndup(const char *s1, size_t size);
+
+// ft_strndup.c
+char	*ft_strndup(const char *s1, size_t n);
 
 // tokenize.c
 t_token	*tokenize(char *line);
