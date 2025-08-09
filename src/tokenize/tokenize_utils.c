@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
+/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:19:07 by heart             #+#    #+#             */
-/*   Updated: 2025/08/09 22:20:17 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/10 04:43:07 by heart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ bool	consume_blank(char **rest, char *line)
 
 bool	startswith(const char *s, const char *keyword)
 {
-	return (memcmp(s, keyword, ft_strlen(keyword)) == 0);
+	return (ft_memcmp(s, keyword, ft_strlen(keyword)) == 0);
 }
 
 bool	is_metacharacter(char c)
