@@ -6,25 +6,25 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 03:02:42 by haatwata          #+#    #+#             */
-/*   Updated: 2025/02/09 16:24:22 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/10 04:11:46 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	put_space(int width)
+void	put_space(int width, int fd)
 {
 	int	i;
 
 	i = 0;
 	while (i < width)
 	{
-		ft_putchar_fd(' ', 1);
+		ft_putchar_fd(' ', fd);
 		i++;
 	}
 }
 
-void	put_ptr_as_hex(uintptr_t ptr_uint)
+void	put_ptr_as_hex(uintptr_t ptr_uint, int fd)
 {
 	char	*hex_digits;
 	char	reverse_buffer[17];
@@ -46,8 +46,8 @@ void	put_ptr_as_hex(uintptr_t ptr_uint)
 		buffer[j] = reverse_buffer[i - j - 1];
 		j++;
 	}
-	ft_putstr_fd("0x", 1);
-	ft_putstr_fd(buffer, 1);
+	ft_putstr_fd("0x", fd);
+	ft_putstr_fd(buffer, fd);
 }
 
 int	base_n_len(unsigned int value, unsigned int n)
@@ -80,7 +80,7 @@ static void	reverse_buffer(
 	}
 }
 
-void	put_as_base_n(unsigned int value, unsigned int n, bool is_big)
+void	put_as_base_n(unsigned int value, unsigned int n, bool is_big, int fd)
 {
 	char	*hex_digits;
 	char	rev_buffer[17];
@@ -90,7 +90,7 @@ void	put_as_base_n(unsigned int value, unsigned int n, bool is_big)
 	hex_digits = "0123456789abcdef";
 	if (value == 0)
 	{
-		ft_putchar_fd(hex_digits[0], 1);
+		ft_putchar_fd(hex_digits[0], fd);
 		return ;
 	}
 	rev_buffer[0] = '\0';
@@ -101,5 +101,5 @@ void	put_as_base_n(unsigned int value, unsigned int n, bool is_big)
 		value /= n;
 	}
 	reverse_buffer(i, buffer, rev_buffer, is_big);
-	ft_putstr_fd(buffer, 1);
+	ft_putstr_fd(buffer, fd);
 }

@@ -6,39 +6,39 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 03:02:15 by haatwata          #+#    #+#             */
-/*   Updated: 2025/02/09 16:06:06 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/10 04:30:03 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	put_specifier_content(const char *format, va_list *ap, int width)
+static int	put_specifier_content(const char *format, va_list *ap, int width, int fd)
 {
 	if (*format == 'c')
-		return (put_type_c(ap, width));
+		return (put_type_c(ap, width, fd));
 	else if (*format == 's')
-		return (put_type_s(ap, width));
+		return (put_type_s(ap, width, fd));
 	else if (*format == 'p')
-		return (put_type_p(ap, width));
+		return (put_type_p(ap, width, fd));
 	else if (*format == 'd')
-		return (put_type_d(ap, width));
+		return (put_type_d(ap, width, fd));
 	else if (*format == 'i')
-		return (put_type_d(ap, width));
+		return (put_type_d(ap, width, fd));
 	else if (*format == 'u')
-		return (put_type_u(ap, width));
+		return (put_type_u(ap, width, fd));
 	else if (*format == 'x')
-		return (put_type_x(ap, width, false));
+		return (put_type_x(ap, width, false, fd));
 	else if (*format == 'X')
-		return (put_type_x(ap, width, true));
+		return (put_type_x(ap, width, true, fd));
 	else if (*format == '%')
 	{
-		ft_putchar_fd('%', 1);
+		ft_putchar_fd('%', fd);
 		return (1);
 	}
 	return (0);
 }
 
-static int	process_specifier(const char **format, va_list *ap)
+static int	process_specifier(const char **format, va_list *ap, int fd)
 {
 	int	width;
 	int	ret;
@@ -47,12 +47,12 @@ static int	process_specifier(const char **format, va_list *ap)
 	width = ft_atoi(*format);
 	while (ft_isdigit(**format))
 		(*format)++;
-	ret = put_specifier_content(*format, ap, width);
+	ret = put_specifier_content(*format, ap, width, fd);
 	(*format)++;
 	return (ret);
 }
 
-static int	ft_vprintf(const char *format, va_list *ap)
+static int	ft_vdprintf(const char *format, va_list *ap, int fd)
 {
 	size_t	ret;
 
@@ -60,14 +60,25 @@ static int	ft_vprintf(const char *format, va_list *ap)
 	while (*format)
 	{
 		if (*format == '%')
-			ret += process_specifier(&format, ap);
+			ret += process_specifier(&format, ap, fd);
 		else
 		{
-			ft_putchar_fd(*format, 1);
+			ft_putchar_fd(*format, fd);
 			format++;
 			ret++;
 		}
 	}
+	return (ret);
+}
+
+int	ft_dprintf(int fd, const char *format, ...)
+{
+	va_list	ap;
+	size_t	ret;
+
+	va_start(ap, format);
+	ret = ft_vdprintf(format, &ap, fd);
+	va_end(ap);
 	return (ret);
 }
 
@@ -77,7 +88,7 @@ int	ft_printf(const char *format, ...)
 	size_t	ret;
 
 	va_start(ap, format);
-	ret = ft_vprintf(format, &ap);
+	ret = ft_vdprintf(format, &ap, STDOUT_FILENO);
 	va_end(ap);
 	return (ret);
 }

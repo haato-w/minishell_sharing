@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 04:53:37 by heart             #+#    #+#             */
-/*   Updated: 2025/08/09 22:16:53 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/10 04:32:21 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <sys/wait.h>
 # include <signal.h>
 # include <sys/stat.h>
+# include "submodules/printf/ft_printf.h"
 # include "submodules/printf/libft/libft.h"
 
 # define ERROR_TOKENIZE 258
