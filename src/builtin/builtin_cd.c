@@ -1,107 +1,87 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin_cd.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/09 16:10:32 by haatwata          #+#    #+#             */
+/*   Updated: 2025/08/09 16:22:28 by haatwata         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-bool consume_path(char **rest, char *path, char *elem)
+static char	*resolve_pwd(char *oldpwd, char *path)
 {
-  size_t elem_len;
+	char	newpwd[PATH_MAX];
+	char	*dup;
 
-  elem_len = strlen(elem);
-  if (strncmp(path, elem, elem_len) == 0)
-  {
-    if (path[elem_len] == '\0' || path[elem_len] == '/')
-    {
-      *rest = path + elem_len;
-      return (true);
-    }
-  }
-  return (false);
+	if (*path == '/' || oldpwd == NULL)
+		ft_strlcpy(newpwd, "/", PATH_MAX);
+	else
+		ft_strlcpy(newpwd, oldpwd, PATH_MAX);
+	while (*path)
+	{
+		if (*path == '/')
+			path++;
+		else if (consume_path(&path, path, "."))
+			;
+		else if (consume_path(&path, path, ".."))
+			delete_last_elem(newpwd);
+		else
+			append_path_elem(newpwd, PATH_MAX, &path, path);
+	}
+	dup = strdup(newpwd);
+	if (dup == NULL)
+		fatal_error("strdup");
+	return (dup);
 }
 
-void delete_last_elem(char *path)
+static void	update_oldpwd(char *pwd)
 {
-  char *start;
-  char *last_slash_ptr;
-
-  start = path;
-  last_slash_ptr = NULL;
-  while (*path)
-  {
-    if (*path == '/')
-      last_slash_ptr = path;
-    path++;
-  }
-  if (last_slash_ptr != start)
-    *last_slash_ptr = '\0';
+	if (pwd == NULL)
+		map_set(g_ctx.envmap, "OLDPWD", "");
+	else
+		map_set(g_ctx.envmap, "OLDPWD", pwd);
 }
 
-void append_path_elem(char *dst, char **rest, char *src)
+static int	set_path(char *path, size_t path_size, char *arg)
 {
-  size_t elem_len;
+	char	*home;
 
-  elem_len = 0;
-  while (src[elem_len] && src[elem_len] != '/')
-    elem_len++;
-  // TODO: strcat, strncat is unsafe
-  if (dst[strlen(dst) - 1] != '/')
-    strcat(dst, "/");
-  strncat(dst, src, elem_len);
-  *rest = src + elem_len;
+	if (arg == NULL)
+	{
+		home = xgetenv("HOME");
+		if (home == NULL)
+		{
+			builtin_error("cd", NULL, "HOME not set");
+			return (-1);
+		}
+		ft_strlcpy(path, home, path_size);
+	}
+	else
+		ft_strlcpy(path, arg, path_size);
+	return (0);
 }
 
-char *resolve_pwd(char *oldpwd, char *path)
+int	builtin_cd(char **argv)
 {
-  char newpwd[PATH_MAX];
-  char *dup;
+	char	*pwd;
+	char	path[PATH_MAX];
+	char	*newpwd;
 
-  if (*path == '/' || oldpwd == NULL)
-    ft_strlcpy(newpwd, "/", PATH_MAX);
-  else
-    ft_strlcpy(newpwd, oldpwd, PATH_MAX);
-  while (*path)
-  {
-    if (*path == '/')
-      path++;
-    else if (consume_path(&path, path, "."))
-      ;
-    else if (consume_path(&path, path, ".."))
-      delete_last_elem(newpwd);
-    else
-      append_path_elem(newpwd, &path, path);
-  }
-  dup = strdup(newpwd);
-  if (dup == NULL)
-    fatal_error("strdup");
-  return (dup);
-}
-
-// $PWD, $OLDPWDの扱いを考える必要があるので結構変えた。
-int builtin_cd(char **argv)
-{
-  char *home;
-  char *oldpwd;
-  char path[PATH_MAX];
-  char *newpwd;
-
-  oldpwd = map_get(g_ctx.envmap, "PWD");
-  map_set(g_ctx.envmap, "OLDPWD", oldpwd);
-  if (argv[1] == NULL)
-  {
-    home = map_get(g_ctx.envmap, "HOME");
-    if (home == NULL)
-    {
-      builtin_error("cd", NULL, "HOME not set");
-      return (1);
-    }
-    ft_strlcpy(path, home, PATH_MAX);
-  }
-  else
-    ft_strlcpy(path, argv[1], PATH_MAX);
-  if (chdir(path) < 0)
-  {
-    builtin_error("cd", NULL, "chdir");
-    return (1);
-  }
-  newpwd = resolve_pwd(oldpwd, path);
-  map_set(g_ctx.envmap, "PWD", newpwd);
-  free(newpwd);
-  return (0);
+	pwd = xgetenv("PWD");
+	update_oldpwd(pwd);
+	if (set_path(path, PATH_MAX, argv[1]) < 0)
+		return (1);
+	if (chdir(path) < 0)
+	{
+		builtin_error("cd", path, NULL);
+		return (1);
+	}
+	newpwd = resolve_pwd(pwd, path);
+	map_set(g_ctx.envmap, "PWD", newpwd);
+	free(newpwd);
+	return (0);
 }
