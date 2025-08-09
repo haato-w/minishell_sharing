@@ -27,6 +27,8 @@ SRCS		= main.c\
 					expand/expand_variable.c\
 					expand/expand_utils.c\
 					redirect/redirect.c\
+					redirect/open_redir_file.c\
+					redirect/heredoc.c\
 					pipe.c\
 					exec/exec.c\
 					exec/search_path.c\

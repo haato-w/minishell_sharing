@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 04:53:37 by heart             #+#    #+#             */
-/*   Updated: 2025/08/09 16:09:08 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/09 18:44:32 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,9 +190,15 @@ void	free_tok(t_token *tok);
 void	free_argv(char **argv);
 
 // redirect.c
-int		open_redir_file(t_node *node);
+int stashfd(int fd);
 void	do_redirect(t_node *redirects);
 void	reset_redirect(t_node *redirects);
+
+// open_redir_file.c
+int		open_redir_file(t_node *node);
+
+// heredoc.c
+int read_heredoc(const char *delimiter, bool is_delim_unquoted);
 
 // pipe.c
 void	prepare_pipe(t_node *node);
