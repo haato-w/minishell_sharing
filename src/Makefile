@@ -31,6 +31,7 @@ SRCS		= main.c\
 					exec/search_path.c\
 					exec/validate_access.c\
 					signal/signal.c\
+					signal/signal_funcs.c\
 					builtin/builtin.c\
 					builtin/builtin_exit.c\
 					builtin/builtin_export.c\

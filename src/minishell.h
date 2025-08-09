@@ -6,7 +6,7 @@
 /*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 04:53:37 by heart             #+#    #+#             */
-/*   Updated: 2025/08/09 13:34:25 by heart            ###   ########.fr       */
+/*   Updated: 2025/08/09 13:43:18 by heart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,9 +208,15 @@ char	*search_path(const char *filename);
 // validate_access.c
 void	validate_access(const char *path, const char *filename);
 
-// signal.h
+// signal.c
 void	setup_signal(void);
 void	reset_signal(void);
+
+// signal_funcs.c
+void	handler(int signum);
+void	reset_sig(int signum);
+void	ignore_sig(int signum);
+void	setup_sigint(void);
 
 // builtin.c
 bool	is_builtin(t_node *node);
