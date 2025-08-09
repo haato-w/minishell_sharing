@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   node.c                                             :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/09 13:05:59 by heart             #+#    #+#             */
-/*   Updated: 2025/08/09 21:04:47 by haatwata         ###   ########.fr       */
+/*   Created: 2025/08/09 22:11:58 by haatwata          #+#    #+#             */
+/*   Updated: 2025/08/09 22:21:36 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_node	*new_node(t_node_kind kind)
+static int	min(size_t v1, size_t v2)
 {
-	t_node	*node;
-
-	node = ft_calloc(1, sizeof(*node));
-	if (node == NULL)
-		fatal_error("calloc");
-	node->kind = kind;
-	return (node);
+	if (v1 < v2)
+		return (v1);
+	else
+		return (v2);
 }
 
-void	append_node(t_node **node, t_node *elm)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	if (*node == NULL)
-	{
-		*node = elm;
-		return ;
-	}
-	append_node(&(*node)->next, elm);
+	size_t	len;
+
+	len = min(ft_strlen(s1), ft_strlen(s2));
+	return (ft_strncmp(s1, s2, len));
 }

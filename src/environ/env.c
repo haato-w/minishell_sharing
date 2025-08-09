@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 19:31:50 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/09 20:55:41 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/09 21:04:35 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	**get_environ(t_map *map)
 	char	**environ;
 
 	size = map_len(map, false) + 1;
-	environ = calloc(size, sizeof(char *));
+	environ = ft_calloc(size, sizeof(char *));
 	i = 0;
 	item = map->item_head.next;
 	while (item)

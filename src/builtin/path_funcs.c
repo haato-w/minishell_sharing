@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 14:00:38 by heart             #+#    #+#             */
-/*   Updated: 2025/08/09 16:26:28 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/09 22:07:59 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ bool	consume_path(char **rest, char *path, char *elem)
 {
 	size_t	elem_len;
 
-	elem_len = strlen(elem);
-	if (strncmp(path, elem, elem_len) == 0)
+	elem_len = ft_strlen(elem);
+	if (ft_strncmp(path, elem, elem_len) == 0)
 	{
 		if (path[elem_len] == '\0' || path[elem_len] == '/')
 		{

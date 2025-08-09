@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 19:15:43 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/09 20:55:30 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/09 22:07:12 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ char	*item_get_string(t_item *item)
 	size_t	strsize;
 	char	*string;
 
-	strsize = strlen(item->name) + 2;
+	strsize = ft_strlen(item->name) + 2;
 	if (item->value)
-		strsize += strlen(item->value);
+		strsize += ft_strlen(item->value);
 	string = malloc(strsize);
 	if (string == NULL)
 		fatal_error("malloc");

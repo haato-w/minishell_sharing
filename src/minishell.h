@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 04:53:37 by heart             #+#    #+#             */
-/*   Updated: 2025/08/09 20:58:50 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/09 22:16:53 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ void	assert_error(const char *msg) __attribute__((noreturn));
 void	err_exit(const char *location, const char *msg, int status)
 		__attribute__((noreturn));
 
+int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strndup(const char *s1, size_t n);
 char	*ft_xstrdup(const char *s1);
 char	*ft_xstrndup(const char *s1, size_t size);

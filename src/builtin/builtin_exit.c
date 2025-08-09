@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 16:03:29 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/09 16:03:51 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/09 21:18:42 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,6 @@ int	builtin_exit(char **argv)
 		exit_code = atoi(argv[1]);
 		exit_code = ((exit_code % 256) + 256) % 256;
 	}
-	dprintf(2, "exit\n");
+	xperror("exit: numeric argument required");
 	exit(exit_code);
 }

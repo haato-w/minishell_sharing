@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 16:10:32 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/09 16:22:28 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/09 22:06:10 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static char	*resolve_pwd(char *oldpwd, char *path)
 		else
 			append_path_elem(newpwd, PATH_MAX, &path, path);
 	}
-	dup = strdup(newpwd);
+	dup = ft_strdup(newpwd);
 	if (dup == NULL)
 		fatal_error("strdup");
 	return (dup);

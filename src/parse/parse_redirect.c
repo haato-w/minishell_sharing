@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_redirect.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
+/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:02:28 by heart             #+#    #+#             */
-/*   Updated: 2025/08/09 13:13:21 by heart            ###   ########.fr       */
+/*   Updated: 2025/08/09 22:04:59 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ t_node	*redirect_heredoc(t_token **rest, t_token *tok)
 
 	node = new_node(ND_REDIR_HEREDOC);
 	node->delimiter = tokdup(tok->next);
-	if (strchr(node->delimiter->word, SINGLE_QUOTE_CHAR) == NULL
-		&& strchr(node->delimiter->word, DOUBLE_QUOTE_CHAR) == NULL)
+	if (ft_strchr(node->delimiter->word, SINGLE_QUOTE_CHAR) == NULL
+		&& ft_strchr(node->delimiter->word, DOUBLE_QUOTE_CHAR) == NULL)
 		node->is_delim_unquoted = true;
 	node->targetfd = STDIN_FILENO;
 	*rest = tok->next->next;

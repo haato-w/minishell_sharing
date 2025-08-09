@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
+/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 12:46:58 by heart             #+#    #+#             */
-/*   Updated: 2025/08/09 12:59:11 by heart            ###   ########.fr       */
+/*   Updated: 2025/08/09 22:07:39 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_token	*new_token(char *word, t_token_kind kind)
 {
 	t_token	*tok;
 
-	tok = calloc(1, sizeof(*tok));
+	tok = ft_calloc(1, sizeof(*tok));
 	if (tok == NULL)
 		fatal_error("calloc");
 	tok->word = word;
@@ -36,10 +36,10 @@ t_token	*operator(char **rest, char *line)
 	{
 		if (startswith(line, operators[i]))
 		{
-			op = strdup(operators[i]);
+			op = ft_strdup(operators[i]);
 			if (op == NULL)
 				fatal_error("strdup");
-			*rest = line + strlen(op);
+			*rest = line + ft_strlen(op);
 			return (new_token(op, TK_OP));
 		}
 		i++;

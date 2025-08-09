@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 19:29:26 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/09 20:46:44 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/09 22:05:43 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_item	*map_get(t_map *map, const char *name)
 	cur = map->item_head.next;
 	while (cur)
 	{
-		if (strcmp(cur->name, name) == 0)
+		if (ft_strcmp(cur->name, name) == 0)
 			return (cur);
 		cur = cur->next;
 	}
@@ -63,7 +63,7 @@ int	map_unset(t_map *map, const char *name)
 	cur = map->item_head.next;
 	while (cur)
 	{
-		if (strcmp(cur->name, name) == 0)
+		if (ft_strcmp(cur->name, name) == 0)
 		{
 			prev->next = cur->next;
 			free(cur->name);
