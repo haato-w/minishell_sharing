@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redirect.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/09 18:55:13 by haatwata          #+#    #+#             */
+/*   Updated: 2025/08/09 18:55:51 by haatwata         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-int stashfd(int fd)
+int	stashfd(int fd)
 {
 	int	stashfd;
 
@@ -12,7 +24,7 @@ int stashfd(int fd)
 	return (stashfd);
 }
 
-bool in_redirect(t_node *node)
+bool	in_redirect(t_node *node)
 {
 	if (node->kind == ND_REDIR_OUT)
 		return (true);
@@ -25,7 +37,7 @@ bool in_redirect(t_node *node)
 	return (false);
 }
 
-void do_redirect(t_node *redir)
+void	do_redirect(t_node *redir)
 {
 	if (redir == NULL)
 		return ;
@@ -39,7 +51,7 @@ void do_redirect(t_node *redir)
 	do_redirect(redir->next);
 }
 
-void reset_redirect(t_node *redir)
+void	reset_redirect(t_node *redir)
 {
 	if (redir == NULL)
 		return ;

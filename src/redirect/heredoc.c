@@ -1,20 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   heredoc.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/09 18:52:46 by haatwata          #+#    #+#             */
+/*   Updated: 2025/08/09 18:53:24 by haatwata         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void readline_heredoc_loop(int pfd[2], const char *delimiter, 
+static void	readline_heredoc_loop(int pfd[2], const char *delimiter,
 	bool is_delim_unquoted)
 {
-	char *line;
+	char	*line;
 
 	while (1)
 	{
 		line = readline("> ");
 		if (line == NULL)
-			break;
+			break ;
 		if (g_ctx.readline_interrupted || strcmp(line, delimiter) == 0)
 		{
 			free(line);
-			break;
+			break ;
 		}
 		if (is_delim_unquoted)
 			line = expand_heredoc_line(line);
@@ -23,7 +34,7 @@ static void readline_heredoc_loop(int pfd[2], const char *delimiter,
 	}
 }
 
-int read_heredoc(const char *delimiter, bool is_delim_unquoted)
+int	read_heredoc(const char *delimiter, bool is_delim_unquoted)
 {
 	int		pfd[2];
 

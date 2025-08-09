@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 04:53:37 by heart             #+#    #+#             */
-/*   Updated: 2025/08/09 18:44:32 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/09 19:03:05 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,15 +113,18 @@ struct s_context
 };
 
 // error.c
+void	perror_prefix(void);
+void	tokenize_error(const char *location, char **rest, char *line);
+void	parse_error(const char *location, t_token **rest, t_token *tok);
+void	xperror(const char *location);
+void	builtin_error(const char *func, const char *name, const char *err);
+
+// error_exit.c
 void	todo(const char *msg) __attribute__((noreturn));
 void	fatal_error(const char *msg) __attribute__((noreturn));
 void	assert_error(const char *msg) __attribute__((noreturn));
 void	err_exit(const char *location, const char *msg, int status)
 		__attribute__((noreturn));
-void	tokenize_error(const char *location, char **rest, char *line);
-void	parse_error(const char *location, t_token **rest, t_token *tok);
-void	xperror(const char *location);
-void	builtin_error(const char *func, const char *name, const char *err);
 
 char	*ft_strndup(const char *s1, size_t n);
 char	*ft_xstrdup(const char *s1);
@@ -140,10 +143,10 @@ t_node	*parse(t_token *tok);
 void	append_command_element(t_node *command, t_token **rest, t_token *tok);
 
 // parse_utils.c
-bool at_eof(t_token *tok);
-bool equal_op(t_token *tok, char *op);
-t_token *tokdup(t_token *tok);
-void append_tok(t_token **tok, t_token *elm);
+bool	at_eof(t_token *tok);
+bool	equal_op(t_token *tok, char *op);
+t_token	*tokdup(t_token *tok);
+void	append_tok(t_token **tok, t_token *elm);
 
 // parse_redirect.c
 t_node	*redirect_out(t_token **rest, t_token *tok);
@@ -168,8 +171,8 @@ bool	is_word(const char *s);
 // expand.c
 void	expand(t_node *tok);
 char	*expand_heredoc_line(char *line);
-void append_char(char **s, char c);
-void expand_special_parameter_str(char **dst, char **rest, char *p);
+void	append_char(char **s, char c);
+void	expand_special_parameter_str(char **dst, char **rest, char *p);
 
 // expand_quote_removal.c
 void	expand_quote_removal(t_node *node);
@@ -179,10 +182,10 @@ void	expand_variable_str(char **dst, char **rest, char *p);
 void	expand_variable(t_node *node);
 
 // expand_utils.c
-bool is_alpha_under(char c);
-bool is_alpha_num_under(char c);
-bool is_variable(char *s);
-bool is_special_paramer(char *s);
+bool	is_alpha_under(char c);
+bool	is_alpha_num_under(char c);
+bool	is_variable(char *s);
+bool	is_special_paramer(char *s);
 
 // destructor.c
 void	free_node(t_node *node);
@@ -190,7 +193,7 @@ void	free_tok(t_token *tok);
 void	free_argv(char **argv);
 
 // redirect.c
-int stashfd(int fd);
+int		stashfd(int fd);
 void	do_redirect(t_node *redirects);
 void	reset_redirect(t_node *redirects);
 
@@ -198,7 +201,7 @@ void	reset_redirect(t_node *redirects);
 int		open_redir_file(t_node *node);
 
 // heredoc.c
-int read_heredoc(const char *delimiter, bool is_delim_unquoted);
+int		read_heredoc(const char *delimiter, bool is_delim_unquoted);
 
 // pipe.c
 void	prepare_pipe(t_node *node);

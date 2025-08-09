@@ -9,6 +9,7 @@ CFLAGS	= -Wall -Wextra -Werror
 LIBS		= -lreadline
 SRCS		= main.c\
 					utils/error.c\
+					utils/error_exit.c\
 					utils/destructor.c\
 					utils/ft_strndup.c\
 					utils/ft_xstrdup.c\
