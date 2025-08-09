@@ -6,13 +6,13 @@
 /*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 12:33:20 by heart             #+#    #+#             */
-/*   Updated: 2025/08/09 12:42:25 by heart            ###   ########.fr       */
+/*   Updated: 2025/08/09 12:46:32 by heart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static size_t argv_len(t_token *tok)
+static size_t	argv_len(t_token *tok)
 {
 	size_t	len;
 
