@@ -6,13 +6,14 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 03:02:15 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/10 04:30:03 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/10 17:42:01 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	put_specifier_content(const char *format, va_list *ap, int width, int fd)
+static int	put_specifier_content(const char *format, va_list *ap,
+			int width, int fd)
 {
 	if (*format == 'c')
 		return (put_type_c(ap, width, fd));
