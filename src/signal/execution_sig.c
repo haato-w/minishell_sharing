@@ -1,64 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal.c                                           :+:      :+:    :+:   */
+/*   execution_sig.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/09 13:42:59 by heart             #+#    #+#             */
-/*   Updated: 2025/08/10 17:38:43 by haatwata         ###   ########.fr       */
+/*   Created: 2025/08/10 17:34:12 by haatwata          #+#    #+#             */
+/*   Updated: 2025/08/10 17:34:42 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static int	check_state(void)
+static void	execution_handler(int signum)
 {
-	if (g_ctx.sig == 0)
-		return (0);
-	else if (g_ctx.sig == SIGINT)
-	{
-		g_ctx.sig = 0;
-		g_ctx.last_status = 130;
-		return (0);
-	}
-	return (0);
+	g_ctx.sig = signum;
+	if (signum == SIGQUIT)
+		ft_dprintf(STDERR_FILENO, "Quit (core dumped)");
+	ft_dprintf(STDERR_FILENO, "\n");
+	g_ctx.last_status = 130;
 }
 
-void	setup_signal(void)
-{
-	extern int	_rl_echo_control_chars;
-
-	_rl_echo_control_chars = 0;
-	rl_outstream = stderr;
-	if (isatty(STDIN_FILENO))
-		rl_event_hook = check_state;
-}
-
-void	ignore_sig(int signum)
+static void	setup_execution_sigint(void)
 {
 	struct sigaction	sa;
 
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = 0;
-	sa.sa_handler = SIG_IGN;
-	if (sigaction(signum, &sa, NULL) < 0)
+	sa.sa_handler = execution_handler;
+	if (sigaction(SIGINT, &sa, NULL) < 0)
 		fatal_error("sigaction");
 }
 
-static void	reset_sig(int signum)
+static void	setup_execution_sigquit(void)
 {
 	struct sigaction	sa;
 
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = 0;
-	sa.sa_handler = SIG_DFL;
-	if (sigaction(signum, &sa, NULL) < 0)
+	sa.sa_handler = execution_handler;
+	if (sigaction(SIGQUIT, &sa, NULL) < 0)
 		fatal_error("sigaction");
 }
 
-void	reset_signal(void)
+void	setup_execution_sig(void)
 {
-	reset_sig(SIGQUIT);
-	reset_sig(SIGINT);
+	setup_execution_sigint();
+	setup_execution_sigquit();
 }

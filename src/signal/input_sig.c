@@ -3,49 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   signal_funcs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
+/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:40:58 by heart             #+#    #+#             */
-/*   Updated: 2025/08/09 13:44:34 by heart            ###   ########.fr       */
+/*   Updated: 2025/08/10 17:36:53 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	handler(int signum)
+static void	input_handler(int signum)
 {
 	g_ctx.sig = signum;
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+	ft_dprintf(STDERR_FILENO, "^C");
+	rl_done = 1;
+	g_ctx.last_status = 130;
 }
 
-void	reset_sig(int signum)
+void	setup_input_sig(void)
 {
 	struct sigaction	sa;
 
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = 0;
-	sa.sa_handler = SIG_DFL;
-	if (sigaction(signum, &sa, NULL) < 0)
-		fatal_error("sigaction");
-}
-
-void	ignore_sig(int signum)
-{
-	struct sigaction	sa;
-
-	sigemptyset(&sa.sa_mask);
-	sa.sa_flags = 0;
-	sa.sa_handler = SIG_IGN;
-	if (sigaction(signum, &sa, NULL) < 0)
-		fatal_error("sigaction");
-}
-
-void	setup_sigint(void)
-{
-	struct sigaction	sa;
-
-	sigemptyset(&sa.sa_mask);
-	sa.sa_flags = 0;
-	sa.sa_handler = handler;
+	sa.sa_handler = input_handler;
 	if (sigaction(SIGINT, &sa, NULL) < 0)
 		fatal_error("sigaction");
+	ignore_sig(SIGQUIT);
 }

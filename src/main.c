@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 04:48:10 by heart             #+#    #+#             */
-/*   Updated: 2025/08/09 20:40:37 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/10 17:41:37 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,13 @@ int	main(void)
 	g_ctx.last_status = 0;
 	while (1)
 	{
+		setup_input_sig();
 		line = readline("minishell$ ");
 		if (line == NULL)
 			break ;
 		if (*line)
 			add_history(line);
+		setup_execution_sig();
 		interpret(line, &g_ctx.last_status);
 		free(line);
 	}

@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 18:52:46 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/10 04:37:33 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/10 17:20:51 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	read_heredoc(const char *delimiter, bool is_delim_unquoted)
 {
 	int		pfd[2];
 
+	setup_heredoc_sig();
 	if (pipe(pfd) < 0)
 		fatal_error("pipe");
 	g_ctx.readline_interrupted = false;

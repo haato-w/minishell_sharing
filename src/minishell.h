@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 04:53:37 by heart             #+#    #+#             */
-/*   Updated: 2025/08/10 04:32:21 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/10 17:39:51 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,13 +224,12 @@ void	validate_access(const char *path, const char *filename);
 
 // signal.c
 void	setup_signal(void);
+void	ignore_sig(int signum);
 void	reset_signal(void);
 
-// signal_funcs.c
-void	handler(int signum);
-void	reset_sig(int signum);
-void	ignore_sig(int signum);
-void	setup_sigint(void);
+void	setup_input_sig(void);
+void	setup_execution_sig(void);
+void	setup_heredoc_sig(void);
 
 // builtin.c
 bool	is_builtin(t_node *node);
