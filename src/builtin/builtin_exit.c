@@ -40,8 +40,7 @@ int	builtin_exit(char **argv)
 	exit_code = g_ctx.last_status;
 	if (g_ctx.syntax_error)
 	{
-		perror_prefix();
-		ft_dprintf(2, "syntax error\n");
+		ft_dprintf(2, "minishell: syntax error\n");
 		return (1);
 	}
 	if (argv[1] != NULL)
@@ -55,7 +54,7 @@ int	builtin_exit(char **argv)
 		if (!is_numeric(argv[1]))
 		{
 			ft_dprintf(2, "exit\n");
-			builtin_error("exit: ", argv[1], ": numeric argument required\n");
+			ft_dprintf(2, "minishell: exit: %s: numeric argument required\n", argv[1]);
 			exit(2);
 		}
 		exit_code = atoi(argv[1]);
