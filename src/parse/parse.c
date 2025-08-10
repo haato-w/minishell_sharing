@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
+/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:07:33 by heart             #+#    #+#             */
-/*   Updated: 2025/08/09 13:18:35 by heart            ###   ########.fr       */
+/*   Updated: 2025/08/10 18:47:04 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	append_command_element(t_node *command, t_token **rest, t_token *tok)
 	else if (equal_op(tok, "<<") && tok->next->kind == TK_WORD)
 		append_node(&command->redirects, redirect_heredoc(&tok, tok));
 	else
-		todo("append_command_element");
+		parse_error("append_command_element", &tok, tok);
 	*rest = tok;
 }
 
