@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 18:56:14 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/10 21:47:56 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/10 22:17:21 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,5 @@ void xperror_invalid_identifier(const char *s, const char *identifier)
 	perror_prefix();
 	ft_dprintf(STDERR_FILENO, "%s: ", s);
 	ft_dprintf(STDERR_FILENO, "`%s': ", identifier);
-	ft_dprintf(STDERR_FILENO, "mpt a valid identifier\n");
+	ft_dprintf(STDERR_FILENO, "not a valid identifier\n");
 }
