@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 18:56:14 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/10 04:38:15 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/10 21:47:56 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,38 +19,31 @@ void	perror_prefix(void)
 	ft_dprintf(STDERR_FILENO, "%s", ERROR_PREFIX);
 }
 
-void	tokenize_error(const char *location, char **rest, char *line)
+void xperror2(const char *s1, const char *err_msg)
 {
-	g_ctx.syntax_error = true;
 	perror_prefix();
-	ft_dprintf(STDERR_FILENO, "syntax errror near %s\n", location);
-	while (*line)
-		line++;
-	*rest = line;
+	ft_dprintf(STDERR_FILENO, "%s: ", s1);
+	if (err_msg)
+		ft_dprintf(STDERR_FILENO, "%s\n", err_msg);
+	else
+		perror(NULL);
 }
 
-void	parse_error(const char *location, t_token **rest, t_token *tok)
+void xperror3(const char *s1, const char *s2, const char *err_msg)
 {
-	g_ctx.syntax_error = true;
 	perror_prefix();
-	ft_dprintf(STDERR_FILENO, "syntax error near unexpected token `%s' in %s\n",
-		tok->word, location);
-	while (tok && !at_eof(tok))
-		tok = tok->next;
-	*rest = tok;
+	ft_dprintf(STDERR_FILENO, "%s: ", s1);
+	ft_dprintf(STDERR_FILENO, "%s: ", s2);
+	if (err_msg)
+		ft_dprintf(STDERR_FILENO, "%s\n", err_msg);
+	else
+		perror(NULL);
 }
 
-void	xperror(const char *locaton)
+void xperror_invalid_identifier(const char *s, const char *identifier)
 {
 	perror_prefix();
-	perror(locaton);
-}
-
-void	builtin_error(const char *func, const char *name, const char *err)
-{
-	perror_prefix();
-	ft_dprintf(STDERR_FILENO, "%s: ", func);
-	if (name)
-		ft_dprintf(STDERR_FILENO, "`%s': ", name);
-	ft_dprintf(STDERR_FILENO, "%s\n", err);
+	ft_dprintf(STDERR_FILENO, "%s: ", s);
+	ft_dprintf(STDERR_FILENO, "`%s': ", identifier);
+	ft_dprintf(STDERR_FILENO, "mpt a valid identifier\n");
 }

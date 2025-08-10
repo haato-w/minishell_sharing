@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 04:53:37 by heart             #+#    #+#             */
-/*   Updated: 2025/08/10 17:39:51 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/10 21:44:11 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,10 +118,12 @@ struct s_context
 
 // error.c
 void	perror_prefix(void);
+void	xperror2(const char *s1, const char *err_msg);
+void	xperror3(const char *s1, const char *s2, const char *err_msg);
+void	xperror_invalid_identifier(const char *s, const char *identifier);
+
 void	tokenize_error(const char *location, char **rest, char *line);
 void	parse_error(const char *location, t_token **rest, t_token *tok);
-void	xperror(const char *location);
-void	builtin_error(const char *func, const char *name, const char *err);
 
 // error_exit.c
 void	todo(const char *msg) __attribute__((noreturn));

@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 16:07:30 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/09 16:07:43 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/10 21:45:19 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	builtin_unset(char **argv)
 	{
 		if (map_unset(g_ctx.envmap, argv[i]) < 0)
 		{
-			builtin_error("unset", argv[i], "not a valid indentifier");
+			xperror_invalid_identifier("unset", argv[i]);
 			status = 1;
 		}
 		else

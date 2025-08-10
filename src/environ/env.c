@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 19:31:50 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/09 21:04:35 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/10 21:47:49 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	envmap_init(t_map *map, char **ep)
 	if (map_get(map, "PWD") == NULL)
 	{
 		if (getcwd(cwd, PATH_MAX) == NULL)
-			builtin_error("shell-init", "getcwd", NULL);
+			xperror3("shell-init", "getcwd", NULL);
 		else
 			map_set_attr(map, "PWD", cwd, ATTR_EXPORT);
 	}

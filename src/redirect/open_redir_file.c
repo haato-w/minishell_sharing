@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 18:53:34 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/09 18:55:00 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/10 21:42:44 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	open_redir_file(t_node *node)
 	{
 		if (node->kind == ND_REDIR_OUT || node->kind == ND_REDIR_APPEND
 			|| node->kind == ND_REDIR_IN)
-			xperror(node->filename->word);
+			xperror2(node->filename->word, NULL);
 		return (-1);
 	}
 	node->filefd = stashfd(node->filefd);

@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 16:05:04 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/09 22:07:01 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/10 21:47:12 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	builtin_pwd(char **argv)
 	{
 		if (getcwd(cwd, PATH_MAX) == NULL)
 		{
-			builtin_error("pwd", NULL, "getcwd");
+			xperror3("pwd", "getcwd", NULL);
 			return (1);
 		}
 		write(STDOUT_FILENO, cwd, ft_strlen(cwd));

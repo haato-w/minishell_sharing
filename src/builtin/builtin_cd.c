@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 16:10:32 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/09 22:06:10 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/10 21:46:51 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static int	set_path(char *path, size_t path_size, char *arg)
 		home = xgetenv("HOME");
 		if (home == NULL)
 		{
-			builtin_error("cd", NULL, "HOME not set");
+			xperror2("cd", "HOME not set");
 			return (-1);
 		}
 		ft_strlcpy(path, home, path_size);
@@ -77,7 +77,7 @@ int	builtin_cd(char **argv)
 		return (1);
 	if (chdir(path) < 0)
 	{
-		builtin_error("cd", path, NULL);
+		xperror3("cd", path, NULL);
 		return (1);
 	}
 	newpwd = resolve_pwd(pwd, path);
