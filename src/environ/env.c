@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 19:31:50 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/10 21:47:49 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/11 20:37:06 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,19 @@ char	*xgetenv(const char *name)
 static void	envmap_init(t_map *map, char **ep)
 {
 	char	cwd[PATH_MAX];
+	t_item	*tmp_item;
 
 	while (*ep)
 	{
 		map_put(map, *ep, false, ATTR_EXPORT);
 		ep++;
 	}
-	if (map_get(map, "SHLVL") == NULL)
+	tmp_item = map_get(map, "SHLVL");
+	if (tmp_item == NULL)
 		map_set_attr(map, "SHLVL", "1", ATTR_EXPORT);
+	else
+		map_set_attr(map, "SHLVL",
+			ft_itoa(ft_atoi(tmp_item->value) + 1), ATTR_EXPORT);
 	if (map_get(map, "PWD") == NULL)
 	{
 		if (getcwd(cwd, PATH_MAX) == NULL)
@@ -40,8 +45,6 @@ static void	envmap_init(t_map *map, char **ep)
 		else
 			map_set_attr(map, "PWD", cwd, ATTR_EXPORT);
 	}
-	map_unset(map, "OLDPWD");
-	map_set_attr(map, "OLDPWD", NULL, ATTR_EXPORT);
 	map_unset(map, "IFS");
 	map_set_attr(map, "IFS", " \t\n", ATTR_EXPORT);
 }
