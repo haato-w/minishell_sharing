@@ -3,26 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mesasaki <mesasaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 16:01:43 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/09 22:07:54 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/10 23:29:35 by mesasaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	builtin_echo(char **argv)
+int builtin_echo(char **argv)
 {
-	bool	is_first_arg;
-	bool	echo_newline;
-	size_t	i;
+	bool is_first_arg;
+	bool echo_newline;
+	size_t i;
+	size_t c;
 
 	i = 1;
+	c = 1;
 	echo_newline = true;
-	if (argv[1] && ft_strncmp(argv[1], "-n", 2) == 0)
+	while (argv[c] && ft_strcmp(argv[c], "-n") == 0)
 	{
 		i++;
+		c++;
 		echo_newline = false;
 	}
 	is_first_arg = true;
