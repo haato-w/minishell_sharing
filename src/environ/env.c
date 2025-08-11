@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 19:31:50 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/11 20:37:06 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/11 21:08:47 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static void	envmap_init(t_map *map, char **ep)
 {
 	char	cwd[PATH_MAX];
 	t_item	*tmp_item;
+	char	*next_lvl;
 
 	while (*ep)
 	{
@@ -36,8 +37,11 @@ static void	envmap_init(t_map *map, char **ep)
 	if (tmp_item == NULL)
 		map_set_attr(map, "SHLVL", "1", ATTR_EXPORT);
 	else
-		map_set_attr(map, "SHLVL",
-			ft_itoa(ft_atoi(tmp_item->value) + 1), ATTR_EXPORT);
+	{
+		next_lvl = ft_itoa(ft_atoi(tmp_item->value) + 1);
+		map_set_attr(map, "SHLVL", next_lvl, ATTR_EXPORT);
+		free(next_lvl);
+	}
 	if (map_get(map, "PWD") == NULL)
 	{
 		if (getcwd(cwd, PATH_MAX) == NULL)
