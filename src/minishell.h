@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 04:53:37 by heart             #+#    #+#             */
-/*   Updated: 2025/08/10 21:44:11 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/11 21:03:10 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -267,9 +267,12 @@ int		builtin_pwd(char **argv);
 // map.c
 bool	is_identifier(const char *s);
 t_map	*map_new(void);
+void	map_del(t_map *map);
 t_item	*map_get(t_map *map, const char *name);
-int		map_unset(t_map *map, const char *name);
 size_t	map_len(t_map *map, bool count_null_value);
+
+// map_unset.c
+int		map_unset(t_map *map, const char *name);
 
 // map_item.c
 t_item	*item_new(char *name, char *value, int attributes);

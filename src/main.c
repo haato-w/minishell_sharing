@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 04:48:10 by heart             #+#    #+#             */
-/*   Updated: 2025/08/10 17:41:37 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/11 20:58:41 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,6 @@ int	main(void)
 		interpret(line, &g_ctx.last_status);
 		free(line);
 	}
+	map_del(g_ctx.envmap);
 	return (g_ctx.last_status);
 }

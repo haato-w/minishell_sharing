@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 19:29:26 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/09 22:05:43 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/11 21:02:56 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,23 @@ t_map	*map_new(void)
 	return (map);
 }
 
+void	map_del(t_map *map)
+{
+	t_item	*tmp_item;
+	t_item	*tmp_item2;
+	
+	tmp_item = map->item_head.next;
+	while (tmp_item != NULL)
+	{
+		free(tmp_item->name);
+		free(tmp_item->value);
+		tmp_item2 = tmp_item; 
+		tmp_item = tmp_item->next;
+		free(tmp_item2);
+	}
+	free(map);
+}
+
 t_item	*map_get(t_map *map, const char *name)
 {
 	t_item	*cur;
@@ -50,31 +67,6 @@ t_item	*map_get(t_map *map, const char *name)
 		cur = cur->next;
 	}
 	return (NULL);
-}
-
-int	map_unset(t_map *map, const char *name)
-{
-	t_item	*cur;
-	t_item	*prev;
-
-	if (name == NULL || !is_identifier(name))
-		return (-1);
-	prev = &map->item_head;
-	cur = map->item_head.next;
-	while (cur)
-	{
-		if (ft_strcmp(cur->name, name) == 0)
-		{
-			prev->next = cur->next;
-			free(cur->name);
-			free(cur->value);
-			free(cur);
-			return (0);
-		}
-		prev = prev->next;
-		cur = cur->next;
-	}
-	return (0);
 }
 
 size_t	map_len(t_map *map, bool const_null_value)

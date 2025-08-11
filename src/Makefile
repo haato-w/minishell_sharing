@@ -54,6 +54,7 @@ SRCS		= main.c\
 					environ/map_set.c\
 					environ/map_item.c\
 					environ/map_put.c\
+					environ/map_unset.c\
 
 
 PRINTF = $(PRINTF_DIR)/libftprintf.a
