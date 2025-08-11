@@ -3,42 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mesasaki <mesasaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 16:10:32 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/10 21:46:51 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/11 17:47:41 by mesasaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static char	*resolve_pwd(char *oldpwd, char *path)
-{
-	char	newpwd[PATH_MAX];
-	char	*dup;
-
-	if (*path == '/' || oldpwd == NULL)
-		ft_strlcpy(newpwd, "/", PATH_MAX);
-	else
-		ft_strlcpy(newpwd, oldpwd, PATH_MAX);
-	while (*path)
-	{
-		if (*path == '/')
-			path++;
-		else if (consume_path(&path, path, "."))
-			;
-		else if (consume_path(&path, path, ".."))
-			delete_last_elem(newpwd);
-		else
-			append_path_elem(newpwd, PATH_MAX, &path, path);
-	}
-	dup = ft_strdup(newpwd);
-	if (dup == NULL)
-		fatal_error("strdup");
-	return (dup);
-}
-
-static void	update_oldpwd(char *pwd)
+static void update_oldpwd(char *pwd)
 {
 	if (pwd == NULL)
 		map_set(g_ctx.envmap, "OLDPWD", "");
@@ -46,9 +20,9 @@ static void	update_oldpwd(char *pwd)
 		map_set(g_ctx.envmap, "OLDPWD", pwd);
 }
 
-static int	set_path(char *path, size_t path_size, char *arg)
+static int set_path(char *path, size_t path_size, char *arg)
 {
-	char	*home;
+	char *home;
 
 	if (arg == NULL)
 	{
@@ -65,11 +39,11 @@ static int	set_path(char *path, size_t path_size, char *arg)
 	return (0);
 }
 
-int	builtin_cd(char **argv)
+int builtin_cd(char **argv)
 {
-	char	*pwd;
-	char	path[PATH_MAX];
-	char	*newpwd;
+	char *pwd;
+	char path[PATH_MAX];
+	char newpwd[PATH_MAX];
 
 	pwd = xgetenv("PWD");
 	update_oldpwd(pwd);
@@ -80,8 +54,11 @@ int	builtin_cd(char **argv)
 		xperror3("cd", path, NULL);
 		return (1);
 	}
-	newpwd = resolve_pwd(pwd, path);
+	if (getcwd(newpwd, PATH_MAX) == NULL)
+	{
+		xperror3("cd", "getcwd", NULL);
+		return (0);
+	}
 	map_set(g_ctx.envmap, "PWD", newpwd);
-	free(newpwd);
 	return (0);
 }
