@@ -6,13 +6,13 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 16:05:04 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/10 22:14:55 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/11 19:35:32 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static bool equal_to_cwd(const char *path)
+static bool	equal_to_cwd(const char *path)
 {
 	struct stat	st1;
 	struct stat	st2;
@@ -37,16 +37,17 @@ int	builtin_pwd(char **argv)
 	{
 		if (getcwd(cwd, PATH_MAX) == NULL)
 		{
+			if (pwd != NULL)
+			{
+				ft_printf("%s\n", pwd);
+				return (0);
+			}
 			xperror3("pwd", "getcwd", NULL);
 			return (1);
 		}
-		write(STDOUT_FILENO, cwd, ft_strlen(cwd));
-		write(STDOUT_FILENO, "\n", 1);
+		ft_printf("%s\n", cwd);
 	}
 	else
-	{
-		write(STDOUT_FILENO, pwd, ft_strlen(pwd));
-		write(STDOUT_FILENO, "\n", 1);
-	}
+		ft_printf("%s\n", pwd);
 	return (0);
 }
