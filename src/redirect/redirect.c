@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 18:55:13 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/09 18:55:51 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/11 21:56:29 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	stashfd(int fd)
 	stashfd = fcntl(fd, F_DUPFD, 10);
 	if (stashfd < 0)
 		fatal_error("fcntl");
-	if (close(fd) < 0)
+	if (0 <= fd && close(fd) < 0)
 		fatal_error("close");
 	return (stashfd);
 }
@@ -58,8 +58,10 @@ void	reset_redirect(t_node *redir)
 	reset_redirect(redir->next);
 	if (in_redirect(redir))
 	{
-		close(redir->filefd);
-		close(redir->targetfd);
+		if (0 <= redir->filefd)
+			close(redir->filefd);
+		if (0 <= redir->targetfd)
+			close(redir->targetfd);
 		dup2(redir->stashed_targetfd, redir->targetfd);
 	}
 	else

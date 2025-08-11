@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 19:05:26 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/09 19:06:03 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/11 21:56:33 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,21 @@ void	prepare_pipe(t_node *node)
 
 void	prepare_pipe_child(t_node *node)
 {
-	close(node->outpipe[0]);
+	if (0 <= node->outpipe[0])
+		close(node->outpipe[0]);
 	dup2(node->inpipe[0], STDIN_FILENO);
-	if (node->inpipe[0] != STDIN_FILENO)
+	if (node->inpipe[0] != STDIN_FILENO && 0 <= node->inpipe[0])
 		close(node->inpipe[0]);
 	dup2(node->outpipe[1], STDOUT_FILENO);
-	if (node->outpipe[1] != STDOUT_FILENO)
+	if (node->outpipe[1] != STDOUT_FILENO && 0 <= node->outpipe[1])
 		close(node->outpipe[1]);
 }
 
 void	prepare_pipe_parent(t_node *node)
 {
-	if (node->inpipe[0] != STDIN_FILENO)
+	if (node->inpipe[0] != STDIN_FILENO && 0 <= node->inpipe[0])
 		close(node->inpipe[0]);
-	if (node->next)
+	if (node->next && 0 <= node->outpipe[1])
 		close(node->outpipe[1]);
 }
 
