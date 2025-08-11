@@ -34,11 +34,10 @@
   - [ ] 環境変数'~'は未対応
   - [ ] ディレクトリに入ってからその権限をなくすと抜けれなくなる？
 
-- [ ] 全体的にfd closeでwarning出る
+- [x] 全体的にfd closeでwarning出る
   - 外部関数を実行するときに出る
 - [ ] Still reachableが出る
   - readlineに由来するのであれば良い
-  - 多分mapのfreeをしていない
 - [ ] 演算子があってコマンドがないと変なバグになる
   - ft_strchrで出ている
   - < main.c
