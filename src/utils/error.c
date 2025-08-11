@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 18:56:14 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/10 22:17:21 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/11 19:37:53 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	perror_prefix(void)
 	ft_dprintf(STDERR_FILENO, "%s", ERROR_PREFIX);
 }
 
-void xperror2(const char *s1, const char *err_msg)
+void	xperror2(const char *s1, const char *err_msg)
 {
 	perror_prefix();
 	ft_dprintf(STDERR_FILENO, "%s: ", s1);
@@ -29,7 +29,7 @@ void xperror2(const char *s1, const char *err_msg)
 		perror(NULL);
 }
 
-void xperror3(const char *s1, const char *s2, const char *err_msg)
+void	xperror3(const char *s1, const char *s2, const char *err_msg)
 {
 	perror_prefix();
 	ft_dprintf(STDERR_FILENO, "%s: ", s1);
@@ -40,7 +40,7 @@ void xperror3(const char *s1, const char *s2, const char *err_msg)
 		perror(NULL);
 }
 
-void xperror_invalid_identifier(const char *s, const char *identifier)
+void	xperror_invalid_identifier(const char *s, const char *identifier)
 {
 	perror_prefix();
 	ft_dprintf(STDERR_FILENO, "%s: ", s);
