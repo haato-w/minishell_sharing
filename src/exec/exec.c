@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
+/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 05:06:12 by heart             #+#    #+#             */
-/*   Updated: 2025/08/09 17:01:29 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/13 02:39:56 by heart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,12 @@ int	exec(t_node *node)
 	int		status;
 
 	if (open_redir_file(node) < 0)
-		return (ERROR_OPEN_REDIR);
+	{
+		if (!g_ctx.readline_interrupted)
+			return (ERROR_OPEN_REDIR);
+		else
+			return (130);
+	}
 	if (node->next == NULL && is_builtin(node))
 		status = exec_builtin(node);
 	else

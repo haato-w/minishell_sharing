@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
+/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 04:53:37 by heart             #+#    #+#             */
-/*   Updated: 2025/08/11 21:03:10 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/13 02:25:24 by heart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,7 +225,8 @@ char	*search_path(const char *filename);
 void	validate_access(const char *path, const char *filename);
 
 // signal.c
-void	setup_signal(void);
+void	setup_sig_event_hook_heredoc(void);
+void	setup_sig_event_hook(void);
 void	ignore_sig(int signum);
 void	reset_signal(void);
 

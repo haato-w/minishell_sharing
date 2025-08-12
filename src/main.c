@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
+/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 04:48:10 by heart             #+#    #+#             */
-/*   Updated: 2025/08/11 20:58:41 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/13 02:25:31 by heart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	main(void)
 
 	rl_outstream = stderr;
 	initenv();
-	setup_signal();
+	setup_sig_event_hook();
 	g_ctx.last_status = 0;
 	while (1)
 	{

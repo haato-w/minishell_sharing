@@ -3,14 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
+/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:42:59 by heart             #+#    #+#             */
-/*   Updated: 2025/08/10 17:38:43 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/13 02:33:28 by heart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+static int	check_state_heredoc(void)
+{
+	if (g_ctx.sig == 0)
+		return (0);
+	else if (g_ctx.sig == SIGINT)
+	{
+		g_ctx.sig = 0;
+		rl_done = 1;
+		g_ctx.last_status = 130;
+		return (0);
+	}
+	return (0);
+}
 
 static int	check_state(void)
 {
@@ -25,11 +39,21 @@ static int	check_state(void)
 	return (0);
 }
 
-void	setup_signal(void)
+void	setup_sig_event_hook_heredoc(void)
 {
-	extern int	_rl_echo_control_chars;
+	// extern int	_rl_echo_control_chars;
 
-	_rl_echo_control_chars = 0;
+	// _rl_echo_control_chars = 0;
+	rl_outstream = stderr;
+	if (isatty(STDIN_FILENO))
+		rl_event_hook = check_state_heredoc;
+}
+
+void	setup_sig_event_hook(void)
+{
+	// extern int	_rl_echo_control_chars;
+
+	// _rl_echo_control_chars = 0;
 	rl_outstream = stderr;
 	if (isatty(STDIN_FILENO))
 		rl_event_hook = check_state;

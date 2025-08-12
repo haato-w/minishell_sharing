@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal_funcs.c                                     :+:      :+:    :+:   */
+/*   input_sig.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
+/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:40:58 by heart             #+#    #+#             */
-/*   Updated: 2025/08/10 17:36:53 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/13 02:41:43 by heart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,10 @@
 static void	input_handler(int signum)
 {
 	g_ctx.sig = signum;
+	write(STDERR_FILENO, "\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
-	ft_dprintf(STDERR_FILENO, "^C");
-	rl_done = 1;
 	g_ctx.last_status = 130;
 }
 
