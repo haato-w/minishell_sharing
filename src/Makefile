@@ -4,7 +4,7 @@ GNL_DIR = $(MINISHELL_DIR)/submodules/get_next_line
 
 NAME	= minishell
 CC		= cc
-CFLAGS	= -Wall -Wextra -Werror
+#CFLAGS	= -Wall -Wextra -Werror
 # CFLAGS	= -Wall -Wextra -Werror -g -fsanitize=leak -fsanitize=address
 LIBS		= -lreadline
 SRCS		= main.c\
@@ -55,6 +55,7 @@ SRCS		= main.c\
 					environ/map_item.c\
 					environ/map_put.c\
 					environ/map_unset.c\
+					submodules/printf/libft/ft_atoi.c
 
 
 PRINTF = $(PRINTF_DIR)/libftprintf.a

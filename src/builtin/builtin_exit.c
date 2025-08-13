@@ -3,16 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mesasaki <mesasaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 16:03:29 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/11 22:11:37 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/13 20:30:50 by mesasaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+#include <limits.h>
+#include <stdbool.h>
+#include "../submodules/printf/libft/libft.h"
+#include <limits.h>
+#include <errno.h>
 
-bool	is_numeric(char *s)
+bool is_numeric(char *s)
 {
 	if (*s == '\0')
 		return (0);
@@ -33,9 +38,12 @@ bool	is_numeric(char *s)
 	return (1);
 }
 
-int	builtin_exit(char **argv)
+int builtin_exit(char **argv)
 {
-	int	exit_code;
+	int exit_code;
+	long long lcode;
+	bool positive;
+	char *s;
 
 	exit_code = g_ctx.last_status;
 	if (g_ctx.syntax_error)
@@ -51,6 +59,13 @@ int	builtin_exit(char **argv)
 			ft_dprintf(2, "minishell: exit: too many arguments\n");
 			return (1);
 		}
+		positive = true;
+		s = argv[1];
+		if (*s == '-')
+		{
+			positive = false;
+			s++;
+		}
 		if (!is_numeric(argv[1]))
 		{
 			ft_dprintf(2, "exit\n");
@@ -58,8 +73,31 @@ int	builtin_exit(char **argv)
 			map_del(g_ctx.envmap);
 			exit(2);
 		}
-		exit_code = ft_atoi(argv[1]);
-		exit_code = ((exit_code % 256) + 256) % 256;
+		lcode = str2long(s, positive);
+		if (ft_strlen(s) > 19)
+		{
+			ft_dprintf(2, "exit\n");
+			ft_dprintf(2, "minishell: exit: %s: numeric argument required\n", argv[1]);
+			map_del(g_ctx.envmap);
+			exit(2);
+		}
+		if (positive && ft_strlen(s) == 19 && ft_strncmp(s, "9223372036854775807", 19) > 0)
+		{
+			ft_dprintf(2, "exit\n");
+			ft_dprintf(2, "minishell: exit: %s: numeric argument required\n", argv[1]);
+			map_del(g_ctx.envmap);
+			exit(2);
+		}
+		if (!positive && ft_strlen(s) == 19 && ft_strncmp(s, "9223372036854775808", 19) > 0)
+		{
+			ft_dprintf(2, "exit\n");
+			ft_dprintf(2, "minishell: exit: %s: numeric argument required\n", argv[1]);
+			map_del(g_ctx.envmap);
+			exit(2);
+		}
+		if (!positive)
+			lcode = -lcode;
+		exit_code = ((lcode % 256) + 256) % 256;
 	}
 	ft_dprintf(2, "exit\n");
 	map_del(g_ctx.envmap);

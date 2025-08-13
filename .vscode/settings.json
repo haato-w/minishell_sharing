@@ -6,5 +6,16 @@
         "tuple": "cpp",
         "type_traits": "cpp",
         "utility": "cpp"
+    },
+    "norminette-42.formatOnSave": false,
+    "norminette-42.formatOnType": false,
+    "norminette-42.formatOnPaste": false,
+    "editor.formatOnSave": false,
+    "editor.formatOnType": false,
+    "editor.formatOnPaste": false,
+    "[c]": {
+        "editor.formatOnSave": false,
+        "editor.formatOnType": false,
+        "editor.formatOnPaste": false
     }
 }

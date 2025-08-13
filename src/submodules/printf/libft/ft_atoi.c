@@ -3,40 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haatwata <haatwata@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: mesasaki <mesasaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 00:01:19 by haatwata          #+#    #+#             */
-/*   Updated: 2024/03/22 00:35:32 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/13 20:22:01 by mesasaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static	char	*remove_space(const char *str)
+static char	*remove_space(const char *str)
 {
 	int	i;
 
 	i = 0;
-	while (str[i] == '\t'
-		|| str[i] == '\n'
-		|| str[i] == '\v'
-		|| str[i] == '\f'
-		|| str[i] == '\r'
-		|| str[i] == ' ')
+	while (str[i] == '\t' || str[i] == '\n' || str[i] == '\v'
+		|| str[i] == '\f' || str[i] == '\r' || str[i] == ' ')
 	{
 		i++;
 	}
 	return ((char *)(&str[i]));
 }
 
-static	char	*remove_sign(const char *str)
+static char	*remove_sign(const char *str)
 {
 	if (*str == '+' || *str == '-')
 		return ((char *)(str + 1));
 	return ((char *)(str));
 }
 
-static	bool	is_valid_sign(const char *str)
+static bool	is_valid_sign(const char *str)
 {
 	if (str[0] == '+' || str[0] == '-')
 	{
@@ -52,29 +48,38 @@ static	bool	is_valid_sign(const char *str)
 	return (true);
 }
 
-static	long long	str2long(char *str, bool positive)
+long long	str2long(char *str, bool positive)
 {
 	long long	ret;
+	int			digit_count;
+	char		*p;
 
+	digit_count = 0;
+	p = str;
+	while ('0' <= *p && *p <= '9')
+	{
+		digit_count++;
+		p++;
+	}
+	if (digit_count > 19)
+	{
+		if (positive)
+			return (LLONG_MAX);
+		else
+			return (LLONG_MIN);
+	}
 	ret = 0;
 	while ('0' <= *str && *str <= '9')
 	{
-		if (positive)
+		if ((positive && ret > (LLONG_MAX - (*str - '0')) / 10)
+			|| (!positive && ret > (-(LLONG_MIN + (*str - '0'))) / 10))
 		{
-			if (ret / 10 < LLONG_MAX / 10 || \
-				(ret / 10 == LLONG_MAX / 10 && ret % 10 <= LLONG_MAX % 10))
-				ret = ret * 10 + (*str - '0');
-			else
+			if (positive)
 				return (LLONG_MAX);
-		}
-		else
-		{
-			if (ret / 10 < -(LLONG_MIN / 10) || \
-				(ret / 10 == -(LLONG_MIN / 10) && ret % 10 < -(LLONG_MIN % 10)))
-				ret = ret * 10 + (*str - '0');
 			else
 				return (LLONG_MIN);
 		}
+		ret = ret * 10 + (*str - '0');
 		str++;
 	}
 	return (ret);
