@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 18:59:14 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/23 18:15:02 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/23 18:21:57 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,20 +77,20 @@ void show_node(t_node *node, int level)
     
     print_tab(level);
     printf("token\n");
-    show_token(node->args, level + 1);
+    show_token(tmp->args, level + 1);
     print_tab(level);
     printf("redirects\n");
-    show_node(node->redirects, level + 1);
+    show_node(tmp->redirects, level + 1);
     print_tab(level);
     printf("filename\n");
-    show_token(node->filename, level + 1);
-    if (node->command)
+    show_token(tmp->filename, level + 1);
+    if (tmp->command)
     {
       print_tab(level);
       printf("command\n");
       print_tab(level);
       printf("=====\n");
-      show_node(node->command, level + 1);
+      show_node(tmp->command, level + 1);
       print_tab(level);
       printf("=====\n");
     }
@@ -99,6 +99,7 @@ void show_node(t_node *node, int level)
       print_tab(level);
       printf("no command\n");
     }
+    
     if (tmp->next)
     {
       print_tab(level);
@@ -107,7 +108,7 @@ void show_node(t_node *node, int level)
     else
     {
       print_tab(level);
-      printf("no next\n");
+      printf("no next\n\n");
     }
     tmp = tmp->next;
   }
