@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 04:53:37 by heart             #+#    #+#             */
-/*   Updated: 2025/08/24 19:29:08 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/24 20:09:49 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,7 +239,6 @@ bool	is_builtin(t_node *node);
 int		exec_builtin(t_node *node, t_token *tok);
 
 // builtin_exit.c
-bool	is_numeric(char *s);
 int		builtin_exit(char **argv, t_node *node, t_token *tok);
 
 // builtin_export.c

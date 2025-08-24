@@ -6,31 +6,50 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 16:03:29 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/24 19:55:13 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/24 20:21:44 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-bool	is_numeric(char *s)
+static bool	is_numeric(char *s)
 {
 	if (*s == '\0')
-		return (0);
+		return (false);
 	if (*s == '-' || *s == '+')
 	{
 		s++;
 		if (*s == '\0')
-			return (0);
+			return (false);
 		if (*s == '-' || *s == '+')
-			return (0);
+			return (false);
 	}
 	while (*s)
 	{
 		if (!isdigit(*s))
-			return (0);
+			return (false);
 		s++;
 	}
-	return (1);
+	return (true);
+}
+
+static bool is_in_range(char *s)
+{
+	bool	positive;
+
+	positive = true;
+	if (*s == '-')
+	{
+		positive = false;
+		s++;
+	}
+	if (19 < ft_strlen(s))
+		return (false);
+	if (positive && 19 == ft_strlen(s) && 0 < ft_strncmp(s, "9223372036854775807", 19))
+		return (false);
+	if (!positive && 19 == ft_strlen(s) && 0 < ft_strncmp(s, "9223372036854775808", 19))
+		return (false);
+	return (true);
 }
 
 int	builtin_exit(char **argv, t_node *node, t_token *tok)
@@ -51,7 +70,7 @@ int	builtin_exit(char **argv, t_node *node, t_token *tok)
 			ft_dprintf(2, "minishell: exit: too many arguments\n");
 			return (1);
 		}
-		if (!is_numeric(argv[1]))
+		if (!is_numeric(argv[1]) || !is_in_range(argv[1]))
 		{
 			ft_dprintf(2, "exit\n");
 			ft_dprintf(2, "minishell: exit: %s: numeric argument required\n", argv[1]);
