@@ -1,6 +1,6 @@
 MINISHELL_DIR = .
-PRINTF_DIR = $(MINISHELL_DIR)/submodules/printf
-GNL_DIR = $(MINISHELL_DIR)/submodules/get_next_line
+LIBFTPRINTF_DIR = $(MINISHELL_DIR)/submodules/libftprintf
+LIBFT_DIR = $(MINISHELL_DIR)/submodules/libftprintf/libft
 
 NAME	= minishell
 CC		= cc
@@ -59,7 +59,7 @@ SRCS		= main.c\
 					environ/map_unset.c\
 
 
-PRINTF = $(PRINTF_DIR)/libftprintf.a
+LIBFTPRINTF = $(LIBFTPRINTF_DIR)/libftprintf.a
 
 OBJS		= $(SRCS:%.c=%.o)
 
@@ -69,22 +69,22 @@ LIBS += -L/opt/homebrew/opt/readline/lib -lreadline -lncurses
 
 all: $(NAME)
 
-$(PRINTF):
-	@make -C $(PRINTF_DIR)
+$(LIBFTPRINTF):
+	@make -C $(LIBFTPRINTF_DIR)
 
-$(NAME): $(OBJS) $(PRINTF)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBS) $(PRINTF) -I$(PRINTF_DIR) -o $(NAME)
+$(NAME): $(OBJS) $(LIBFTPRINTF)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBS) $(LIBFTPRINTF) -I$(LIBFTPRINTF_DIR) -I$(LIBFT_DIR) -o $(NAME)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -I$(PRINTF_DIR) -O3 -c $< -o $@
+	$(CC) $(CFLAGS) -I$(LIBFTPRINTF_DIR) -I$(LIBFT_DIR) -O3 -c $< -o $@
 
 clean:
 	$(RM) $(OBJS)
-	@make -C $(PRINTF_DIR) clean
+	@make -C $(LIBFTPRINTF_DIR) clean
 
 fclean: clean
 	$(RM) $(NAME)
-	@make -C $(PRINTF_DIR) fclean
+	@make -C $(LIBFTPRINTF_DIR) fclean
 
 re: fclean all
 
