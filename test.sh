@@ -41,7 +41,7 @@ assert() {
   do
     mv "$arg" "$arg"".cmp"
   done
-  echo -n -e "$COMMAND" | ./minishell >out 2>&-
+  echo -n -e "$COMMAND" | ./src/minishell >out 2>&-
   actual=$?
   for arg in "$@"
   do
