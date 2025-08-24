@@ -46,7 +46,7 @@
 - [x] echo -na
   - だったら-naとだす　n以外の文字があったらオプションじゃなくなる
 - [ ] long max以上の数字でexitするとerrorを出すべき
-- [ ] make時にreadlineのwarning出る
+- [x] make時にreadlineのwarning出る
 - [x] atoi使ってしまってない？
 - [x] LibftのMakefileでCFLAGSが使われていないのでは？
 - [x] Makefileの中で＊を使っちゃっている
