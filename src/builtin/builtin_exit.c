@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 16:03:29 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/23 21:22:31 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/24 16:31:15 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ bool	is_numeric(char *s)
 	return (1);
 }
 
-int	builtin_exit(char **argv)
+int	builtin_exit(char **argv, t_node *node, t_token *tok)
 {
 	int	exit_code;
 
@@ -55,6 +55,8 @@ int	builtin_exit(char **argv)
 		{
 			ft_dprintf(2, "exit\n");
 			ft_dprintf(2, "minishell: exit: %s: numeric argument required\n", argv[1]);
+			free_node(node);
+			free_tok(tok);
 			map_del(g_ctx.envmap);
 			exit(2);
 		}
@@ -63,6 +65,8 @@ int	builtin_exit(char **argv)
 	}
 	ft_dprintf(2, "exit\n");
 	free_argv(argv);
+	free_node(node);
+	free_tok(tok);
 	map_del(g_ctx.envmap);
 	exit(exit_code);
 }
