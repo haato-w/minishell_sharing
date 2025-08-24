@@ -3,35 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
+/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 05:06:12 by heart             #+#    #+#             */
-/*   Updated: 2025/08/13 02:39:56 by heart            ###   ########.fr       */
+/*   Updated: 2025/08/24 15:47:05 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static int	exec_nonbuiltin(t_node *node) __attribute__((noreturn));
+static int	exec_nonbuiltin(t_node *root_node, t_node *node, t_token *tok) __attribute__((noreturn));
 
-static int	exec_nonbuiltin(t_node *node)
+static int	exec_nonbuiltin(t_node *root_node, t_node *node, t_token *tok)
 {
 	char	*path;
 	char	**argv;
 
+	if (node->command->args == NULL)
+	{
+		free_node(root_node);
+		free_tok(tok);
+		map_del(g_ctx.envmap);
+		exit(0);
+	}
 	do_redirect(node->command->redirects);
 	argv = token_list_to_argv(node->command->args);
 	path = argv[0];
 	if (ft_strchr(path, '/') == NULL)
 		path = search_path(path);
-	validate_access(path, argv[0]);
+	validate_access(path, argv, root_node, tok);
 	execve(path, argv, get_environ(g_ctx.envmap));
 	free_argv(argv);
 	reset_redirect(node->command->redirects);
 	fatal_error("execve");
 }
 
-static int	exec_pipeline(t_node *node)
+static int	exec_pipeline(t_node *root_node, t_node *node, t_token *tok)
 {
 	pid_t	pid;
 
@@ -46,13 +53,13 @@ static int	exec_pipeline(t_node *node)
 		reset_signal();
 		prepare_pipe_child(node);
 		if (is_builtin(node))
-			exit(exec_builtin(node));
+			exit(exec_builtin(node, tok));
 		else
-			exec_nonbuiltin(node);
+			exec_nonbuiltin(root_node, node, tok);
 	}
 	prepare_pipe_parent(node);
 	if (node->next)
-		return (exec_pipeline(node->next));
+		return (exec_pipeline(root_node, node->next, tok));
 	return (pid);
 }
 
@@ -94,7 +101,7 @@ static int	wait_pipeline(pid_t last_pid)
 	return (status);
 }
 
-int	exec(t_node *node)
+int	exec(t_node *node, t_token *tok)
 {
 	pid_t	last_pid;
 	int		status;
@@ -107,10 +114,10 @@ int	exec(t_node *node)
 			return (130);
 	}
 	if (node->next == NULL && is_builtin(node))
-		status = exec_builtin(node);
+		status = exec_builtin(node, tok);
 	else
 	{
-		last_pid = exec_pipeline(node);
+		last_pid = exec_pipeline(node, node, tok);
 		status = wait_pipeline(last_pid);
 	}
 	return (status);

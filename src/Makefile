@@ -17,6 +17,9 @@ SRCS		= main.c\
 					utils/ft_xstrdup.c\
 					utils/ft_xstrndup.c\
 					utils/ft_xcalloc.c\
+					utils/ft_xclose.c\
+					utils/ft_xdup2.c\
+					utils/debug_utils.c\
 					tokenize/tokenize.c\
 					tokenize/tokenize_utils.c\
 					tokenize/argv.c\

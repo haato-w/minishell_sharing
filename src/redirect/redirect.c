@@ -6,21 +6,38 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 18:55:13 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/11 21:56:29 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/24 15:33:09 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+static bool is_valid_fd(int fd)
+{
+	struct  stat st;
+	
+	if (fd < 0)
+		return (false);
+	errno = 0;
+	if (fstat(fd, &st) < 0 && errno == EBADF)
+		return (false);
+	return (true);
+}
+
 int	stashfd(int fd)
 {
 	int	stashfd;
 
-	stashfd = fcntl(fd, F_DUPFD, 10);
-	if (stashfd < 0)
-		fatal_error("fcntl");
-	if (0 <= fd && close(fd) < 0)
-		fatal_error("close");
+	if (!is_valid_fd(fd))
+	{
+		errno = EBADF;
+		return (-1);
+	}
+	stashfd = 10;
+	while (is_valid_fd(stashfd))
+		stashfd++;
+	stashfd = ft_xdup2(fd, stashfd);
+	ft_xclose(fd);
 	return (stashfd);
 }
 
@@ -58,11 +75,9 @@ void	reset_redirect(t_node *redir)
 	reset_redirect(redir->next);
 	if (in_redirect(redir))
 	{
-		if (0 <= redir->filefd)
-			close(redir->filefd);
-		if (0 <= redir->targetfd)
-			close(redir->targetfd);
-		dup2(redir->stashed_targetfd, redir->targetfd);
+		ft_xclose(redir->filefd);
+		ft_xclose(redir->targetfd);
+		ft_xdup2(redir->stashed_targetfd, redir->targetfd);
 	}
 	else
 		assert_error("reset_redirect");

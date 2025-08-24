@@ -3,31 +3,67 @@
 /*                                                        :::      ::::::::   */
 /*   validate_access.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
+/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 05:26:04 by heart             #+#    #+#             */
-/*   Updated: 2025/08/09 05:28:32 by heart            ###   ########.fr       */
+/*   Updated: 2025/08/24 15:54:49 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	validate_access(const char *path, const char *filename)
+static void free_resources(char **argv, t_node *node, t_token *tok)
+{
+	free_argv(argv);
+	free_node(node);
+	free_tok(tok);
+}
+
+void	validate_access(const char *path, char **argv,
+	t_node *root_node, t_token *tok)
 {
 	struct stat	st;
+	const char *filename = argv[0];
 
 	if (path == NULL)
-		err_exit(filename, "command not found", 127);
+	{
+		char *tmp = ft_xstrdup(argv[0]);
+		free_resources(argv, root_node, tok);
+		err_exit(tmp, "command not found", 127);
+	}
 	if (ft_strncmp(filename, "", 1) == 0)
-		err_exit(filename, "command not found", 127);
+	{
+		char *tmp = ft_xstrdup(argv[0]);
+		free_resources(argv, root_node, tok);
+		err_exit(tmp, "command not found", 127);
+	}
 	if (ft_strncmp(filename, "..", 3) == 0)
-		err_exit(filename, "command not found", 127);
+	{
+		char *tmp = ft_xstrdup(argv[0]);
+		free_resources(argv, root_node, tok);
+		err_exit(tmp, "command not found", 127);
+	}
 	if (access(path, F_OK) < 0)
-		err_exit(filename, "command not found", 127);
+	{
+		char *tmp = ft_xstrdup(argv[0]);
+		free_resources(argv, root_node, tok);
+		err_exit(tmp, "command not found", 127);
+	}
 	if (stat(path, &st) < 0)
+	{
+		free_resources(argv, root_node, tok);
 		fatal_error("fstat");
+	}
 	if (S_ISDIR(st.st_mode))
-		err_exit(filename, "is a directory", 126);
+	{
+		char *tmp = ft_xstrdup(argv[0]);
+		free_resources(argv, root_node, tok);
+		err_exit(tmp, "is a directory", 126);
+	}
 	if (access(path, X_OK) < 0)
-		err_exit(path, "Permission denied", 126);
+	{
+		char *tmp = ft_xstrdup(path);
+		free_resources(argv, root_node, tok);
+		err_exit(tmp, "Permission denied", 126);
+	}
 }

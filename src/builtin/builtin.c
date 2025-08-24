@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 15:59:34 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/09 22:05:36 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/24 00:15:04 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ bool	is_builtin(t_node *node)
 	return (false);
 }
 
-int	exec_builtin(t_node *node)
+int	exec_builtin(t_node *node, t_token *tok)
 {
 	int		status;
 	char	**argv;
@@ -41,7 +41,11 @@ int	exec_builtin(t_node *node)
 	do_redirect(node->command->redirects);
 	argv = token_list_to_argv(node->command->args);
 	if (ft_strcmp(argv[0], "exit") == 0)
+	{
+		free_node(node);
+		free_tok(tok);
 		status = builtin_exit(argv);
+	}
 	else if (ft_strcmp(argv[0], "export") == 0)
 		status = builtin_export(argv);
 	else if (ft_strcmp(argv[0], "unset") == 0)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
+/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 04:48:10 by heart             #+#    #+#             */
-/*   Updated: 2025/08/13 02:25:31 by heart            ###   ########.fr       */
+/*   Updated: 2025/08/24 15:55:24 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	interpret(char *line, int *stat_loc)
 		else
 		{
 			expand(node);
-			*stat_loc = exec(node);
+			*stat_loc = exec(node, tok);
 		}
 		free_node(node);
 	}

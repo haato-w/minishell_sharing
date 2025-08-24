@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
+/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 04:53:37 by heart             #+#    #+#             */
-/*   Updated: 2025/08/13 02:25:24 by heart            ###   ########.fr       */
+/*   Updated: 2025/08/24 15:47:15 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,13 +216,13 @@ void	prepare_pipe_child(t_node *node);
 void	prepare_pipe_parent(t_node *node);
 
 // exec.c
-int		exec(t_node *node);
+int		exec(t_node *node, t_token *tok);
 
 // search_path.c
 char	*search_path(const char *filename);
 
 // validate_access.c
-void	validate_access(const char *path, const char *filename);
+void	validate_access(const char *path, char **argv, t_node *node, t_token *tok);
 
 // signal.c
 void	setup_sig_event_hook_heredoc(void);
@@ -236,7 +236,7 @@ void	setup_heredoc_sig(void);
 
 // builtin.c
 bool	is_builtin(t_node *node);
-int		exec_builtin(t_node *node);
+int		exec_builtin(t_node *node, t_token *tok);
 
 // builtin_exit.c
 bool	is_numeric(char *s);
@@ -292,5 +292,12 @@ int		map_put(t_map *map, const char *string,
 char	*xgetenv(const char *name);
 void	initenv(void);
 char	**get_environ(t_map *map);
+
+// debug_utils.c
+void show_token(t_token *tok, int level);
+void show_node(t_node *node, int level);
+
+int ft_xclose(int fd);
+int ft_xdup2(int fildes, int fildes2);
 
 #endif
