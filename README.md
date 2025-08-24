@@ -15,7 +15,14 @@
 
 ### バグ修正
 - [x] Ctrl cを押した時に入力欄がクリーンにならない
-- [ ] `< Makefile | cat`の時にfd消し忘れ
+- [x] `< Makefile | cat`の時にfd消し忘れ
+- [x] Still reachableが出る
+  - readlineに由来するのであれば良い
+- [x] 演算子があってコマンドがないと変なバグになる
+  - ft_strchrで出ている
+  - < main.c
+  - ls | < main.c | cat　（これは要相談）
+	でバグる
 - [x] `| cat`のときのエラー文がおかしい
 - [x] PATHがない時はCurrent dirだけにある実行ファイルを探すべき
 - [x] catの入力待ち中でctrl+cするとで変な出力が出る
@@ -36,13 +43,6 @@
 
 - [x] 全体的にfd closeでwarning出る
   - 外部関数を実行するときに出る
-- [ ] Still reachableが出る
-  - readlineに由来するのであれば良い
-- [ ] 演算子があってコマンドがないと変なバグになる
-  - ft_strchrで出ている
-  - < main.c
-  - ls | < main.c | cat　（これは要相談）
-	でバグる
 - [x] OLDPWDが元のshellから引き継がれていない
 - [x] SHLVLへの対応
 - [x] cdのエラーメッセージもおかしい
