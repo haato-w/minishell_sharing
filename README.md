@@ -49,7 +49,7 @@
 - [ ] make時にreadlineのwarning出る
 - [x] atoi使ってしまってない？
 - [x] LibftのMakefileでCFLAGSが使われていないのでは？
-- [ ] Makefileの中で＊を使っちゃっている
+- [x] Makefileの中で＊を使っちゃっている
 - [ ] グローバルの構造体を使わない
 - [ ] SIGQUITのstatusが130で正しいのかどうか
 - [ ] SIGQUITのエラーメッセージのCore dumpedはおかしい
