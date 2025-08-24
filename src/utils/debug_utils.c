@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 18:59:14 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/23 18:21:57 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/24 16:14:51 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void print_tab(int num)
   size_t i;
   
   i = 0;
-  while (i < num)
+  while (i < (size_t)num)
   {
     printf("\t");
     i++;

@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 04:53:37 by heart             #+#    #+#             */
-/*   Updated: 2025/08/24 15:47:15 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/24 16:15:24 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ void	parse_error(const char *location, t_token **rest, t_token *tok);
 void	todo(const char *msg) __attribute__((noreturn));
 void	fatal_error(const char *msg) __attribute__((noreturn));
 void	assert_error(const char *msg) __attribute__((noreturn));
-void	err_exit(const char *location, const char *msg, int status)
+void	err_exit(char *location, const char *msg, int status)
 		__attribute__((noreturn));
 
 int		ft_strcmp(const char *s1, const char *s2);
@@ -293,11 +293,11 @@ char	*xgetenv(const char *name);
 void	initenv(void);
 char	**get_environ(t_map *map);
 
-// debug_utils.c
-void show_token(t_token *tok, int level);
-void show_node(t_node *node, int level);
-
 int ft_xclose(int fd);
 int ft_xdup2(int fildes, int fildes2);
+
+// debug_utils.c
+// void show_token(t_token *tok, int level);
+// void show_node(t_node *node, int level);
 
 #endif

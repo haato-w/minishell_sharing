@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 18:58:00 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/24 15:36:46 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/24 16:13:41 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	assert_error(const char *msg)
 	exit(255);
 }
 
-void	err_exit(const char *location, const char *msg, int status)
+void	err_exit(char *location, const char *msg, int status)
 {
 	perror_prefix();
 	ft_dprintf(STDERR_FILENO, "%s: %s\n", location, msg);
