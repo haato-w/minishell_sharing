@@ -45,7 +45,7 @@
 - [x] cdのエラーメッセージもおかしい
 - [x] echo -na
   - だったら-naとだす　n以外の文字があったらオプションじゃなくなる
-- [ ] long max以上の数字でexitするとerrorを出すべき
+- [x] long max以上の数字でexitするとerrorを出すべき
 - [x] make時にreadlineのwarning出る
 - [x] atoi使ってしまってない？
 - [x] LibftのMakefileでCFLAGSが使われていないのでは？
