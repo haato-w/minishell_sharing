@@ -1,5 +1,7 @@
+build:
+	source ../docker-environments/development_base_for_mac/build_script.sh
 up:
-	source ../docker-enviroments/development_base_for_mac/up_script.sh
+	source ../docker-environments/development_base_for_mac/up_script.sh
 
 in:
 	docker start minishell-env
