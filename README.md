@@ -47,8 +47,8 @@
   - だったら-naとだす　n以外の文字があったらオプションじゃなくなる
 - [ ] long max以上の数字でexitするとerrorを出すべき
 - [ ] make時にreadlineのwarning出る
-- [ ] atoi使ってしまってない？
-- [ ] LibftのMakefileでCFLAGSが使われていないのでは？
+- [x] atoi使ってしまってない？
+- [x] LibftのMakefileでCFLAGSが使われていないのでは？
 - [ ] Makefileの中で＊を使っちゃっている
 - [ ] グローバルの構造体を使わない
 - [ ] SIGQUITのstatusが130で正しいのかどうか
