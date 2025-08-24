@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 18:59:22 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/24 16:26:05 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/24 17:00:09 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@ void	free_node(t_node *node)
 	free_tok(node->args);
 	free_tok(node->filename);
 	free_tok(node->delimiter);
+	if (2 < node->filefd)
+		ft_xclose(node->filefd);
+	if (2 < node->stashed_targetfd)
+		ft_xclose(node->stashed_targetfd);
 	free_node(node->redirects);
 	free_node(node->next);
 	free_node(node->command);

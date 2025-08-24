@@ -6,13 +6,13 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 00:14:16 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/24 00:14:17 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/24 16:36:04 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int ft_xclose(int fd)
+int	ft_xclose(int fd)
 {
 	if (fd < 0)
 		return (-1);

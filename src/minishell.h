@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 04:53:37 by heart             #+#    #+#             */
-/*   Updated: 2025/08/24 16:31:28 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/24 17:09:26 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,7 +222,7 @@ int		exec(t_node *node, t_token *tok);
 char	*search_path(const char *filename);
 
 // validate_access.c
-void	validate_access(const char *path, char **argv, t_node *node, t_token *tok);
+void	validate_access(const char *path, char **argv, t_node *root_node, t_token *tok);
 
 // signal.c
 void	setup_sig_event_hook_heredoc(void);

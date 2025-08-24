@@ -6,16 +6,16 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 05:26:04 by heart             #+#    #+#             */
-/*   Updated: 2025/08/24 15:54:49 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/24 17:09:37 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void free_resources(char **argv, t_node *node, t_token *tok)
+static void free_resources(char **argv, t_node *root_node, t_token *tok)
 {
 	free_argv(argv);
-	free_node(node);
+	free_node(root_node);
 	free_tok(tok);
 }
 
