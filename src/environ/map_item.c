@@ -6,19 +6,19 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 19:15:43 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/09 22:07:12 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/24 20:53:20 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_item	*item_new(char *name, char *value, int attributes)
+t_item	*item_new(char *name, char *value, int attributes, t_context g_ctx)
 {
 	t_item	*item;
 
 	item = ft_calloc(1, sizeof(*item));
 	if (item == NULL)
-		fatal_error("ft_calloc");
+		fatal_error("ft_calloc", g_ctx);
 	item->name = name;
 	item->value = value;
 	item->attributes = attributes;
@@ -30,7 +30,7 @@ bool	item_exported(t_item *item)
 	return (item->attributes & ATTR_EXPORT);
 }
 
-char	*item_get_string(t_item *item)
+char	*item_get_string(t_item *item, t_context g_ctx)
 {
 	size_t	strsize;
 	char	*string;
@@ -40,7 +40,7 @@ char	*item_get_string(t_item *item)
 		strsize += ft_strlen(item->value);
 	string = malloc(strsize);
 	if (string == NULL)
-		fatal_error("malloc");
+		fatal_error("malloc", g_ctx);
 	ft_strlcpy(string, item->name, strsize);
 	if (item->value)
 	{

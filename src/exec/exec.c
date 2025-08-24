@@ -6,60 +6,60 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 05:06:12 by heart             #+#    #+#             */
-/*   Updated: 2025/08/24 15:47:05 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/24 22:04:39 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static int	exec_nonbuiltin(t_node *root_node, t_node *node, t_token *tok) __attribute__((noreturn));
+static int	exec_nonbuiltin(t_node *root_node, t_node *node, t_token *tok, t_context g_ctx) __attribute__((noreturn));
 
-static int	exec_nonbuiltin(t_node *root_node, t_node *node, t_token *tok)
+static int	exec_nonbuiltin(t_node *root_node, t_node *node, t_token *tok, t_context g_ctx)
 {
 	char	*path;
 	char	**argv;
 
 	if (node->command->args == NULL)
 	{
-		free_node(root_node);
+		free_node(root_node, g_ctx);
 		free_tok(tok);
 		map_del(g_ctx.envmap);
 		exit(0);
 	}
-	do_redirect(node->command->redirects);
-	argv = token_list_to_argv(node->command->args);
+	do_redirect(node->command->redirects, g_ctx);
+	argv = token_list_to_argv(node->command->args, g_ctx);
 	path = argv[0];
 	if (ft_strchr(path, '/') == NULL)
-		path = search_path(path);
-	validate_access(path, argv, root_node, tok);
-	execve(path, argv, get_environ(g_ctx.envmap));
+		path = search_path(path, g_ctx);
+	validate_access(path, argv, root_node, tok, g_ctx);
+	execve(path, argv, get_environ(g_ctx.envmap, g_ctx));
 	free_argv(argv);
-	reset_redirect(node->command->redirects);
-	fatal_error("execve");
+	reset_redirect(node->command->redirects, g_ctx);
+	fatal_error("execve", g_ctx);
 }
 
-static int	exec_pipeline(t_node *root_node, t_node *node, t_token *tok)
+static int	exec_pipeline(t_node *root_node, t_node *node, t_token *tok, t_context g_ctx)
 {
 	pid_t	pid;
 
 	if (node == NULL)
 		return (-1);
-	prepare_pipe(node);
+	prepare_pipe(node, g_ctx);
 	pid = fork();
 	if (pid < 0)
-		fatal_error("fork");
+		fatal_error("fork", g_ctx);
 	else if (pid == 0)
 	{
-		reset_signal();
+		reset_signal(g_ctx);
 		prepare_pipe_child(node);
 		if (is_builtin(node))
-			exit(exec_builtin(node, tok));
+			exit(exec_builtin(node, tok, g_ctx));
 		else
-			exec_nonbuiltin(root_node, node, tok);
+			exec_nonbuiltin(root_node, node, tok, g_ctx);
 	}
 	prepare_pipe_parent(node);
 	if (node->next)
-		return (exec_pipeline(root_node, node->next, tok));
+		return (exec_pipeline(root_node, node->next, tok, g_ctx));
 	return (pid);
 }
 
@@ -74,7 +74,7 @@ static int	get_status(int wstatus)
 	return (status);
 }
 
-static int	wait_pipeline(pid_t last_pid)
+static int	wait_pipeline(pid_t last_pid, t_context g_ctx)
 {
 	pid_t	wait_result;
 	int		status;
@@ -95,18 +95,18 @@ static int	wait_pipeline(pid_t last_pid)
 			else if (errno == EINTR)
 				continue ;
 			else
-				fatal_error("wait");
+				fatal_error("wait", g_ctx);
 		}
 	}
 	return (status);
 }
 
-int	exec(t_node *node, t_token *tok)
+int	exec(t_node *node, t_token *tok, t_context g_ctx)
 {
 	pid_t	last_pid;
 	int		status;
 
-	if (open_redir_file(node) < 0)
+	if (open_redir_file(node, g_ctx) < 0)
 	{
 		if (!g_ctx.readline_interrupted)
 			return (ERROR_OPEN_REDIR);
@@ -114,11 +114,11 @@ int	exec(t_node *node, t_token *tok)
 			return (130);
 	}
 	if (node->next == NULL && is_builtin(node))
-		status = exec_builtin(node, tok);
+		status = exec_builtin(node, tok, g_ctx);
 	else
 	{
-		last_pid = exec_pipeline(node, node, tok);
-		status = wait_pipeline(last_pid);
+		last_pid = exec_pipeline(node, node, tok, g_ctx);
+		status = wait_pipeline(last_pid, g_ctx);
 	}
 	return (status);
 }

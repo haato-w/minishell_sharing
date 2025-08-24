@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 14:00:38 by heart             #+#    #+#             */
-/*   Updated: 2025/08/09 22:07:59 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/24 21:31:52 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ size_t	strlncpy(char *dst, char *src, size_t n, size_t dstsize)
 	return (i);
 }
 
-void	append_path_elem(char *dst, size_t dstsize, char **rest, char *src)
+void	append_path_elem(char *dst, size_t dstsize, char **rest, char *src, t_context g_ctx)
 {
 	char	buf[PATH_MAX];
 	size_t	elem_len;
@@ -76,11 +76,11 @@ void	append_path_elem(char *dst, size_t dstsize, char **rest, char *src)
 	while (src[elem_len] && src[elem_len] != '/')
 		elem_len++;
 	if (strlncpy(buf, src, elem_len, PATH_MAX) >= PATH_MAX)
-		assert_error("strlncpy error");
+		assert_error("strlncpy error", g_ctx);
 	if (dst[ft_strlen(dst) - 1] != '/')
 		if (ft_strlcat(dst, "/", dstsize) >= dstsize)
-			assert_error("This will not happen");
+			assert_error("This will not happen", g_ctx);
 	if (ft_strlcat(dst, buf, dstsize) >= dstsize)
-		assert_error("ft_strlcat error");
+		assert_error("ft_strlcat error", g_ctx);
 	*rest = src + elem_len;
 }

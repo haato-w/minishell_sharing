@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:07:03 by heart             #+#    #+#             */
-/*   Updated: 2025/08/09 22:06:18 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/24 21:13:24 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ bool	equal_op(t_token *tok, char *op)
 	return (ft_strcmp(tok->word, op) == 0);
 }
 
-t_token	*tokdup(t_token *tok)
+t_token	*tokdup(t_token *tok, t_context g_ctx)
 {
 	char	*word;
 
 	word = ft_strdup(tok->word);
 	if (word == NULL)
-		fatal_error("strdup");
-	return (new_token(word, tok->kind));
+		fatal_error("strdup", g_ctx);
+	return (new_token(word, tok->kind, g_ctx));
 }
 
 void	append_tok(t_token **tok, t_token *elm)

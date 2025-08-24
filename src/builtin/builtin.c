@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 15:59:34 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/24 16:30:44 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/24 21:32:31 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,30 +33,30 @@ bool	is_builtin(t_node *node)
 	return (false);
 }
 
-int	exec_builtin(t_node *node, t_token *tok)
+int	exec_builtin(t_node *node, t_token *tok, t_context g_ctx)
 {
 	int		status;
 	char	**argv;
 
-	do_redirect(node->command->redirects);
-	argv = token_list_to_argv(node->command->args);
+	do_redirect(node->command->redirects, g_ctx);
+	argv = token_list_to_argv(node->command->args, g_ctx);
 	if (ft_strcmp(argv[0], "exit") == 0)
-		status = builtin_exit(argv, node, tok);
+		status = builtin_exit(argv, node, tok, g_ctx);
 	else if (ft_strcmp(argv[0], "export") == 0)
-		status = builtin_export(argv);
+		status = builtin_export(argv, g_ctx);
 	else if (ft_strcmp(argv[0], "unset") == 0)
-		status = builtin_unset(argv);
+		status = builtin_unset(argv, g_ctx);
 	else if (ft_strcmp(argv[0], "env") == 0)
-		status = builtin_env(argv);
+		status = builtin_env(argv, g_ctx);
 	else if (ft_strcmp(argv[0], "cd") == 0)
-		status = builtin_cd(argv);
+		status = builtin_cd(argv, g_ctx);
 	else if (ft_strcmp(argv[0], "echo") == 0)
 		status = builtin_echo(argv);
 	else if (ft_strcmp(argv[0], "pwd") == 0)
-		status = builtin_pwd(argv);
+		status = builtin_pwd(argv, g_ctx);
 	else
-		todo("exec_builtin");
+		todo("exec_builtin", g_ctx);
 	free_argv(argv);
-	reset_redirect(node->command->redirects);
+	reset_redirect(node->command->redirects, g_ctx);
 	return (status);
 }

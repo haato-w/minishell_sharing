@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
+/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:42:59 by heart             #+#    #+#             */
-/*   Updated: 2025/08/13 02:33:28 by heart            ###   ########.fr       */
+/*   Updated: 2025/08/24 21:55:38 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 static int	check_state_heredoc(void)
 {
-	if (g_ctx.sig == 0)
+	if (g_sig_status == 0)
 		return (0);
-	else if (g_ctx.sig == SIGINT)
+	else if (g_sig_status == SIGINT)
 	{
-		g_ctx.sig = 0;
+		g_sig_status = 0;
 		rl_done = 1;
-		g_ctx.last_status = 130;
+		// g_ctx.last_status = 130;
 		return (0);
 	}
 	return (0);
@@ -28,12 +28,12 @@ static int	check_state_heredoc(void)
 
 static int	check_state(void)
 {
-	if (g_ctx.sig == 0)
+	if (g_sig_status == 0)
 		return (0);
-	else if (g_ctx.sig == SIGINT)
+	else if (g_sig_status == SIGINT)
 	{
-		g_ctx.sig = 0;
-		g_ctx.last_status = 130;
+		g_sig_status = 0;
+		// g_ctx.last_status = 130;
 		return (0);
 	}
 	return (0);
@@ -59,7 +59,7 @@ void	setup_sig_event_hook(void)
 		rl_event_hook = check_state;
 }
 
-void	ignore_sig(int signum)
+void	ignore_sig(int signum, t_context g_ctx)
 {
 	struct sigaction	sa;
 
@@ -67,10 +67,10 @@ void	ignore_sig(int signum)
 	sa.sa_flags = 0;
 	sa.sa_handler = SIG_IGN;
 	if (sigaction(signum, &sa, NULL) < 0)
-		fatal_error("sigaction");
+		fatal_error("sigaction", g_ctx);
 }
 
-static void	reset_sig(int signum)
+static void	reset_sig(int signum, t_context g_ctx)
 {
 	struct sigaction	sa;
 
@@ -78,11 +78,11 @@ static void	reset_sig(int signum)
 	sa.sa_flags = 0;
 	sa.sa_handler = SIG_DFL;
 	if (sigaction(signum, &sa, NULL) < 0)
-		fatal_error("sigaction");
+		fatal_error("sigaction", g_ctx);
 }
 
-void	reset_signal(void)
+void	reset_signal(t_context g_ctx)
 {
-	reset_sig(SIGQUIT);
-	reset_sig(SIGINT);
+	reset_sig(SIGQUIT, g_ctx);
+	reset_sig(SIGINT, g_ctx);
 }

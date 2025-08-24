@@ -6,13 +6,13 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 18:56:50 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/10 18:57:04 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/24 20:47:40 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	tokenize_error(const char *location, char **rest, char *line)
+void	tokenize_error(const char *location, char **rest, char *line, t_context g_ctx)
 {
 	g_ctx.syntax_error = true;
 	perror_prefix();
@@ -22,7 +22,7 @@ void	tokenize_error(const char *location, char **rest, char *line)
 	*rest = line;
 }
 
-void	parse_error(const char *location, t_token **rest, t_token *tok)
+void	parse_error(const char *location, t_token **rest, t_token *tok, t_context g_ctx)
 {
 	g_ctx.syntax_error = true;
 	perror_prefix();

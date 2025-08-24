@@ -6,19 +6,19 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:05:59 by heart             #+#    #+#             */
-/*   Updated: 2025/08/09 21:04:47 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/24 21:03:05 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_node	*new_node(t_node_kind kind)
+t_node	*new_node(t_node_kind kind, t_context g_ctx)
 {
 	t_node	*node;
 
 	node = ft_calloc(1, sizeof(*node));
 	if (node == NULL)
-		fatal_error("calloc");
+		fatal_error("calloc", g_ctx);
 	node->kind = kind;
 	return (node);
 }

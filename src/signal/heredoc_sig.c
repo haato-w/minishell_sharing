@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_sig.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
+/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 17:32:53 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/13 02:41:52 by heart            ###   ########.fr       */
+/*   Updated: 2025/08/24 22:01:18 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 
 static void	heredoc_handler(int signum)
 {
-	g_ctx.sig = signum;
-	g_ctx.readline_interrupted = true;
-	g_ctx.last_status = 130;
+	// g_ctx.sig = signum;
+	g_sig_status = signum;
+	// g_ctx.readline_interrupted = true;
+	// g_ctx.last_status = 130;
 }
 
-void	setup_heredoc_sig(void)
+void	setup_heredoc_sig(t_context g_ctx)
 {
 	struct sigaction	sa;
 
@@ -27,6 +28,6 @@ void	setup_heredoc_sig(void)
 	sa.sa_flags = 0;
 	sa.sa_handler = heredoc_handler;
 	if (sigaction(SIGINT, &sa, NULL) < 0)
-		fatal_error("sigaction");
-	ignore_sig(SIGQUIT);
+		fatal_error("sigaction", g_ctx);
+	ignore_sig(SIGQUIT, g_ctx);
 }

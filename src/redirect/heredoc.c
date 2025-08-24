@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
+/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 18:52:46 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/13 02:28:01 by heart            ###   ########.fr       */
+/*   Updated: 2025/08/24 21:13:15 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 static void	readline_heredoc_loop(int pfd[2], const char *delimiter,
-	bool is_delim_unquoted)
+	bool is_delim_unquoted, t_context g_ctx)
 {
 	char	*line;
 
@@ -28,22 +28,22 @@ static void	readline_heredoc_loop(int pfd[2], const char *delimiter,
 			break ;
 		}
 		if (is_delim_unquoted)
-			line = expand_heredoc_line(line);
+			line = expand_heredoc_line(line, g_ctx);
 		ft_dprintf(pfd[1], "%s\n", line);
 		free(line);
 	}
 }
 
-int	read_heredoc(const char *delimiter, bool is_delim_unquoted)
+int	read_heredoc(const char *delimiter, bool is_delim_unquoted, t_context g_ctx)
 {
 	int		pfd[2];
 
 	setup_sig_event_hook_heredoc();
-	setup_heredoc_sig();
+	setup_heredoc_sig(g_ctx);
 	if (pipe(pfd) < 0)
-		fatal_error("pipe");
+		fatal_error("pipe", g_ctx);
 	g_ctx.readline_interrupted = false;
-	readline_heredoc_loop(pfd, delimiter, is_delim_unquoted);
+	readline_heredoc_loop(pfd, delimiter, is_delim_unquoted, g_ctx);
 	close(pfd[1]);
 	if (g_ctx.readline_interrupted)
 	{

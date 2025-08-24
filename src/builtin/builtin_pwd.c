@@ -6,13 +6,13 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 16:05:04 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/11 19:35:32 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/24 22:05:29 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static bool	equal_to_cwd(const char *path)
+static bool	equal_to_cwd(const char *path, t_context g_ctx)
 {
 	struct stat	st1;
 	struct stat	st2;
@@ -22,18 +22,18 @@ static bool	equal_to_cwd(const char *path)
 	if (stat(path, &st1) < 0)
 		return (false);
 	if (stat(".", &st2) < 0)
-		fatal_error("stat");
+		fatal_error("stat", g_ctx);
 	return (st1.st_ino == st2.st_ino);
 }
 
-int	builtin_pwd(char **argv)
+int	builtin_pwd(char **argv, t_context g_ctx)
 {
 	char	*pwd;
 	char	cwd[PATH_MAX];
 
 	(void)argv;
-	pwd = xgetenv("PWD");
-	if (pwd == NULL || !equal_to_cwd(pwd))
+	pwd = xgetenv("PWD", g_ctx);
+	if (pwd == NULL || !equal_to_cwd(pwd, g_ctx))
 	{
 		if (getcwd(cwd, PATH_MAX) == NULL)
 		{

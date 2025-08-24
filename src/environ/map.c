@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 19:29:26 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/11 21:02:56 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/24 22:08:43 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ bool	is_identifier(const char *s)
 	return (true);
 }
 
-t_map	*map_new(void)
+t_map	*map_new(t_context *g_ctx)
 {
 	t_map	*map;
 
 	map = ft_calloc(1, sizeof(*map));
 	if (map == NULL)
-		fatal_error("calloc");
+		fatal_error("calloc", g_ctx);
 	return (map);
 }
 

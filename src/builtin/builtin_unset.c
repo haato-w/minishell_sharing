@@ -6,13 +6,13 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 16:07:30 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/10 21:45:19 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/24 20:39:58 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	builtin_unset(char **argv)
+int	builtin_unset(char **argv, t_context g_ctx)
 {
 	int		status;
 	size_t	i;

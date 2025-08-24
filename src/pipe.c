@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 19:05:26 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/11 21:56:33 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/24 22:00:42 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 static void	cpy_pipe(int dst[2], int src[2]);
 
-void	prepare_pipe(t_node *node)
+void	prepare_pipe(t_node *node, t_context g_ctx)
 {
 	if (node->next == NULL)
 		return ;
 	if (pipe(node->outpipe) < 0)
-		fatal_error("pipe");
+		fatal_error("pipe", g_ctx);
 	cpy_pipe(node->next->inpipe, node->outpipe);
 }
 

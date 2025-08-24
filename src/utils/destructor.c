@@ -6,13 +6,13 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 18:59:22 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/24 17:00:09 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/24 21:28:57 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	free_node(t_node *node)
+void	free_node(t_node *node, t_context g_ctx)
 {
 	if (node == NULL)
 		return ;
@@ -20,12 +20,12 @@ void	free_node(t_node *node)
 	free_tok(node->filename);
 	free_tok(node->delimiter);
 	if (2 < node->filefd)
-		ft_xclose(node->filefd);
+		ft_xclose(node->filefd, g_ctx);
 	if (2 < node->stashed_targetfd)
-		ft_xclose(node->stashed_targetfd);
-	free_node(node->redirects);
-	free_node(node->next);
-	free_node(node->command);
+		ft_xclose(node->stashed_targetfd, g_ctx);
+	free_node(node->redirects, g_ctx);
+	free_node(node->next, g_ctx);
+	free_node(node->command, g_ctx);
 	free(node);
 }
 
