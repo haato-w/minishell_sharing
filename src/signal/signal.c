@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
+/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:42:59 by heart             #+#    #+#             */
-/*   Updated: 2025/08/24 21:55:38 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/26 00:58:33 by heart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	setup_sig_event_hook(void)
 		rl_event_hook = check_state;
 }
 
-void	ignore_sig(int signum, t_context g_ctx)
+void	ignore_sig(int signum, t_context *g_ctx)
 {
 	struct sigaction	sa;
 
@@ -70,7 +70,7 @@ void	ignore_sig(int signum, t_context g_ctx)
 		fatal_error("sigaction", g_ctx);
 }
 
-static void	reset_sig(int signum, t_context g_ctx)
+static void	reset_sig(int signum, t_context *g_ctx)
 {
 	struct sigaction	sa;
 
@@ -81,7 +81,7 @@ static void	reset_sig(int signum, t_context g_ctx)
 		fatal_error("sigaction", g_ctx);
 }
 
-void	reset_signal(t_context g_ctx)
+void	reset_signal(t_context *g_ctx)
 {
 	reset_sig(SIGQUIT, g_ctx);
 	reset_sig(SIGINT, g_ctx);

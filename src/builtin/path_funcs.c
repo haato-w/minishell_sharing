@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_funcs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
+/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 14:00:38 by heart             #+#    #+#             */
-/*   Updated: 2025/08/24 21:31:52 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/26 00:56:53 by heart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ size_t	strlncpy(char *dst, char *src, size_t n, size_t dstsize)
 	return (i);
 }
 
-void	append_path_elem(char *dst, size_t dstsize, char **rest, char *src, t_context g_ctx)
+void	append_path_elem(char *dst, size_t dstsize, char **rest, char *src, t_context *g_ctx)
 {
 	char	buf[PATH_MAX];
 	size_t	elem_len;

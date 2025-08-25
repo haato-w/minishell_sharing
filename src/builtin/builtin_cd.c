@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
+/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 16:10:32 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/24 22:05:19 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/26 00:57:06 by heart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static char	*resolve_pwd(char *oldpwd, char *path, t_context g_ctx)
+static char	*resolve_pwd(char *oldpwd, char *path, t_context *g_ctx)
 {
 	char	newpwd[PATH_MAX];
 	char	*dup;
@@ -38,15 +38,15 @@ static char	*resolve_pwd(char *oldpwd, char *path, t_context g_ctx)
 	return (dup);
 }
 
-static void	update_oldpwd(char *pwd, t_context g_ctx)
+static void	update_oldpwd(char *pwd, t_context *g_ctx)
 {
 	if (pwd == NULL)
-		map_set(g_ctx.envmap, "OLDPWD", "", g_ctx);
+		map_set(g_ctx->envmap, "OLDPWD", "", g_ctx);
 	else
-		map_set(g_ctx.envmap, "OLDPWD", pwd, g_ctx);
+		map_set(g_ctx->envmap, "OLDPWD", pwd, g_ctx);
 }
 
-static int	set_path(char *path, size_t path_size, char *arg, t_context g_ctx)
+static int	set_path(char *path, size_t path_size, char *arg, t_context *g_ctx)
 {
 	char	*home;
 
@@ -65,7 +65,7 @@ static int	set_path(char *path, size_t path_size, char *arg, t_context g_ctx)
 	return (0);
 }
 
-int	builtin_cd(char **argv, t_context g_ctx)
+int	builtin_cd(char **argv, t_context *g_ctx)
 {
 	char	*pwd;
 	char	path[PATH_MAX];
@@ -81,7 +81,7 @@ int	builtin_cd(char **argv, t_context g_ctx)
 		return (1);
 	}
 	newpwd = resolve_pwd(pwd, path, g_ctx);
-	map_set(g_ctx.envmap, "PWD", newpwd, g_ctx);
+	map_set(g_ctx->envmap, "PWD", newpwd, g_ctx);
 	free(newpwd);
 	return (0);
 }

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
+/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:35:01 by heart             #+#    #+#             */
-/*   Updated: 2025/08/24 22:02:57 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/26 00:50:34 by heart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	append_char(char **s, char c, t_context g_ctx)
+void	append_char(char **s, char c, t_context *g_ctx)
 {
 	size_t	size;
 	char	*new;
@@ -32,7 +32,7 @@ void	append_char(char **s, char c, t_context g_ctx)
 	*s = new;
 }
 
-static void	append_num(char **dst, unsigned int num, t_context g_ctx)
+static void	append_num(char **dst, unsigned int num, t_context *g_ctx)
 {
 	if (num == 0)
 	{
@@ -44,22 +44,22 @@ static void	append_num(char **dst, unsigned int num, t_context g_ctx)
 	append_char(dst, '0' + (num % 10), g_ctx);
 }
 
-void	expand_special_parameter_str(char **dst, char **rest, char *p, t_context g_ctx)
+void	expand_special_parameter_str(char **dst, char **rest, char *p, t_context *g_ctx)
 {
 	if (!is_special_paramer(p))
 		assert_error("Expected special parameter", g_ctx);
 	p += 2;
-	append_num(dst, g_ctx.last_status, g_ctx);
+	append_num(dst, g_ctx->last_status, g_ctx);
 	*rest = p;
 }
 
-void	expand(t_node *node, t_context g_ctx)
+void	expand(t_node *node, t_context *g_ctx)
 {
 	expand_variable(node, g_ctx);
 	expand_quote_removal(node, g_ctx);
 }
 
-char	*expand_heredoc_line(char *line, t_context g_ctx)
+char	*expand_heredoc_line(char *line, t_context *g_ctx)
 {
 	char	*new_word;
 	char	*p;

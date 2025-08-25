@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
+/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 12:46:58 by heart             #+#    #+#             */
-/*   Updated: 2025/08/24 21:59:32 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/26 00:42:21 by heart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_token	*new_token(char *word, t_token_kind kind, t_context g_ctx)
+t_token	*new_token(char *word, t_token_kind kind, t_context *g_ctx)
 {
 	t_token	*tok;
 
@@ -24,7 +24,7 @@ t_token	*new_token(char *word, t_token_kind kind, t_context g_ctx)
 	return (tok);
 }
 
-t_token	*operator(char **rest, char *line, t_context g_ctx)
+t_token	*operator(char **rest, char *line, t_context *g_ctx)
 {
 	static char *const	operators[] = {">>", "<<", "||", "&&",
 		";;", "<", ">", "&", ";", "(", ")", "|", "\n"};
@@ -47,12 +47,12 @@ t_token	*operator(char **rest, char *line, t_context g_ctx)
 	assert_error("Unexpected operator", g_ctx);
 }
 
-t_token	*tokenize(char *line, t_context g_ctx)
+t_token	*tokenize(char *line, t_context *g_ctx)
 {
 	t_token	head;
 	t_token	*tok;
 
-	g_ctx.syntax_error = false;
+	g_ctx->syntax_error = false;
 	head.next = NULL;
 	tok = &head;
 	while (*line)

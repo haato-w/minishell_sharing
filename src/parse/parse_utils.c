@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
+/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:07:03 by heart             #+#    #+#             */
-/*   Updated: 2025/08/24 21:13:24 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/26 00:44:59 by heart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ bool	equal_op(t_token *tok, char *op)
 	return (ft_strcmp(tok->word, op) == 0);
 }
 
-t_token	*tokdup(t_token *tok, t_context g_ctx)
+t_token	*tokdup(t_token *tok, t_context *g_ctx)
 {
 	char	*word;
 

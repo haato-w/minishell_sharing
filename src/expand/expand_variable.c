@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   expand_variable.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
+/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:28:02 by heart             #+#    #+#             */
-/*   Updated: 2025/08/24 22:03:09 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/26 00:48:16 by heart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	expand_variable_str(char **dst, char **rest, char *p, t_context g_ctx)
+void	expand_variable_str(char **dst, char **rest, char *p, t_context *g_ctx)
 {
 	char	*name;
 	char	*value;
@@ -36,7 +36,7 @@ void	expand_variable_str(char **dst, char **rest, char *p, t_context g_ctx)
 	*rest = p;
 }
 
-static void	append_single_quote(char **dst, char **rest, char *p, t_context g_ctx)
+static void	append_single_quote(char **dst, char **rest, char *p, t_context *g_ctx)
 {
 	if (*p == SINGLE_QUOTE_CHAR)
 	{
@@ -54,7 +54,7 @@ static void	append_single_quote(char **dst, char **rest, char *p, t_context g_ct
 		assert_error("Expected single quote", g_ctx);
 }
 
-static void	append_double_quote(char **dst, char **rest, char *p, t_context g_ctx)
+static void	append_double_quote(char **dst, char **rest, char *p, t_context *g_ctx)
 {
 	if (*p == DOUBLE_QUOTE_CHAR)
 	{
@@ -77,7 +77,7 @@ static void	append_double_quote(char **dst, char **rest, char *p, t_context g_ct
 		assert_error("Expected double quote", g_ctx);
 }
 
-static void	expand_variable_tok(t_token *tok, t_context g_ctx)
+static void	expand_variable_tok(t_token *tok, t_context *g_ctx)
 {
 	char	*new_word;
 	char	*p;
@@ -106,7 +106,7 @@ static void	expand_variable_tok(t_token *tok, t_context g_ctx)
 	expand_variable_tok(tok->next, g_ctx);
 }
 
-void	expand_variable(t_node *node, t_context g_ctx)
+void	expand_variable(t_node *node, t_context *g_ctx)
 {
 	if (node == NULL)
 		return ;

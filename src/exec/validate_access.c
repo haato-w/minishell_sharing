@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   validate_access.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
+/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 05:26:04 by heart             #+#    #+#             */
-/*   Updated: 2025/08/24 21:30:32 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/26 00:59:27 by heart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void free_resources(char **argv, t_node *root_node, t_token *tok, t_context g_ctx)
+static void free_resources(char **argv, t_node *root_node, t_token *tok, t_context *g_ctx)
 {
 	free_argv(argv);
 	free_node(root_node, g_ctx);
@@ -20,7 +20,7 @@ static void free_resources(char **argv, t_node *root_node, t_token *tok, t_conte
 }
 
 void	validate_access(const char *path, char **argv,
-	t_node *root_node, t_token *tok, t_context g_ctx)
+	t_node *root_node, t_token *tok, t_context *g_ctx)
 {
 	struct stat	st;
 	const char *filename = argv[0];

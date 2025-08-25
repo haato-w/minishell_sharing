@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   expand_quote_removal.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
+/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:22:13 by heart             #+#    #+#             */
-/*   Updated: 2025/08/24 21:11:45 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/26 00:50:15 by heart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	remove_single_quote(char **dst, char **rest, char *p, t_context g_ctx)
+static void	remove_single_quote(char **dst, char **rest, char *p, t_context *g_ctx)
 {
 	if (*p == SINGLE_QUOTE_CHAR)
 	{
@@ -30,7 +30,7 @@ static void	remove_single_quote(char **dst, char **rest, char *p, t_context g_ct
 		assert_error("Expected single quote", g_ctx);
 }
 
-static void	remove_double_quote(char **dst, char **rest, char *p, t_context g_ctx)
+static void	remove_double_quote(char **dst, char **rest, char *p, t_context *g_ctx)
 {
 	if (*p == DOUBLE_QUOTE_CHAR)
 	{
@@ -48,7 +48,7 @@ static void	remove_double_quote(char **dst, char **rest, char *p, t_context g_ct
 		assert_error("Expected double quote", g_ctx);
 }
 
-static void	remove_quote(t_token *tok, t_context g_ctx)
+static void	remove_quote(t_token *tok, t_context *g_ctx)
 {
 	char	*new_word;
 	char	*p;
@@ -73,7 +73,7 @@ static void	remove_quote(t_token *tok, t_context g_ctx)
 	remove_quote(tok->next, g_ctx);
 }
 
-void	expand_quote_removal(t_node *node, t_context g_ctx)
+void	expand_quote_removal(t_node *node, t_context *g_ctx)
 {
 	if (node == NULL)
 		return ;

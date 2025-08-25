@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   open_redir_file.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
+/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 18:53:34 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/24 22:03:28 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/26 00:51:31 by heart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static int	openfd(t_node *node, t_context g_ctx)
+static int	openfd(t_node *node, t_context *g_ctx)
 {
 	if (node->kind == ND_REDIR_OUT)
 		return (open(node->filename->word, O_CREAT | O_WRONLY | O_TRUNC, 0644));
@@ -27,7 +27,7 @@ static int	openfd(t_node *node, t_context g_ctx)
 		assert_error("open_redir_file", g_ctx);
 }
 
-int	open_redir_file(t_node *node, t_context g_ctx)
+int	open_redir_file(t_node *node, t_context *g_ctx)
 {
 	if (node == NULL)
 		return (0);

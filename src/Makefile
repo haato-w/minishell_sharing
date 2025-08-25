@@ -4,7 +4,7 @@ LIBFT_DIR		= $(MINISHELL_DIR)/submodules/libftprintf/libft
 
 NAME	= minishell
 CC		= cc
-CFLAGS	= -Wall -Wextra -Werror
+# CFLAGS	= -Wall -Wextra -Werror
 # CFLAGS	= -Wall -Wextra -Werror -g -fsanitize=leak -fsanitize=address
 
 UNAME_S := $(shell uname -s)

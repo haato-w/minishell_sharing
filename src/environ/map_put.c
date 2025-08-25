@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   map_put.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
+/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 19:22:23 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/24 21:19:32 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/26 00:39:04 by heart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	set_name_value(const char *string, char **name, char **value, t_context g_ctx)
+static void	set_name_value(const char *string, char **name, char **value, t_context *g_ctx)
 {
 	char	*name_end;
 
@@ -29,7 +29,7 @@ static void	set_name_value(const char *string, char **name, char **value, t_cont
 	}
 }
 
-int	map_put(t_map *map, const char *string, bool allow_empty_value, int attr, t_context g_ctx)
+int	map_put(t_map *map, const char *string, bool allow_empty_value, int attr, t_context *g_ctx)
 {
 	int		result;
 	char	*name;

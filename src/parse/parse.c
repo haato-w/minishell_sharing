@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
+/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:07:33 by heart             #+#    #+#             */
-/*   Updated: 2025/08/24 21:23:39 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/26 00:43:47 by heart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ bool	is_control_operator(t_token *tok)
 	return (false);
 }
 
-void	append_command_element(t_node *command, t_token **rest, t_token *tok, t_context g_ctx)
+void	append_command_element(t_node *command, t_token **rest, t_token *tok, t_context *g_ctx)
 {
 	if (tok->kind == TK_WORD)
 	{
@@ -48,7 +48,7 @@ void	append_command_element(t_node *command, t_token **rest, t_token *tok, t_con
 	*rest = tok;
 }
 
-static t_node	*simple_command(t_token **rest, t_token *tok, t_context g_ctx)
+static t_node	*simple_command(t_token **rest, t_token *tok, t_context *g_ctx)
 {
 	t_node	*node;
 
@@ -60,7 +60,7 @@ static t_node	*simple_command(t_token **rest, t_token *tok, t_context g_ctx)
 	return (node);
 }
 
-static t_node	*pipeline(t_token **rest, t_token *tok, t_context g_ctx)
+static t_node	*pipeline(t_token **rest, t_token *tok, t_context *g_ctx)
 {
 	t_node	*node;
 
@@ -76,7 +76,7 @@ static t_node	*pipeline(t_token **rest, t_token *tok, t_context g_ctx)
 	return (node);
 }
 
-t_node	*parse(t_token *tok, t_context g_ctx)
+t_node	*parse(t_token *tok, t_context *g_ctx)
 {
 	return (pipeline(&tok, tok, g_ctx));
 }

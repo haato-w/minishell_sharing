@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_xstrdup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
+/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 05:46:42 by heart             #+#    #+#             */
-/*   Updated: 2025/08/24 21:10:34 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/26 00:36:51 by heart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*ft_xstrdup(const char *s1, t_context g_ctx)
+char	*ft_xstrdup(const char *s1, t_context *g_ctx)
 {
 	char	*ret;
 

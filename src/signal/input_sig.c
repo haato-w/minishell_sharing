@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_sig.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
+/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:40:58 by heart             #+#    #+#             */
-/*   Updated: 2025/08/24 21:55:49 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/26 00:39:52 by heart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	input_handler(int signum)
 	// g_ctx.last_status = 130;
 }
 
-void	setup_input_sig(t_context g_ctx)
+void	setup_input_sig(t_context *g_ctx)
 {
 	struct sigaction	sa;
 

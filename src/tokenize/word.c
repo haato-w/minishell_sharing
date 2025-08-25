@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   word.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
+/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 12:49:52 by heart             #+#    #+#             */
-/*   Updated: 2025/08/24 21:28:12 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/26 00:46:54 by heart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static bool	consume_single_quote(char **rest, char *line, t_context g_ctx)
+static bool	consume_single_quote(char **rest, char *line, t_context *g_ctx)
 {
 	if (*line == SINGLE_QUOTE_CHAR)
 	{
@@ -29,7 +29,7 @@ static bool	consume_single_quote(char **rest, char *line, t_context g_ctx)
 	return (false);
 }
 
-static bool	consume_double_quote(char **rest, char *line, t_context g_ctx)
+static bool	consume_double_quote(char **rest, char *line, t_context *g_ctx)
 {
 	if (*line == DOUBLE_QUOTE_CHAR)
 	{
@@ -46,7 +46,7 @@ static bool	consume_double_quote(char **rest, char *line, t_context g_ctx)
 	return (false);
 }
 
-t_token	*word(char **rest, char *line, t_context g_ctx)
+t_token	*word(char **rest, char *line, t_context *g_ctx)
 {
 	const char	*start = line;
 	char		*word;

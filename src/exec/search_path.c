@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   search_path.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
+/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 05:29:53 by heart             #+#    #+#             */
-/*   Updated: 2025/08/24 22:04:15 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/26 00:59:05 by heart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	set_path(char *path, size_t pathsize, const char *filename,
 		*envpath = end + 1;
 }
 
-static char	*search_path_mode(const char *filename, int mode, t_context g_ctx)
+static char	*search_path_mode(const char *filename, int mode, t_context *g_ctx)
 {
 	char	path[PATH_MAX];
 	char	*envpath;
@@ -66,7 +66,7 @@ static char	*search_path_mode(const char *filename, int mode, t_context g_ctx)
 	return (NULL);
 }
 
-char	*search_path(const char *filename, t_context g_ctx)
+char	*search_path(const char *filename, t_context *g_ctx)
 {
 	char	*path;
 

@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
+/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 19:31:50 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/24 22:08:37 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/26 00:48:44 by heart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*xgetenv(const char *name, t_context g_ctx)
+char	*xgetenv(const char *name, t_context *g_ctx)
 {
 	t_item	*item;
 
-	item = map_get(g_ctx.envmap, name);
+	item = map_get(g_ctx->envmap, name);
 	if (item == NULL)
 		return (NULL);
 	return (item->value);
@@ -61,7 +61,7 @@ void	initenv(t_context *g_ctx)
 	envmap_init(g_ctx->envmap, environ, g_ctx);
 }
 
-char	**get_environ(t_map *map, t_context g_ctx)
+char	**get_environ(t_map *map, t_context *g_ctx)
 {
 	size_t	i;
 	size_t	size;

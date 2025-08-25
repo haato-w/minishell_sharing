@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parse_redirect.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
+/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:02:28 by heart             #+#    #+#             */
-/*   Updated: 2025/08/24 21:21:20 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/26 00:45:37 by heart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_node	*redirect_out(t_token **rest, t_token *tok, t_context g_ctx)
+t_node	*redirect_out(t_token **rest, t_token *tok, t_context *g_ctx)
 {
 	t_node	*node;
 
@@ -23,7 +23,7 @@ t_node	*redirect_out(t_token **rest, t_token *tok, t_context g_ctx)
 	return (node);
 }
 
-t_node	*redirect_in(t_token **rest, t_token *tok, t_context g_ctx)
+t_node	*redirect_in(t_token **rest, t_token *tok, t_context *g_ctx)
 {
 	t_node	*node;
 
@@ -34,7 +34,7 @@ t_node	*redirect_in(t_token **rest, t_token *tok, t_context g_ctx)
 	return (node);
 }
 
-t_node	*redirect_append(t_token **rest, t_token *tok, t_context g_ctx)
+t_node	*redirect_append(t_token **rest, t_token *tok, t_context *g_ctx)
 {
 	t_node	*node;
 
@@ -45,7 +45,7 @@ t_node	*redirect_append(t_token **rest, t_token *tok, t_context g_ctx)
 	return (node);
 }
 
-t_node	*redirect_heredoc(t_token **rest, t_token *tok, t_context g_ctx)
+t_node	*redirect_heredoc(t_token **rest, t_token *tok, t_context *g_ctx)
 {
 	t_node	*node;
 

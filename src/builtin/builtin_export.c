@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
+/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 16:04:06 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/24 22:02:00 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/26 00:55:17 by heart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	print_allenv(t_context g_ctx)
+static void	print_allenv(t_context *g_ctx)
 {
 	t_item	*cur;
 
-	cur = g_ctx.envmap->item_head.next;
+	cur = g_ctx->envmap->item_head.next;
 	while (cur)
 	{
 		if (cur->value)
@@ -27,7 +27,7 @@ static void	print_allenv(t_context g_ctx)
 	}
 }
 
-int	builtin_export(char **argv, t_context g_ctx)
+int	builtin_export(char **argv, t_context *g_ctx)
 {
 	size_t	i;
 	int		status;
@@ -41,7 +41,7 @@ int	builtin_export(char **argv, t_context g_ctx)
 	i = 1;
 	while (argv[i])
 	{
-		if (map_put(g_ctx.envmap, argv[i], true, ATTR_EXPORT, g_ctx) < 0)
+		if (map_put(g_ctx->envmap, argv[i], true, ATTR_EXPORT, g_ctx) < 0)
 		{
 			xperror_invalid_identifier("export", argv[i]);
 			status = 1;

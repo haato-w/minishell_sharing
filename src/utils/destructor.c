@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   destructor.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
+/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 18:59:22 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/24 21:28:57 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/26 00:54:30 by heart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	free_node(t_node *node, t_context g_ctx)
+void	free_node(t_node *node, t_context *g_ctx)
 {
 	if (node == NULL)
 		return ;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
+/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 16:03:29 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/24 21:32:44 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/26 00:54:46 by heart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,12 @@ static bool is_in_range(char *s)
 	return (true);
 }
 
-int	builtin_exit(char **argv, t_node *node, t_token *tok, t_context g_ctx)
+int	builtin_exit(char **argv, t_node *node, t_token *tok, t_context *g_ctx)
 {
 	int	exit_code;
 
-	exit_code = g_ctx.last_status;
-	if (g_ctx.syntax_error)
+	exit_code = g_ctx->last_status;
+	if (g_ctx->syntax_error)
 	{
 		ft_dprintf(2, "minishell: syntax error\n");
 		return (1);
@@ -77,7 +77,7 @@ int	builtin_exit(char **argv, t_node *node, t_token *tok, t_context g_ctx)
 			free_argv(argv);
 			free_node(node, g_ctx);
 			free_tok(tok);
-			map_del(g_ctx.envmap);
+			map_del(g_ctx->envmap);
 			exit(2);
 		}
 		exit_code = ft_atoi(argv[1]);
@@ -87,6 +87,6 @@ int	builtin_exit(char **argv, t_node *node, t_token *tok, t_context g_ctx)
 	free_argv(argv);
 	free_node(node, g_ctx);
 	free_tok(tok);
-	map_del(g_ctx.envmap);
+	map_del(g_ctx->envmap);
 	exit(exit_code);
 }

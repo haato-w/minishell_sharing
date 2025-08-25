@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_pwd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
+/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 16:05:04 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/24 22:05:29 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/26 00:57:24 by heart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static bool	equal_to_cwd(const char *path, t_context g_ctx)
+static bool	equal_to_cwd(const char *path, t_context *g_ctx)
 {
 	struct stat	st1;
 	struct stat	st2;
@@ -26,7 +26,7 @@ static bool	equal_to_cwd(const char *path, t_context g_ctx)
 	return (st1.st_ino == st2.st_ino);
 }
 
-int	builtin_pwd(char **argv, t_context g_ctx)
+int	builtin_pwd(char **argv, t_context *g_ctx)
 {
 	char	*pwd;
 	char	cwd[PATH_MAX];

@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
+/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 18:56:50 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/24 20:47:40 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/26 00:46:05 by heart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	tokenize_error(const char *location, char **rest, char *line, t_context g_ctx)
+void	tokenize_error(const char *location, char **rest, char *line, t_context *g_ctx)
 {
-	g_ctx.syntax_error = true;
+	g_ctx->syntax_error = true;
 	perror_prefix();
 	ft_dprintf(STDERR_FILENO, "syntax errror near %s\n", location);
 	while (*line)
@@ -22,9 +22,9 @@ void	tokenize_error(const char *location, char **rest, char *line, t_context g_c
 	*rest = line;
 }
 
-void	parse_error(const char *location, t_token **rest, t_token *tok, t_context g_ctx)
+void	parse_error(const char *location, t_token **rest, t_token *tok, t_context *g_ctx)
 {
-	g_ctx.syntax_error = true;
+	g_ctx->syntax_error = true;
 	perror_prefix();
 	ft_dprintf(STDERR_FILENO, "syntax error near unexpected token `%s' in %s\n",
 		tok->word, location);

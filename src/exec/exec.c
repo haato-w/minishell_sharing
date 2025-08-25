@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
+/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 05:06:12 by heart             #+#    #+#             */
-/*   Updated: 2025/08/24 22:04:39 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/26 00:59:47 by heart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static int	exec_nonbuiltin(t_node *root_node, t_node *node, t_token *tok, t_context g_ctx) __attribute__((noreturn));
+static int	exec_nonbuiltin(t_node *root_node, t_node *node, t_token *tok, t_context *g_ctx) __attribute__((noreturn));
 
-static int	exec_nonbuiltin(t_node *root_node, t_node *node, t_token *tok, t_context g_ctx)
+static int	exec_nonbuiltin(t_node *root_node, t_node *node, t_token *tok, t_context *g_ctx)
 {
 	char	*path;
 	char	**argv;
@@ -23,7 +23,7 @@ static int	exec_nonbuiltin(t_node *root_node, t_node *node, t_token *tok, t_cont
 	{
 		free_node(root_node, g_ctx);
 		free_tok(tok);
-		map_del(g_ctx.envmap);
+		map_del(g_ctx->envmap);
 		exit(0);
 	}
 	do_redirect(node->command->redirects, g_ctx);
@@ -32,13 +32,13 @@ static int	exec_nonbuiltin(t_node *root_node, t_node *node, t_token *tok, t_cont
 	if (ft_strchr(path, '/') == NULL)
 		path = search_path(path, g_ctx);
 	validate_access(path, argv, root_node, tok, g_ctx);
-	execve(path, argv, get_environ(g_ctx.envmap, g_ctx));
+	execve(path, argv, get_environ(g_ctx->envmap, g_ctx));
 	free_argv(argv);
 	reset_redirect(node->command->redirects, g_ctx);
 	fatal_error("execve", g_ctx);
 }
 
-static int	exec_pipeline(t_node *root_node, t_node *node, t_token *tok, t_context g_ctx)
+static int	exec_pipeline(t_node *root_node, t_node *node, t_token *tok, t_context *g_ctx)
 {
 	pid_t	pid;
 
@@ -74,7 +74,7 @@ static int	get_status(int wstatus)
 	return (status);
 }
 
-static int	wait_pipeline(pid_t last_pid, t_context g_ctx)
+static int	wait_pipeline(pid_t last_pid, t_context *g_ctx)
 {
 	pid_t	wait_result;
 	int		status;
@@ -101,14 +101,14 @@ static int	wait_pipeline(pid_t last_pid, t_context g_ctx)
 	return (status);
 }
 
-int	exec(t_node *node, t_token *tok, t_context g_ctx)
+int	exec(t_node *node, t_token *tok, t_context *g_ctx)
 {
 	pid_t	last_pid;
 	int		status;
 
 	if (open_redir_file(node, g_ctx) < 0)
 	{
-		if (!g_ctx.readline_interrupted)
+		if (!g_ctx->readline_interrupted)
 			return (ERROR_OPEN_REDIR);
 		else
 			return (130);

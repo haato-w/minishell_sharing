@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_sig.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
+/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 17:34:12 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/24 21:55:52 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/26 00:41:07 by heart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	execution_handler(int signum)
 	// g_ctx.last_status = 130;
 }
 
-static void	setup_execution_sigint(t_context g_ctx)
+static void	setup_execution_sigint(t_context *g_ctx)
 {
 	struct sigaction	sa;
 
@@ -33,7 +33,7 @@ static void	setup_execution_sigint(t_context g_ctx)
 		fatal_error("sigaction", g_ctx);
 }
 
-static void	setup_execution_sigquit(t_context g_ctx)
+static void	setup_execution_sigquit(t_context *g_ctx)
 {
 	struct sigaction	sa;
 
@@ -44,7 +44,7 @@ static void	setup_execution_sigquit(t_context g_ctx)
 		fatal_error("sigaction", g_ctx);
 }
 
-void	setup_execution_sig(t_context g_ctx)
+void	setup_execution_sig(t_context *g_ctx)
 {
 	setup_execution_sigint(g_ctx);
 	setup_execution_sigquit(g_ctx);

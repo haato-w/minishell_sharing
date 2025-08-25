@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_xcalloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
+/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 12:39:22 by heart             #+#    #+#             */
-/*   Updated: 2025/08/24 21:09:12 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/26 00:50:46 by heart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	*ft_xcalloc(size_t count, size_t size, t_context g_ctx)
+void	*ft_xcalloc(size_t count, size_t size, t_context *g_ctx)
 {
 	void	*ret;
 

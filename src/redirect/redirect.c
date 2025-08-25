@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
+/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 18:55:13 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/24 21:26:26 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/26 00:53:31 by heart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static bool is_valid_fd(int fd)
 	return (true);
 }
 
-int	stashfd(int fd, t_context g_ctx)
+int	stashfd(int fd, t_context *g_ctx)
 {
 	int	stashfd;
 
@@ -54,7 +54,7 @@ bool	in_redirect(t_node *node)
 	return (false);
 }
 
-void	do_redirect(t_node *redir, t_context g_ctx)
+void	do_redirect(t_node *redir, t_context *g_ctx)
 {
 	if (redir == NULL)
 		return ;
@@ -68,7 +68,7 @@ void	do_redirect(t_node *redir, t_context g_ctx)
 	do_redirect(redir->next, g_ctx);
 }
 
-void	reset_redirect(t_node *redir, t_context g_ctx)
+void	reset_redirect(t_node *redir, t_context *g_ctx)
 {
 	if (redir == NULL)
 		return ;

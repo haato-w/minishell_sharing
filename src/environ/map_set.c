@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   map_set.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
+/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 19:06:59 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/24 21:19:11 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/26 00:36:42 by heart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	item_update(t_item *item, const char *value, t_context g_ctx)
+static void	item_update(t_item *item, const char *value, t_context *g_ctx)
 {
 	free(item->value);
 	if (value == NULL)
@@ -21,7 +21,7 @@ static void	item_update(t_item *item, const char *value, t_context g_ctx)
 		item->value = ft_xstrdup(value, g_ctx);
 }
 
-static void	map_insert(t_map *map, const char *name, const char *value, t_context g_ctx)
+static void	map_insert(t_map *map, const char *name, const char *value, t_context *g_ctx)
 {
 	t_item	*item;
 
@@ -33,7 +33,7 @@ static void	map_insert(t_map *map, const char *name, const char *value, t_contex
 	map->item_head.next = item;
 }
 
-int	map_set(t_map *map, const char *name, const char *value, t_context g_ctx)
+int	map_set(t_map *map, const char *name, const char *value, t_context *g_ctx)
 {
 	t_item	*item;
 
@@ -47,7 +47,7 @@ int	map_set(t_map *map, const char *name, const char *value, t_context g_ctx)
 	return (0);
 }
 
-int	map_set_attr(t_map *map, const char *name, const char *value, int attr, t_context g_ctx)
+int	map_set_attr(t_map *map, const char *name, const char *value, int attr, t_context *g_ctx)
 {
 	t_item	*item;
 

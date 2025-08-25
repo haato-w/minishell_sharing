@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
+/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 18:52:46 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/24 21:13:15 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/26 00:52:26 by heart            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 static void	readline_heredoc_loop(int pfd[2], const char *delimiter,
-	bool is_delim_unquoted, t_context g_ctx)
+	bool is_delim_unquoted, t_context *g_ctx)
 {
 	char	*line;
 
@@ -22,7 +22,7 @@ static void	readline_heredoc_loop(int pfd[2], const char *delimiter,
 		line = readline("> ");
 		if (line == NULL)
 			break ;
-		if (g_ctx.readline_interrupted || ft_strcmp(line, delimiter) == 0)
+		if (g_ctx->readline_interrupted || ft_strcmp(line, delimiter) == 0)
 		{
 			free(line);
 			break ;
@@ -34,7 +34,7 @@ static void	readline_heredoc_loop(int pfd[2], const char *delimiter,
 	}
 }
 
-int	read_heredoc(const char *delimiter, bool is_delim_unquoted, t_context g_ctx)
+int	read_heredoc(const char *delimiter, bool is_delim_unquoted, t_context *g_ctx)
 {
 	int		pfd[2];
 
@@ -42,10 +42,10 @@ int	read_heredoc(const char *delimiter, bool is_delim_unquoted, t_context g_ctx)
 	setup_heredoc_sig(g_ctx);
 	if (pipe(pfd) < 0)
 		fatal_error("pipe", g_ctx);
-	g_ctx.readline_interrupted = false;
+	g_ctx->readline_interrupted = false;
 	readline_heredoc_loop(pfd, delimiter, is_delim_unquoted, g_ctx);
 	close(pfd[1]);
-	if (g_ctx.readline_interrupted)
+	if (g_ctx->readline_interrupted)
 	{
 		close(pfd[0]);
 		setup_sig_event_hook();
