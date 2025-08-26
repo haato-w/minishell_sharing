@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 16:03:29 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/24 20:21:44 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/26 23:40:54 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,20 @@ static bool is_in_range(char *s)
 	return (true);
 }
 
+static void	numeric_error(char **argv, t_node *node, t_token *tok)
+{
+	ft_dprintf(2, "exit\n");
+	ft_dprintf(2, "minishell: exit: %s: numeric argument required\n", argv[1]);
+	free_argv(argv);
+	free_node(node);
+	free_tok(tok);
+	map_del(g_ctx.envmap);
+	exit(2);
+}
+
 int	builtin_exit(char **argv, t_node *node, t_token *tok)
 {
-	int	exit_code;
+	long long	exit_code;
 
 	exit_code = g_ctx.last_status;
 	if (g_ctx.syntax_error)
@@ -70,17 +81,12 @@ int	builtin_exit(char **argv, t_node *node, t_token *tok)
 			ft_dprintf(2, "minishell: exit: too many arguments\n");
 			return (1);
 		}
-		if (!is_numeric(argv[1]) || !is_in_range(argv[1]))
-		{
-			ft_dprintf(2, "exit\n");
-			ft_dprintf(2, "minishell: exit: %s: numeric argument required\n", argv[1]);
-			free_argv(argv);
-			free_node(node);
-			free_tok(tok);
-			map_del(g_ctx.envmap);
-			exit(2);
-		}
-		exit_code = ft_atoi(argv[1]);
+		if (!is_numeric(argv[1]))
+			numeric_error(argv, node, tok);
+		errno = 0;
+		exit_code = ft_atoll(argv[1]);
+		if (errno == ERANGE)
+			numeric_error(argv, node, tok);
 		exit_code = ((exit_code % 256) + 256) % 256;
 	}
 	ft_dprintf(2, "exit\n");

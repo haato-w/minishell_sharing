@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 04:53:37 by heart             #+#    #+#             */
-/*   Updated: 2025/08/24 20:09:49 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/26 23:39:56 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ char	*ft_strndup(const char *s1, size_t n);
 char	*ft_xstrdup(const char *s1);
 char	*ft_xstrndup(const char *s1, size_t size);
 void	*ft_xcalloc(size_t count, size_t size);
+long long	ft_atoll(const char *str);
 
 // tokenize.c
 t_token	*tokenize(char *line);
