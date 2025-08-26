@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 16:02:27 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/10 04:37:04 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/26 23:44:43 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,5 @@ int	builtin_env(char **argv)
 			printf("%s=%s\n", cur->name, cur->value);
 		cur = cur->next;
 	}
-	printf("_=/usr/bin/env\n");
 	return (0);
 }
