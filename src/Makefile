@@ -5,7 +5,6 @@ LIBFT_DIR		= $(MINISHELL_DIR)/submodules/libftprintf/libft
 NAME	= minishell
 CC		= cc
 CFLAGS	= -Wall -Wextra -Werror
-# CFLAGS	= -Wall -Wextra -Werror -g -fsanitize=leak -fsanitize=address
 
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Linux)
@@ -49,6 +48,7 @@ SRCS		=	main.c\
 				exec/search_path.c\
 				exec/validate_access.c\
 				signal/signal.c\
+				signal/event_hooks.c\
 				signal/input_sig.c\
 				signal/execution_sig.c\
 				signal/heredoc_sig.c\

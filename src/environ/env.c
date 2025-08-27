@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 19:31:50 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/27 20:12:10 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/27 20:42:55 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ static void	envmap_init(t_map *map, char **ep)
 		else
 			map_set_attr(map, "PWD", cwd, ATTR_EXPORT);
 	}
-	map_unset(map, "IFS");
-	map_set_attr(map, "IFS", " \t\n", ATTR_EXPORT);
 }
 
 void	initenv(void)

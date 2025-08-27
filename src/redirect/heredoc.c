@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 18:52:46 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/27 20:10:04 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/27 20:47:49 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ static void	readline_heredoc_loop(int pfd[2], const char *delimiter,
 		line = readline("> ");
 		if (line == NULL)
 			break ;
-		if ((*get_ctx()).readline_interrupted || ft_strcmp(line, delimiter) == 0)
+		if ((*get_ctx()).readline_interrupted
+			|| ft_strcmp(line, delimiter) == 0)
 		{
 			free(line);
 			break ;

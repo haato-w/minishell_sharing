@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 18:58:00 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/27 20:10:39 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/27 21:10:11 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ void	err_exit(char *location, const char *msg, int status)
 {
 	perror_prefix();
 	ft_dprintf(STDERR_FILENO, "%s: %s\n", location, msg);
-	if (location != NULL) free(location);
+	if (location != NULL)
+		free(location);
 	map_del((*get_ctx()).envmap);
 	exit(status);
 }

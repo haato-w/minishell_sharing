@@ -6,16 +6,16 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 18:55:13 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/24 17:11:22 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/27 20:47:23 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static bool is_valid_fd(int fd)
+static bool	is_valid_fd(int fd)
 {
-	struct  stat st;
-	
+	struct stat	st;
+
 	if (fd < 0)
 		return (false);
 	errno = 0;

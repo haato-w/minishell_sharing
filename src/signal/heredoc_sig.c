@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 17:32:53 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/27 20:11:14 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/27 21:25:22 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	heredoc_handler(int signum)
 {
-	sig = signum;
+	g_sig = signum;
 	(*get_ctx()).readline_interrupted = true;
 	(*get_ctx()).last_status = 130;
 }

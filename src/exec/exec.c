@@ -6,13 +6,14 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 05:06:12 by heart             #+#    #+#             */
-/*   Updated: 2025/08/27 20:09:52 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/27 20:55:41 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static int	exec_nonbuiltin(t_node *root_node, t_node *node, t_token *tok) __attribute__((noreturn));
+static int	exec_nonbuiltin(t_node *root_node, t_node *node,
+				t_token *tok) __attribute__((noreturn));
 
 static int	exec_nonbuiltin(t_node *root_node, t_node *node, t_token *tok)
 {

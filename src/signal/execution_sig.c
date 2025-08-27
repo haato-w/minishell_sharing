@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 17:34:12 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/27 20:11:07 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/27 21:25:16 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	execution_handler(int signum)
 {
-	sig = signum;
+	g_sig = signum;
 	if (signum == SIGQUIT)
 		ft_dprintf(STDERR_FILENO, "Quit (core dumped)");
 	ft_dprintf(STDERR_FILENO, "\n");

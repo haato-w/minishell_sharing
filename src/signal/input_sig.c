@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:40:58 by heart             #+#    #+#             */
-/*   Updated: 2025/08/27 20:11:18 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/27 21:25:28 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	input_handler(int signum)
 {
-	sig = signum;
+	g_sig = signum;
 	write(STDERR_FILENO, "\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);

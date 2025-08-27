@@ -6,17 +6,17 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 04:48:10 by heart             #+#    #+#             */
-/*   Updated: 2025/08/27 20:18:52 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/27 21:28:46 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-volatile sig_atomic_t	sig;
+volatile sig_atomic_t	g_sig;
 
 t_context	*get_ctx(void)
 {
-	static t_context ctx;
+	static t_context	ctx;
 
 	return (&ctx);
 }
@@ -51,7 +51,7 @@ int	main(void)
 	char	*line;
 
 	rl_outstream = stderr;
-	sig = 0;
+	g_sig = 0;
 	initenv();
 	setup_sig_event_hook();
 	(*get_ctx()).last_status = 0;
