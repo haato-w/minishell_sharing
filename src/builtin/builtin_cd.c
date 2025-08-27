@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 16:10:32 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/27 20:09:06 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/27 20:29:23 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ int	builtin_cd(char **argv)
 		return (1);
 	}
 	newpwd = resolve_pwd(pwd, path);
-	map_set((*get_ctx()).envmap, "PWD", newpwd);
+	if (map_get((*get_ctx()).envmap, "PWD") != NULL)
+		map_set((*get_ctx()).envmap, "PWD", newpwd);
 	free(newpwd);
 	return (0);
 }
