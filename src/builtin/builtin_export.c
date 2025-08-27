@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 16:04:06 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/10 21:44:57 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/27 20:09:33 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	print_allenv(void)
 {
 	t_item	*cur;
 
-	cur = g_ctx.envmap->item_head.next;
+	cur = (*get_ctx()).envmap->item_head.next;
 	while (cur)
 	{
 		if (cur->value)
@@ -41,7 +41,7 @@ int	builtin_export(char **argv)
 	i = 1;
 	while (argv[i])
 	{
-		if (map_put(g_ctx.envmap, argv[i], true, ATTR_EXPORT) < 0)
+		if (map_put((*get_ctx()).envmap, argv[i], true, ATTR_EXPORT) < 0)
 		{
 			xperror_invalid_identifier("export", argv[i]);
 			status = 1;

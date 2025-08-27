@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 16:03:29 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/27 19:26:39 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/27 20:09:24 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	numeric_error(char **argv, t_node *node, t_token *tok)
 	free_argv(argv);
 	free_node(node);
 	free_tok(tok);
-	map_del(g_ctx.envmap);
+	map_del((*get_ctx()).envmap);
 	exit(2);
 }
 
@@ -48,8 +48,8 @@ int	builtin_exit(char **argv, t_node *node, t_token *tok)
 {
 	long long	exit_code;
 
-	exit_code = g_ctx.last_status;
-	if (g_ctx.syntax_error)
+	exit_code = (*get_ctx()).last_status;
+	if ((*get_ctx()).syntax_error)
 	{
 		ft_dprintf(2, "minishell: syntax error\n");
 		return (1);
@@ -74,6 +74,6 @@ int	builtin_exit(char **argv, t_node *node, t_token *tok)
 	free_argv(argv);
 	free_node(node);
 	free_tok(tok);
-	map_del(g_ctx.envmap);
+	map_del((*get_ctx()).envmap);
 	exit(exit_code);
 }

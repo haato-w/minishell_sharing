@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 04:53:37 by heart             #+#    #+#             */
-/*   Updated: 2025/08/26 23:39:56 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/27 20:19:01 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef struct s_node		t_node;
 typedef struct s_map		t_map;
 typedef struct s_item		t_item;
 typedef struct s_context	t_context;
-extern t_context			g_ctx;
+extern volatile sig_atomic_t	sig;
 
 enum e_token_kind
 {
@@ -112,9 +112,11 @@ struct s_context
 	int						last_status;
 	bool					syntax_error;
 	bool					readline_interrupted;
-	volatile sig_atomic_t	sig;
 	t_map					*envmap;
 };
+
+// main.c
+t_context	*get_ctx(void);
 
 // error.c
 void	perror_prefix(void);

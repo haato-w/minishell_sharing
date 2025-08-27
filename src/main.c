@@ -6,15 +6,22 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 04:48:10 by heart             #+#    #+#             */
-/*   Updated: 2025/08/24 15:55:24 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/27 20:18:52 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_context	g_ctx = {};
+volatile sig_atomic_t	sig;
 
-static void	interpret(char *line, int *stat_loc)
+t_context	*get_ctx(void)
+{
+	static t_context ctx;
+
+	return (&ctx);
+}
+
+static void	interpret(char *line)
 {
 	t_token	*tok;
 	t_node	*node;
@@ -22,17 +29,17 @@ static void	interpret(char *line, int *stat_loc)
 	tok = tokenize(line);
 	if (at_eof(tok))
 		;
-	else if (g_ctx.syntax_error)
-		*stat_loc = ERROR_TOKENIZE;
+	else if ((*get_ctx()).syntax_error)
+		(*get_ctx()).last_status = ERROR_TOKENIZE;
 	else
 	{
 		node = parse(tok);
-		if (g_ctx.syntax_error)
-			*stat_loc = ERROR_PARSE;
+		if ((*get_ctx()).syntax_error)
+			(*get_ctx()).last_status = ERROR_PARSE;
 		else
 		{
 			expand(node);
-			*stat_loc = exec(node, tok);
+			(*get_ctx()).last_status = exec(node, tok);
 		}
 		free_node(node);
 	}
@@ -44,9 +51,10 @@ int	main(void)
 	char	*line;
 
 	rl_outstream = stderr;
+	sig = 0;
 	initenv();
 	setup_sig_event_hook();
-	g_ctx.last_status = 0;
+	(*get_ctx()).last_status = 0;
 	while (1)
 	{
 		setup_input_sig();
@@ -56,9 +64,9 @@ int	main(void)
 		if (*line)
 			add_history(line);
 		setup_execution_sig();
-		interpret(line, &g_ctx.last_status);
+		interpret(line);
 		free(line);
 	}
-	map_del(g_ctx.envmap);
-	return (g_ctx.last_status);
+	map_del((*get_ctx()).envmap);
+	return ((*get_ctx()).last_status);
 }

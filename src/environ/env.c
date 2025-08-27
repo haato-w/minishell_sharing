@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 19:31:50 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/11 21:08:47 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/27 20:12:10 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*xgetenv(const char *name)
 {
 	t_item	*item;
 
-	item = map_get(g_ctx.envmap, name);
+	item = map_get((*get_ctx()).envmap, name);
 	if (item == NULL)
 		return (NULL);
 	return (item->value);
@@ -57,8 +57,8 @@ void	initenv(void)
 {
 	extern char	**environ;
 
-	g_ctx.envmap = map_new();
-	envmap_init(g_ctx.envmap, environ);
+	(*get_ctx()).envmap = map_new();
+	envmap_init((*get_ctx()).envmap, environ);
 }
 
 char	**get_environ(t_map *map)

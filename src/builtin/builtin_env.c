@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 16:02:27 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/26 23:44:43 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/27 20:09:13 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	builtin_env(char **argv)
 	t_item	*cur;
 
 	(void)argv;
-	cur = g_ctx.envmap->item_head.next;
+	cur = (*get_ctx()).envmap->item_head.next;
 	while (cur)
 	{
 		if (cur->value)

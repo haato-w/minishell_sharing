@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
+/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 18:52:46 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/13 02:28:01 by heart            ###   ########.fr       */
+/*   Updated: 2025/08/27 20:10:04 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	readline_heredoc_loop(int pfd[2], const char *delimiter,
 		line = readline("> ");
 		if (line == NULL)
 			break ;
-		if (g_ctx.readline_interrupted || ft_strcmp(line, delimiter) == 0)
+		if ((*get_ctx()).readline_interrupted || ft_strcmp(line, delimiter) == 0)
 		{
 			free(line);
 			break ;
@@ -42,10 +42,10 @@ int	read_heredoc(const char *delimiter, bool is_delim_unquoted)
 	setup_heredoc_sig();
 	if (pipe(pfd) < 0)
 		fatal_error("pipe");
-	g_ctx.readline_interrupted = false;
+	(*get_ctx()).readline_interrupted = false;
 	readline_heredoc_loop(pfd, delimiter, is_delim_unquoted);
 	close(pfd[1]);
-	if (g_ctx.readline_interrupted)
+	if ((*get_ctx()).readline_interrupted)
 	{
 		close(pfd[0]);
 		setup_sig_event_hook();

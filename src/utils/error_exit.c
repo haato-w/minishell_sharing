@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 18:58:00 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/24 16:13:41 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/27 20:10:39 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	fatal_error(const char *msg)
 {
 	perror_prefix();
 	ft_dprintf(STDERR_FILENO, "Fatal Error: %s\n", msg);
-	map_del(g_ctx.envmap);
+	map_del((*get_ctx()).envmap);
 	perror(NULL);
 	exit(1);
 }
@@ -25,7 +25,7 @@ void	assert_error(const char *msg)
 {
 	perror_prefix();
 	ft_dprintf(STDERR_FILENO, "Assert Error: %s\n", msg);
-	map_del(g_ctx.envmap);
+	map_del((*get_ctx()).envmap);
 	exit(255);
 }
 
@@ -34,7 +34,7 @@ void	err_exit(char *location, const char *msg, int status)
 	perror_prefix();
 	ft_dprintf(STDERR_FILENO, "%s: %s\n", location, msg);
 	if (location != NULL) free(location);
-	map_del(g_ctx.envmap);
+	map_del((*get_ctx()).envmap);
 	exit(status);
 }
 
@@ -42,6 +42,6 @@ void	todo(const char *msg)
 {
 	perror_prefix();
 	ft_dprintf(STDERR_FILENO, "TODO: %s\n", msg);
-	map_del(g_ctx.envmap);
+	map_del((*get_ctx()).envmap);
 	exit(255);
 }

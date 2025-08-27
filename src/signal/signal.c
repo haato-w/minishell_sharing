@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
+/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:42:59 by heart             #+#    #+#             */
-/*   Updated: 2025/08/13 02:33:28 by heart            ###   ########.fr       */
+/*   Updated: 2025/08/27 20:20:08 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 static int	check_state_heredoc(void)
 {
-	if (g_ctx.sig == 0)
+	if (sig == 0)
 		return (0);
-	else if (g_ctx.sig == SIGINT)
+	else if (sig == SIGINT)
 	{
-		g_ctx.sig = 0;
+		sig = 0;
 		rl_done = 1;
-		g_ctx.last_status = 130;
+		(*get_ctx()).last_status = 130;
 		return (0);
 	}
 	return (0);
@@ -28,12 +28,12 @@ static int	check_state_heredoc(void)
 
 static int	check_state(void)
 {
-	if (g_ctx.sig == 0)
+	if (sig == 0)
 		return (0);
-	else if (g_ctx.sig == SIGINT)
+	else if (sig == SIGINT)
 	{
-		g_ctx.sig = 0;
-		g_ctx.last_status = 130;
+		sig = 0;
+		(*get_ctx()).last_status = 130;
 		return (0);
 	}
 	return (0);
@@ -41,9 +41,6 @@ static int	check_state(void)
 
 void	setup_sig_event_hook_heredoc(void)
 {
-	// extern int	_rl_echo_control_chars;
-
-	// _rl_echo_control_chars = 0;
 	rl_outstream = stderr;
 	if (isatty(STDIN_FILENO))
 		rl_event_hook = check_state_heredoc;
@@ -51,9 +48,6 @@ void	setup_sig_event_hook_heredoc(void)
 
 void	setup_sig_event_hook(void)
 {
-	// extern int	_rl_echo_control_chars;
-
-	// _rl_echo_control_chars = 0;
 	rl_outstream = stderr;
 	if (isatty(STDIN_FILENO))
 		rl_event_hook = check_state;

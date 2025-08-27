@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 17:34:12 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/10 17:34:42 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/27 20:11:07 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 static void	execution_handler(int signum)
 {
-	g_ctx.sig = signum;
+	sig = signum;
 	if (signum == SIGQUIT)
 		ft_dprintf(STDERR_FILENO, "Quit (core dumped)");
 	ft_dprintf(STDERR_FILENO, "\n");
-	g_ctx.last_status = 130;
+	(*get_ctx()).last_status = 130;
 }
 
 static void	setup_execution_sigint(void)

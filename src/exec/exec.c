@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 05:06:12 by heart             #+#    #+#             */
-/*   Updated: 2025/08/24 15:47:05 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/27 20:09:52 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	exec_nonbuiltin(t_node *root_node, t_node *node, t_token *tok)
 	{
 		free_node(root_node);
 		free_tok(tok);
-		map_del(g_ctx.envmap);
+		map_del((*get_ctx()).envmap);
 		exit(0);
 	}
 	do_redirect(node->command->redirects);
@@ -32,7 +32,7 @@ static int	exec_nonbuiltin(t_node *root_node, t_node *node, t_token *tok)
 	if (ft_strchr(path, '/') == NULL)
 		path = search_path(path);
 	validate_access(path, argv, root_node, tok);
-	execve(path, argv, get_environ(g_ctx.envmap));
+	execve(path, argv, get_environ((*get_ctx()).envmap));
 	free_argv(argv);
 	reset_redirect(node->command->redirects);
 	fatal_error("execve");
@@ -108,7 +108,7 @@ int	exec(t_node *node, t_token *tok)
 
 	if (open_redir_file(node) < 0)
 	{
-		if (!g_ctx.readline_interrupted)
+		if (!(*get_ctx()).readline_interrupted)
 			return (ERROR_OPEN_REDIR);
 		else
 			return (130);

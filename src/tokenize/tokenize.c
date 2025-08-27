@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 12:46:58 by heart             #+#    #+#             */
-/*   Updated: 2025/08/09 22:07:39 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/27 20:10:33 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_token	*tokenize(char *line)
 	t_token	head;
 	t_token	*tok;
 
-	g_ctx.syntax_error = false;
+	(*get_ctx()).syntax_error = false;
 	head.next = NULL;
 	tok = &head;
 	while (*line)
