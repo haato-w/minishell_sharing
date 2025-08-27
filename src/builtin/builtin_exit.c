@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
+/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 16:03:29 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/26 00:54:46 by heart            ###   ########.fr       */
+/*   Updated: 2025/08/27 18:44:47 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,20 @@ static bool is_in_range(char *s)
 	return (true);
 }
 
+static void	numeric_error(char **argv, t_node *node, t_token *tok, t_context *g_ctx)
+{
+	ft_dprintf(2, "exit\n");
+	ft_dprintf(2, "minishell: exit: %s: numeric argument required\n", argv[1]);
+	free_argv(argv);
+	free_node(node, g_ctx);
+	free_tok(tok);
+	map_del(g_ctx->envmap);
+	exit(2);
+}
+
 int	builtin_exit(char **argv, t_node *node, t_token *tok, t_context *g_ctx)
 {
-	int	exit_code;
+	long long	exit_code;
 
 	exit_code = g_ctx->last_status;
 	if (g_ctx->syntax_error)
@@ -70,17 +81,12 @@ int	builtin_exit(char **argv, t_node *node, t_token *tok, t_context *g_ctx)
 			ft_dprintf(2, "minishell: exit: too many arguments\n");
 			return (1);
 		}
-		if (!is_numeric(argv[1]) || !is_in_range(argv[1]))
-		{
-			ft_dprintf(2, "exit\n");
-			ft_dprintf(2, "minishell: exit: %s: numeric argument required\n", argv[1]);
-			free_argv(argv);
-			free_node(node, g_ctx);
-			free_tok(tok);
-			map_del(g_ctx->envmap);
-			exit(2);
-		}
-		exit_code = ft_atoi(argv[1]);
+		if (!is_numeric(argv[1]))
+			numeric_error(argv, node, tok, g_ctx);
+		errno = 0;
+		exit_code = ft_atoll(argv[1]);
+		if (errno == ERANGE)
+			numeric_error(argv, node, tok, g_ctx);
 		exit_code = ((exit_code % 256) + 256) % 256;
 	}
 	ft_dprintf(2, "exit\n");

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
+/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 16:02:27 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/26 00:55:51 by heart            ###   ########.fr       */
+/*   Updated: 2025/08/27 18:36:48 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,5 @@ int	builtin_env(char **argv, t_context *g_ctx)
 			printf("%s=%s\n", cur->name, cur->value);
 		cur = cur->next;
 	}
-	printf("_=/usr/bin/env\n");
 	return (0);
 }

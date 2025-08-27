@@ -28,6 +28,7 @@ SRCS		=	main.c\
 				utils/ft_xcalloc.c\
 				utils/ft_xclose.c\
 				utils/ft_xdup2.c\
+				utils/ft_atoll.c\
 				tokenize/tokenize.c\
 				tokenize/tokenize_utils.c\
 				tokenize/argv.c\

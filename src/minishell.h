@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
+/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 04:53:37 by heart             #+#    #+#             */
-/*   Updated: 2025/08/26 01:03:25 by heart            ###   ########.fr       */
+/*   Updated: 2025/08/27 18:44:32 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ char	*ft_xstrndup(const char *s1, size_t size, t_context *g_ctx);
 void	*ft_xcalloc(size_t count, size_t size, t_context *g_ctx);
 int		ft_xclose(int fd, t_context *g_ctx);
 int		ft_xdup2(int fildes, int fildes2, t_context *g_ctx);
+long long	ft_atoll(const char *str);
 
 // tokenize.c
 t_token	*tokenize(char *line, t_context *g_ctx);

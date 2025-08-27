@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_quote_removal.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
+/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:22:13 by heart             #+#    #+#             */
-/*   Updated: 2025/08/26 00:50:15 by heart            ###   ########.fr       */
+/*   Updated: 2025/08/27 18:43:33 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void	remove_quote(t_token *tok, t_context *g_ctx)
 	new_word = ft_calloc(1, sizeof(char));
 	if (new_word == NULL)
 		fatal_error("calloc", g_ctx);
-	while (*p && !is_metacharacter(*p))
+	while (*p)
 	{
 		if (*p == SINGLE_QUOTE_CHAR)
 			remove_single_quote(&new_word, &p, p, g_ctx);
