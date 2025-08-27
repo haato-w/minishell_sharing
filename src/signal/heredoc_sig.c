@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_sig.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
+/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 17:32:53 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/26 00:51:53 by heart            ###   ########.fr       */
+/*   Updated: 2025/08/27 19:49:02 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ static void	heredoc_handler(int signum)
 	// g_ctx.sig = signum;
 	g_sig_status = signum;
 	// g_ctx.readline_interrupted = true;
+	*get_readline_interrupted() = true;
 	// g_ctx.last_status = 130;
+	*get_last_status() = 130;
 }
 
 void	setup_heredoc_sig(t_context *g_ctx)

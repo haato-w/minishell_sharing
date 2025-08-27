@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:40:58 by heart             #+#    #+#             */
-/*   Updated: 2025/08/27 19:20:53 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/27 19:44:06 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static void	input_handler(int signum)
 	rl_replace_line("", 0);
 	rl_redisplay();
 	// g_ctx.last_status = 130;
+	*get_last_status() = 130;
 }
 
 void	setup_input_sig(t_context *g_ctx)

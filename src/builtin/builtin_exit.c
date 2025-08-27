@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 16:03:29 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/27 19:34:11 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/27 19:42:28 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	builtin_exit(char **argv, t_node *node, t_token *tok, t_context *g_ctx)
 {
 	long long	exit_code;
 
-	exit_code = g_ctx->last_status;
+	exit_code = *get_last_status();
 	if (g_ctx->syntax_error)
 	{
 		ft_dprintf(2, "minishell: syntax error\n");

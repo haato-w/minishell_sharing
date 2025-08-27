@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
+/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:35:01 by heart             #+#    #+#             */
-/*   Updated: 2025/08/26 00:50:34 by heart            ###   ########.fr       */
+/*   Updated: 2025/08/27 19:42:54 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	expand_special_parameter_str(char **dst, char **rest, char *p, t_context *g
 	if (!is_special_paramer(p))
 		assert_error("Expected special parameter", g_ctx);
 	p += 2;
-	append_num(dst, g_ctx->last_status, g_ctx);
+	append_num(dst, *get_last_status(), g_ctx);
 	*rest = p;
 }
 

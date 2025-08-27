@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
+/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 05:06:12 by heart             #+#    #+#             */
-/*   Updated: 2025/08/26 00:59:47 by heart            ###   ########.fr       */
+/*   Updated: 2025/08/27 20:02:21 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,8 @@ int	exec(t_node *node, t_token *tok, t_context *g_ctx)
 
 	if (open_redir_file(node, g_ctx) < 0)
 	{
-		if (!g_ctx->readline_interrupted)
+		// if (!g_ctx->readline_interrupted)
+		if (!*get_readline_interrupted())
 			return (ERROR_OPEN_REDIR);
 		else
 			return (130);

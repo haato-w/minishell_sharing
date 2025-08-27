@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 04:53:37 by heart             #+#    #+#             */
-/*   Updated: 2025/08/27 18:44:32 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/27 19:47:54 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,11 +109,15 @@ struct s_map
 
 struct s_context
 {
-	int						last_status;
+	// int						last_status;
 	bool					syntax_error;
-	bool					readline_interrupted;
+	// bool					readline_interrupted;
 	t_map					*envmap;
 };
+
+// main.c
+int	*get_last_status();
+bool *get_readline_interrupted(void);
 
 // error.c
 void	perror_prefix(void);

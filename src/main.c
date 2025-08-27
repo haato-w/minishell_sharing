@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heart <heart@student.42.fr>                +#+  +:+       +#+        */
+/*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 04:48:10 by heart             #+#    #+#             */
-/*   Updated: 2025/08/26 01:03:39 by heart            ###   ########.fr       */
+/*   Updated: 2025/08/27 19:51:20 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,21 @@
 
 volatile sig_atomic_t	g_sig_status;
 
-static void	interpret(char *line, int *stat_loc, t_context *g_ctx)
+int	*get_last_status(void)
+{
+	static int	last_status;
+
+	return (&last_status);
+}
+
+bool	*get_readline_interrupted(void)
+{
+	static bool	readline_interrupted;
+
+	return (&readline_interrupted);
+}
+
+static void	interpret(char *line, t_context *g_ctx)
 {
 	t_token	*tok;
 	t_node	*node;
@@ -23,16 +37,16 @@ static void	interpret(char *line, int *stat_loc, t_context *g_ctx)
 	if (at_eof(tok))
 		;
 	else if (g_ctx->syntax_error)
-		*stat_loc = ERROR_TOKENIZE;
+		*get_last_status() = ERROR_TOKENIZE;
 	else
 	{
 		node = parse(tok, g_ctx);
 		if (g_ctx->syntax_error)
-			*stat_loc = ERROR_PARSE;
+			*get_last_status() = ERROR_PARSE;
 		else
 		{
 			expand(node, g_ctx);
-			*stat_loc = exec(node, tok, g_ctx);
+			*get_last_status() = exec(node, tok, g_ctx);
 		}
 		free_node(node, g_ctx);
 	}
@@ -41,13 +55,13 @@ static void	interpret(char *line, int *stat_loc, t_context *g_ctx)
 
 int	main(void)
 {
-	char	*line;
-	t_context	g_ctx = {};
+	char		*line;
+	t_context	g_ctx;
 
 	rl_outstream = stderr;
 	initenv(&g_ctx);
 	setup_sig_event_hook();
-	g_ctx.last_status = 0;
+	*get_last_status() = 0;
 	while (1)
 	{
 		setup_input_sig(&g_ctx);
@@ -57,9 +71,9 @@ int	main(void)
 		if (*line)
 			add_history(line);
 		setup_execution_sig(&g_ctx);
-		interpret(line, &g_ctx.last_status, &g_ctx);
+		interpret(line, &g_ctx);
 		free(line);
 	}
 	map_del(g_ctx.envmap);
-	return (g_ctx.last_status);
+	return (*get_last_status());
 }

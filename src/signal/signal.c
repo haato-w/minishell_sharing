@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:42:59 by heart             #+#    #+#             */
-/*   Updated: 2025/08/27 19:21:29 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/27 19:44:22 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static int	check_state_heredoc(void)
 		g_sig_status = 0;
 		rl_done = 1;
 		// g_ctx.last_status = 130;
+		*get_last_status() = 130;
 		return (0);
 	}
 	return (0);
@@ -34,6 +35,7 @@ static int	check_state(void)
 	{
 		g_sig_status = 0;
 		// g_ctx.last_status = 130;
+		*get_last_status() = 130;
 		return (0);
 	}
 	return (0);
