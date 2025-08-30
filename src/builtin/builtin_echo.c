@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 16:01:43 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/09 22:07:54 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/30 13:06:28 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	builtin_echo(char **argv)
 
 	i = 1;
 	echo_newline = true;
-	if (argv[1] && ft_strncmp(argv[1], "-n", 2) == 0)
+	if (argv[1] && ft_strcmp(argv[1], "-n") == 0)
 	{
 		i++;
 		echo_newline = false;
