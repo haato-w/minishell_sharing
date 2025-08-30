@@ -93,7 +93,4 @@ fclean: clean
 
 re: fclean all
 
-test: all
-	./test.sh
-
 .PHONY: all clean fclean re test
