@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 15:59:34 by haatwata          #+#    #+#             */
-/*   Updated: 2025/08/24 16:30:44 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/30 14:27:14 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,20 @@ bool	is_builtin(t_node *node)
 	return (false);
 }
 
-int	exec_builtin(t_node *node, t_token *tok)
+static void	free_resources(char	**argv, t_node *root_node,
+				t_node *node, t_token *tok)
+{
+	free_argv(argv);
+	reset_redirect(node->command->redirects);
+	if (root_node != NULL)
+	{
+		free_node(root_node);
+		free_tok(tok);
+		map_del((*get_ctx()).envmap);
+	}
+}
+
+int	exec_builtin(t_node *root_node, t_node *node, t_token *tok)
 {
 	int		status;
 	char	**argv;
@@ -56,7 +69,6 @@ int	exec_builtin(t_node *node, t_token *tok)
 		status = builtin_pwd(argv);
 	else
 		todo("exec_builtin");
-	free_argv(argv);
-	reset_redirect(node->command->redirects);
+	free_resources(argv, root_node, node, tok);
 	return (status);
 }

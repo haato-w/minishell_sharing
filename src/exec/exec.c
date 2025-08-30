@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 05:06:12 by heart             #+#    #+#             */
-/*   Updated: 2025/08/27 20:55:41 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/30 14:09:05 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	exec_pipeline(t_node *root_node, t_node *node, t_token *tok)
 		reset_signal();
 		prepare_pipe_child(node);
 		if (is_builtin(node))
-			exit(exec_builtin(node, tok));
+			exit(exec_builtin(root_node, node, tok));
 		else
 			exec_nonbuiltin(root_node, node, tok);
 	}
@@ -115,7 +115,7 @@ int	exec(t_node *node, t_token *tok)
 			return (130);
 	}
 	if (node->next == NULL && is_builtin(node))
-		status = exec_builtin(node, tok);
+		status = exec_builtin(NULL, node, tok);
 	else
 	{
 		last_pid = exec_pipeline(node, node, tok);

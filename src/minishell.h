@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 04:53:37 by heart             #+#    #+#             */
-/*   Updated: 2025/08/27 21:28:22 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/30 14:13:14 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,7 +243,7 @@ void		setup_heredoc_sig(void);
 
 // builtin.c
 bool		is_builtin(t_node *node);
-int			exec_builtin(t_node *node, t_token *tok);
+int			exec_builtin(t_node *root_node, t_node *node, t_token *tok);
 
 // builtin_exit.c
 int			builtin_exit(char **argv, t_node *node, t_token *tok);
@@ -301,7 +301,7 @@ void		initenv(void);
 char		**get_environ(t_map *map);
 
 // debug_utils.c
-// void show_token(t_token *tok, int level);
-// void show_node(t_node *node, int level);
+// void		show_token(t_token *tok, int level);
+// void		show_node(t_node *node, int level);
 
 #endif
