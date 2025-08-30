@@ -6,7 +6,7 @@
 /*   By: haatwata <haatwata@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 05:29:53 by heart             #+#    #+#             */
-/*   Updated: 2025/08/10 18:17:53 by haatwata         ###   ########.fr       */
+/*   Updated: 2025/08/30 15:03:09 by haatwata         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,9 @@ static char	*search_path_mode(const char *filename, int mode)
 	char	path[PATH_MAX];
 	char	*envpath;
 	char	*dup;
-	char	*tmp;
+	char	*tmp_path;
 
 	envpath = xgetenv("PATH");
-	if (envpath == NULL)
-	{
-		tmp = ft_strjoin("./", filename);
-		if (access(tmp, mode) == 0)
-			return (tmp);
-	}
 	while (envpath && *envpath)
 	{
 		set_path(path, PATH_MAX, filename, &envpath);
@@ -63,6 +57,10 @@ static char	*search_path_mode(const char *filename, int mode)
 			return (dup);
 		}
 	}
+	tmp_path = ft_strjoin("./", filename);
+	if (access(tmp_path, mode) == 0)
+		return (tmp_path);
+	free(tmp_path);
 	return (NULL);
 }
 
